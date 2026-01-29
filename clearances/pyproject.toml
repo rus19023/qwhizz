@@ -1,0 +1,30 @@
+[tool.poetry]
+name = "clearances"
+version = "0.1.0"
+description = "A Streamlit app for handling clearances"
+authors = ["Your Name <you@example.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">3.10,<4.0"
+streamlit = ">=1.45.0"
+python-docx = ">=0.8.11"
+fuzzywuzzy = ">=0.18.0"
+pandas = ">=2.2.2"
+bs4 = "*"
+pymongo = "*"
+pymupdf = "*"
+xlrd = "*"
+matplotlib = "*"
+seaborn = "*"
+nltk = "*"
+scikit-learn = "*"
+plotly = "*"
+pdfkit = "*"
+jinja2 = "*"
+python-Levenshtein = "*"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

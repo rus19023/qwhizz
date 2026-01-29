@@ -1,0 +1,478 @@
+Training the AI Model for Document Fuzzy Search
+
+This guide provides detailed instructions for training the AI models used in the document fuzzy search system, focusing on the offline training process.
+Overview of AI Components
+The system uses two main AI components:
+
+Vector Representation Model: Creates semantic embeddings of documents for similarity search
+Document Classifier: Categorizes documents based on their content
+
+Training Process
+1. Vector Representation Model Training
+The vector representation model uses TF-IDF (Term Frequency-Inverse Document Frequency) combined with dimensionality reduction:
+Automatic Training During Indexing
+The vector model is automatically trained when documents are indexed. The process includes:
+
+Text Preprocessing:
+
+Text extraction from documents
+Cleaning and normalization
+Tokenization
+Stop word removal
+Lemmatization or stemming
+
+
+TF-IDF Vectorization:
+python# This happens automatically when documents are indexed
+
+vectorizer = TfidfVectorizer(
+    max_df=0.9,          # Ignore terms that appear in >90% of documents
+    min_df=2,            # Ignore terms that appear in <2 documents
+    max_features=10000,  # Limit vocabulary size
+    ngram_range=(1, 2)   # Include unigrams and bigrams
+)
+document_vectors = vectorizer.fit_transform(processed_texts)
+
+Dimensionality Reduction:
+python
+# Reduce dimensions for faster searching
+svd = TruncatedSVD(n_components=100)
+reduced_vectors = svd.fit_transform(document_vectors)
+
+
+Customizing the Vector Model
+You can adjust the following parameters in the Settings tab:
+
+Max Features: Number of terms in the vocabulary (default: 10000)
+N-gram Range: Size of word sequences to consider (default: 1-2)
+Number of Components: Dimensions after reduction (default: 100)
+
+2. Document Classifier Training
+The document classifier requires manual or rule-based labeling before training:
+Step 1: Prepare Training Data
+
+Manual Categorization:
+
+Go to the Train tab
+Select a document from the dropdown
+Assign a category in the text field
+Click "Assign Category"
+Repeat for a representative sample of documents
+
+
+Rule-based Categorization:
+
+Go to the Train tab > Automatic Categorization
+Select a rule type (Filename Contains, Extension Is, Content Contains)
+Enter the rule value
+Enter the category to assign
+Click "Apply Rule"
+
+Example rules:
+
+Assign "Invoice" to documents with "invoice" in the filename
+Assign "Contract" to documents with ".docx" extension
+Assign "Technical" to documents containing "specification"
+
+
+
+Step 2: Train the Classifier
+
+Go to the Train tab
+Review your categorized documents
+Adjust the test size if needed (default: 20%)
+Click "Train Classifier"
+Review the training results (accuracy and classification report)
+Save the model using the sidebar "Save Model" button
+
+The classifier uses a Random Forest algorithm:
+python
+# Training process (simplified)
+
+pipeline = Pipeline([
+    ('vectorizer', TfidfVectorizer(max_features=5000, ngram_range=(1, 2))),
+    ('classifier', RandomForestClassifier(n_estimators=100))
+])
+
+pipeline.fit(X_train, y_train)
+Optimizing Model Performance
+Vector Model Optimization
+
+Adjust Preprocessing:
+
+Try stemming instead of lemmatization for technical documents
+Modify stop word lists for domain-specific content
+
+
+TF-IDF Parameters:
+
+Increase max_features for larger vocabularies
+Adjust ngram_range to capture phrases (e.g., (1,3) for up to trigrams)
+Modify min_df and max_df to filter rare or common terms
+
+
+Dimensionality Reduction:
+
+Increase components for more accurate but slower search
+Decrease components for faster but less precise search
+
+
+
+Classifier Optimization
+
+Training Data Quality:
+
+Aim for at least 15-20 examples per category
+Ensure balanced distribution across categories
+Use specific, non-overlapping categories
+
+
+Model Parameters:
+
+Adjust n_estimators in RandomForestClassifier
+Modify max_depth to control tree complexity
+
+
+
+Example Training Workflow
+Here's a recommended workflow for training both models:
+
+Index a representative document set:
+# From the Index tab
+1. Enter document directory path
+2. Check "Include Subdirectories"
+3. Click "Index Directory"
+
+Create training data for classifier:
+# From the Train tab
+1. Use automatic rules for initial categories:
+   - Rule: "Extension Is", Value: ".pdf", Category: "PDF Document"
+   - Rule: "Extension Is", Value: ".docx", Category: "Word Document"
+
+2. Refine with manual categorization:
+   - Select important documents
+   - Assign more specific categories
+
+Train classifier:
+# From the Train tab
+1. Verify category distribution
+2. Set test size to 0.2 (20%)
+3. Click "Train Classifier"
+4. Review accuracy metrics
+
+Optimize settings:
+# From the Settings tab
+1. Adjust similarity threshold based on search precision
+2. Modify fuzzy match threshold based on query variations
+3. Update vectorizer settings if needed
+
+Save models:
+# From the sidebar
+1. Click "Save Index"
+2. Click "Save Model"
+
+
+Evaluating Model Performance
+Vector Model Evaluation
+The vector model's performance can be evaluated through search quality:
+
+Precision: Are the top results relevant to queries?
+Recall: Are all relevant documents being found?
+Speed: How quickly do searches return results?
+
+Adjust the similarity threshold in Settings to balance precision and recall.
+Classifier Evaluation
+The classifier provides performance metrics during training:
+
+Accuracy: Overall percentage of correct classifications
+Precision/Recall/F1: Performance metrics per category
+Classification Report: Detailed breakdown of model performance
+
+Target at least 80% accuracy for a useful classifier.
+Retraining Models
+Periodically retrain models when:
+
+New document types are added to the system
+Search performance degrades
+Classification accuracy is insufficient
+Significant new content is added to the index
+
+For incremental updates:
+
+Index new documents without rebuilding the entire index
+Add classifications for new documents
+Retrain the classifier with the expanded dataset
+
+Working With Specific Document Types
+Different document types may require specific training approaches:
+Structured Documents (Forms, Invoices)
+
+Use rule-based categorization based on content patterns
+Focus on key fields for classification
+
+Technical Documents
+
+Consider stemming instead of lemmatization
+Add domain-specific terminology to stop word exclusions
+
+Mixed Document Collections
+
+Train separate classifiers for different document subsets
+Use hierarchical classification (main category → subcategory)
+
+Offline Training Considerations
+Since the system operates in a closed network:
+
+Resource Management:
+
+Monitor memory usage during indexing of large collections
+Consider batch processing for very large document sets
+
+
+Pre-training Strategy:
+
+Pre-train on a representative document sample
+Transfer the saved index and model to production
+
+
+Performance Monitoring:
+
+Track training time and resource usage
+Document baseline performance metrics
+Implement performance checkpoints for large collections
+
+
+
+Advanced Training Techniques
+Ensemble Classification
+For complex document collections, consider implementing ensemble classification:
+
+Train multiple classifiers:
+python# Example of extending the system with ensemble classification
+classifiers = [
+    RandomForestClassifier(n_estimators=100),
+    LogisticRegression(max_iter=1000),
+    MultinomialNB()
+]
+
+# Train each classifier
+for clf in classifiers:
+    clf.fit(X_train, y_train)
+
+# Combine predictions (voting)
+predictions = []
+for clf in classifiers:
+    predictions.append(clf.predict_proba(X_test))
+
+# Average predictions
+ensemble_pred = np.mean(predictions, axis=0)
+
+Implement voting strategies:
+
+Majority voting for class labels
+Weighted averaging for probability scores
+Stacking for meta-learning
+
+
+
+Advanced Text Preprocessing
+Enhance document representation with advanced preprocessing:
+
+Custom tokenization:
+python# Custom tokenizer example for technical documents
+def technical_tokenizer(text):
+    # Handle special technical terms
+    text = handle_technical_abbreviations(text)
+    # Split on whitespace and punctuation but preserve specific patterns
+    tokens = re.findall(r'[\w\.-]+|[^\w\s]', text)
+    return tokens
+
+Domain-specific stopwords:
+python# Add domain-specific stopwords
+domain_stopwords = ['document', 'page', 'section', 'figure', 'table']
+custom_stopwords = set(stopwords.words('english')).union(domain_stopwords)
+
+Entity recognition:
+
+Identify and preserve named entities
+Special handling for dates, numbers, and codes
+
+
+
+Feature Engineering
+Create custom features to improve classification:
+
+Document structure features:
+
+Page count
+Section count
+Image-to-text ratio
+Average sentence length
+
+
+Metadata-based features:
+
+File creation date
+Author information
+File size
+Last modification date
+
+
+Content-based features:
+
+Keyword density
+Readability scores
+Technical terminology frequency
+Format-specific attributes
+
+
+
+Cross-Validation and Model Selection
+Implement rigorous validation to ensure model reliability:
+
+K-fold cross-validation:
+pythonfrom sklearn.model_selection import cross_val_score
+
+# Evaluate model with 5-fold cross-validation
+cv_scores = cross_val_score(pipeline, X, y, cv=5)
+print(f"Cross-validation scores: {cv_scores}")
+print(f"Average accuracy: {cv_scores.mean():.4f}")
+
+Hyperparameter tuning:
+pythonfrom sklearn.model_selection import GridSearchCV
+
+# Define parameter grid
+param_grid = {
+    'vectorizer__max_features': [3000, 5000, 10000],
+    'classifier__n_estimators': [50, 100, 200],
+    'classifier__max_depth': [None, 10, 20]
+}
+
+# Perform grid search
+grid_search = GridSearchCV(pipeline, param_grid, cv=5)
+grid_search.fit(X, y)
+
+# Best parameters
+print(f"Best parameters: {grid_search.best_params_}")
+
+Model comparison:
+
+Compare multiple algorithm types
+Evaluate on different metrics (accuracy, F1, precision, recall)
+Consider specific requirements (speed vs. accuracy)
+
+
+
+Incremental Learning Strategy
+For large and evolving document collections:
+
+Partial fit approach:
+
+Update models with new documents without full retraining
+Periodically rebuild for optimal performance
+
+
+Active learning:
+
+Identify uncertain classifications
+Prioritize manual classification for ambiguous documents
+Focus human effort on boundary cases
+
+
+Training schedule:
+
+Daily: Index new documents
+Weekly: Update classification for new documents
+Monthly: Full model retraining and evaluation
+
+
+
+Handling Imbalanced Categories
+When document categories have uneven distributions:
+
+Sampling techniques:
+pythonfrom imblearn.over_sampling import SMOTE
+from imblearn.under_sampling import RandomUnderSampler
+
+# Oversample minority classes
+smote = SMOTE()
+X_resampled, y_resampled = smote.fit_resample(X, y)
+
+# Or undersample majority classes
+under_sampler = RandomUnderSampler()
+X_resampled, y_resampled = under_sampler.fit_resample(X, y)
+
+Class weighting:
+python# Adjust class weights inversely proportional to frequency
+class_weights = {
+    class_label: len(y) / (len(np.unique(y)) * np.sum(y == class_label))
+    for class_label in np.unique(y)
+}
+
+# Apply weights to classifier
+clf = RandomForestClassifier(class_weight=class_weights)
+
+Threshold adjustment:
+
+Modify decision thresholds for different classes
+Implement custom scoring functions
+
+
+
+Multilingual Support
+If your document collection includes multiple languages:
+
+Language detection:
+python# Extend preprocessing with language detection
+def preprocess_multilingual(text):
+    # Detect language
+    lang = detect_language(text)
+    
+    # Apply language-specific processing
+    if lang == 'en':
+        return process_english(text)
+    elif lang == 'fr':
+        return process_french(text)
+    else:
+        return process_default(text)
+
+Language-specific models:
+
+Train separate models for each major language
+Use language as a feature in classification
+
+
+Cross-lingual embeddings:
+
+Implement multilingual embedding models
+Enable cross-language search and classification
+
+
+
+Training Documentation
+Maintain comprehensive documentation of the training process:
+
+Configuration management:
+
+Record all parameter settings
+Document preprocessing choices
+Track model versions
+
+
+Performance reports:
+
+Generate detailed evaluation metrics
+Track performance over time
+Document improvement initiatives
+
+
+Model cards:
+
+Create standardized documentation for each model
+Include intended use, limitations, and performance characteristics
+
+
+
+Conclusion
+Training effective AI models for document fuzzy search requires careful planning, appropriate data preparation, and continuous evaluation. By following this guide, you can develop robust models that accurately categorize and retrieve documents in your closed network environment.
+Regular retraining and optimization will ensure that the system continues to meet your needs as your document collection evolves and grows. The modular architecture allows for incremental improvements and extensions to handle specialized document types and use cases.
