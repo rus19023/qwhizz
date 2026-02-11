@@ -9,7 +9,6 @@ def render_stats_tab(user_data):
     st.subheader("Your Statistics")
     user_stats(user_data)
     
-    st.divider()
     st.write("### Additional Stats")
     
     total = user_data["cards_studied"]

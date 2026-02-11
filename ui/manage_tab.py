@@ -19,8 +19,6 @@ def render_manage_tab():
         key="manage_deck_select"
     )
     
-    st.divider()
-    
     # Duplicate Detection
     st.subheader("🔍 Duplicate Detection")
     if st.button("Find Duplicates"):
@@ -41,8 +39,6 @@ def render_manage_tab():
                             st.error("Failed to delete card")
         else:
             st.success("No duplicates found!")
-    
-    st.divider()
     
     # Card Browser & Deletion
     st.subheader("📋 Browse & Delete Cards")

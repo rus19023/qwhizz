@@ -1,6 +1,0 @@
-@echo off
-echo Checking Poetry installation...
-python -m poetry show --tree
-python -m poetry install
-echo Running Streamlit app...
-python -m poetry run streamlit run clearances.py
