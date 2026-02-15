@@ -1,5 +1,3 @@
-# data/decks.py
-
 from data.db import decks
 
 DECK_NAME = "No One Sits Alone"
@@ -107,3 +105,5 @@ decks.update_one(
 )
 
 print(f"Imported '{DECK_NAME}' with {len(CARDS)} cards.")
+
+print("Done.")

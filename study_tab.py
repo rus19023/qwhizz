@@ -26,6 +26,7 @@ from ui.components import (
 )
 from data.card_format import get_card_type
 from data.user_store import update_user_score
+from core.quiz_generator import generate_true_false_statement
 
 
 def render_study_tab(cards, deck_name, username, study_mode, init_state):
@@ -50,6 +51,12 @@ def render_study_tab(cards, deck_name, username, study_mode, init_state):
     # Get current card
     current_idx = st.session_state.current_card_index
     current_card = cards[current_idx]
+
+    card_type = get_card_type(current_card)
+    if card_type == "essay":
+        render_essay_mode(current_card, username)
+        return
+
     
     # Get mode configuration
     mode_config = get_mode_config(study_mode)
@@ -162,7 +169,7 @@ def render_multiple_choice_mode(card, all_cards, username):
         
         st.info(f"**Full answer:** {card['answer']}")
         
-        if st.button("Next Card →", key="mc_next", use_container_width=True, type="primary"):
+        if st.button("Next Card →", key="mc_next", width='stretch', type="primary"):
             advance_to_next_card()
 
 
@@ -222,51 +229,42 @@ def render_multi_select_mode(card, all_cards, username):
         
         st.info(f"**Explanation:** {card['answer']}")
         
-        if st.button("Next Card →", key="ms_next", use_container_width=True, type="primary"):
+        if st.button("Next Card →", key="ms_next", width='stretch', type="primary"):
             advance_to_next_card()
 
 
 def render_true_false_mode(card, username):
     """True/False mode"""
-    
+
+    # If this isn't a true/false card, generate a TF statement on the fly
+    if get_card_type(card) != "true_false":
+        if "tf_generated" not in st.session_state or st.session_state.get("tf_card_id") != id(card):
+            is_true = random.random() > 0.5
+            statement = generate_true_false_statement(card["question"], card["answer"], is_true=is_true)
+
+            st.session_state.tf_generated = {
+                "type": "true_false",
+                "question": statement,
+                "answer": f"Base card answer: {card['answer']}",
+                "correct_answer": is_true
+            }
+
+        card = st.session_state.tf_generated
+
     # Initialize game state
     if "tf_answered" not in st.session_state or st.session_state.get("tf_card_id") != id(card):
         st.session_state.tf_card_id = id(card)
         st.session_state.tf_answered = False
         st.session_state.tf_user_answer = None
         st.session_state.tf_correct = card.get("correct_answer", True)
-    
+
     # Display question
     image_url = card.get("image_url")
     if image_url:
         display_question_with_image(card["question"], image_url)
     else:
         st.markdown(f"### {card['question']}")
-    
-    # Show buttons
-    def on_answer(user_answer):
-        st.session_state.tf_user_answer = user_answer
-        st.session_state.tf_answered = True
-        is_correct = check_true_false_answer(card, user_answer)
-        handle_answer(is_correct, username)
-    
-    true_false_buttons(
-        on_answer=on_answer,
-        correct_answer=st.session_state.tf_correct if st.session_state.tf_answered else None,
-        show_result=st.session_state.tf_answered
-    )
-    
-    # Show result
-    if st.session_state.tf_answered:
-        if st.session_state.tf_user_answer == st.session_state.tf_correct:
-            st.success("✓ Correct!")
-        else:
-            st.error(f"✗ Incorrect. The correct answer was: {'TRUE' if st.session_state.tf_correct else 'FALSE'}")
-        
-        st.info(f"**Explanation:** {card['answer']}")
-        
-        if st.button("Next Card →", key="tf_next", use_container_width=True, type="primary"):
-            advance_to_next_card()
+
 
 
 def render_quiz_mode(card, username):
@@ -299,7 +297,7 @@ def render_quiz_mode(card, username):
         else:
             st.error("✗ Not quite right")
         
-        if st.button("Next Card →", use_container_width=True, type="primary"):
+        if st.button("Next Card →", width='stretch', type="primary"):
             st.session_state.quiz_answered = False
             advance_to_next_card()
 
@@ -318,7 +316,7 @@ def render_commit_mode(card, username):
         st.success("**Answer:**")
         flashcard_box(card["answer"])
         
-        if st.button("Next Card →", use_container_width=True):
+        if st.button("Next Card →", width='stretch'):
             st.session_state.committed = False
             advance_to_next_card()
 
@@ -328,6 +326,27 @@ def render_hardcore_mode(card, username):
     # Similar to quiz + commit mode
     st.info("🔥 Hardcore Mode: Type your answer AND commit time!")
     render_quiz_mode(card, username)
+
+def render_essay_mode(card, username):
+    """Essay mode: user writes response, then can reveal rubric/expected points."""
+    st.markdown(f"### {card['question']}")
+    st.caption("✍️ Write your response below. This is self-graded (rubric shown after).")
+
+    user_text = st.text_area("Your answer", key=f"essay_{id(card)}", height=180)
+
+    col1, col2 = st.columns(2)
+    with col1:
+        if st.button("I wrote an answer", width='stretch', type="primary"):
+            # Give participation points (optional). If you prefer no points, remove this.
+            handle_answer(True, username)
+
+    with col2:
+        if st.button("Show rubric", width='stretch'):
+            st.info(f"**Rubric / key ideas:** {card.get('answer', '')}")
+
+    if st.button("Next Card →", width='stretch'):
+        advance_to_next_card()
+
 
 
 # ============================================================================

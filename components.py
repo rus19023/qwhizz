@@ -8,7 +8,7 @@ from core.flashcard_logic import flip_card, next_card
 def flashcard_box(text, image_url=None):
     """Display flashcard with optional image"""
     if image_url:
-        st.image(image_url, use_container_width=True)
+        st.image(image_url, width='stretch')
         st.markdown("---")
     
     st.markdown(
@@ -37,14 +37,14 @@ def controls():
             "🔄 Flip", 
             key="flip_btn", 
             on_click=flip_card, 
-            use_container_width=True
+            width='stretch'
         )
     with col2:
         st.button(
             "➡️ Next", 
             key="next_btn", 
             on_click=next_card, 
-            use_container_width=True
+            width='stretch'
         )
 
 
@@ -56,7 +56,7 @@ def answer_buttons(on_correct, on_incorrect, disabled=False):
             "✓ Got it!", 
             key="correct_btn", 
             on_click=on_correct, 
-            use_container_width=True, 
+            width='stretch', 
             type="primary", 
             disabled=disabled
         )
@@ -65,7 +65,7 @@ def answer_buttons(on_correct, on_incorrect, disabled=False):
             "✗ Need practice", 
             key="incorrect_btn", 
             on_click=on_incorrect, 
-            use_container_width=True, 
+            width='stretch', 
             disabled=disabled
         )
 
@@ -78,7 +78,7 @@ def commit_buttons(on_know, on_dont_know):
             "✓ I know this", 
             key="know_btn", 
             on_click=on_know, 
-            use_container_width=True, 
+            width='stretch', 
             type="primary"
         )
     with col2:
@@ -86,7 +86,7 @@ def commit_buttons(on_know, on_dont_know):
             "✗ I don't know", 
             key="dont_know_btn", 
             on_click=on_dont_know, 
-            use_container_width=True
+            width='stretch'
         )
 
 
@@ -96,7 +96,7 @@ def quiz_input(on_submit):
         user_answer = st.text_input("Your answer:", key="quiz_input")
         submitted = st.form_submit_button(
             "Submit Answer", 
-            use_container_width=True, 
+            width='stretch', 
             type="primary"
         )   
         if submitted:
@@ -169,7 +169,7 @@ def leaderboard(users_list):
     # Display as dataframe
     import pandas as pd
     df = pd.DataFrame(leaderboard_data)
-    st.dataframe(df, use_container_width=True, hide_index=True)
+    st.dataframe(df, width='stretch', hide_index=True)
 
 
 def mode_selector():
@@ -226,7 +226,7 @@ def multiple_choice_buttons(options, on_answer, correct_index=None, show_result=
             if st.button(
                 button_label,
                 key=f"mc_option_{idx}",
-                use_container_width=True,
+                width='stretch',
                 type=button_type,
                 disabled=show_result
             ):
@@ -263,7 +263,7 @@ def multi_select_checkboxes(options, on_submit, correct_indices=None, show_resul
         
         submitted = st.form_submit_button(
             "Submit Answer",
-            use_container_width=True,
+            width='stretch',
             type="primary",
             disabled=show_result
         )
@@ -292,7 +292,7 @@ def true_false_buttons(on_answer, correct_answer=None, show_result=False):
         if st.button(
             true_label,
             key="tf_true",
-            use_container_width=True,
+            width='stretch',
             type=true_type,
             disabled=show_result
         ):
@@ -307,7 +307,7 @@ def true_false_buttons(on_answer, correct_answer=None, show_result=False):
         if st.button(
             false_label,
             key="tf_false",
-            use_container_width=True,
+            width='stretch',
             type=false_type,
             disabled=show_result
         ):
@@ -324,7 +324,7 @@ def display_question_with_image(question_text, image_url=None):
     """
     if image_url:
         try:
-            st.image(image_url, caption="Question Image", use_container_width=True)
+            st.image(image_url, caption="Question Image", width='stretch')
             st.markdown("---")
         except Exception as e:
             st.warning(f"Could not load image: {e}")

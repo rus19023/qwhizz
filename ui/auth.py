@@ -3,6 +3,9 @@
 import streamlit as st
 from data.user_store import get_user, create_user
 
+# Theme setup (package handles its own paths automatically)
+from theme_switcher import quick_theme_setup
+
 
 def handle_authentication():
     """
@@ -13,8 +16,15 @@ def handle_authentication():
         username = st.query_params["user"]
         if get_user(username):
             return username
+
+    # # Right after line 11 (after quick_theme_setup)
+    # st.sidebar.write("🔍 DEBUG: Sidebar is rendering!")
+    # st.sidebar.write(f"Session state keys: {list(st.session_state.keys())}")
+
+    quick_theme_setup(default_theme='retro')
+
     
-    st.sidebar.title("🧬 DNA Study Gamified")
+    st.sidebar.title("🗝 Study Gamified")
     
     # Login/Register toggle
     auth_mode = st.sidebar.radio("Select Action", ["Login", "Register"], key="auth_mode")
@@ -33,7 +43,7 @@ def handle_authentication():
         if st.sidebar.button(
             "Login", 
             type="primary", 
-            use_container_width=True
+            width='stretch'
         ):
             if username.strip() and password.strip():
                 user = get_user(username.strip())
@@ -65,7 +75,7 @@ def handle_authentication():
         if st.sidebar.button(
             "Register",
             type="primary",
-            use_container_width=True
+            width='stretch'
         ):
             if new_username.strip() and new_password.strip():
                 if new_password != confirm_password:
@@ -89,7 +99,7 @@ def show_user_sidebar(username):
   
     if st.sidebar.button(
         "🚪 Logout", 
-        use_container_width=True,
+        width='stretch',
         type="secondary"
     ):
         # Clear query param

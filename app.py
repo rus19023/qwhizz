@@ -2,15 +2,12 @@ import streamlit as st
 
 # Page configuration MUST be first
 st.set_page_config(
-    page_title="🧬 DNA Study Gamified",
-    page_icon="🧬🧬",
+    page_title="Study Gamified",
+    page_icon="🗝🗝",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
-# Theme setup (package handles its own paths automatically)
-from theme_switcher import quick_theme_setup
-quick_theme_setup(default_theme='retro')
 
 # Core functionality
 from core.state import init_state
@@ -35,10 +32,14 @@ from data.user_store import get_user, get_leaderboard
 # ----------------------------
 logged_in_user = handle_authentication()
 
+# Theme setup SECOND (so it runs every time)
+from theme_switcher import quick_theme_setup
+quick_theme_setup(default_theme='retro')
+
 if not logged_in_user:
     #st.title("🧬 Flashcard Study Mode")
     st.info("Please login or register in the sidebar to continue.")
-    st.stop()
+    st.rerun()
 
 # Render header after login
 render_header()
@@ -47,15 +48,37 @@ render_header()
 show_user_sidebar(logged_in_user)
 
 # Study mode selector
+# Line ~50 - after study_mode = mode_selector()
 study_mode = mode_selector()
 
+# Reset card state when mode changes
+if 'last_study_mode' not in st.session_state:
+    st.session_state.last_study_mode = study_mode
+
+if st.session_state.last_study_mode != study_mode:
+    # Mode changed - reset card state
+    st.session_state.last_study_mode = study_mode
+    if 'current_card_index' in st.session_state:
+        st.session_state.current_card_index = 0
+    if 'show_answer' in st.session_state:
+        st.session_state.show_answer = False
+    st.rerun()
+    
 # Deck selection
 deck_names = get_deck_names()
+
 if not deck_names:
-    st.error("No decks found in database.")
+    st.sidebar.warning("No decks found yet. Create your first deck:")
+    new_deck = st.sidebar.text_input("New deck name", key="new_deck_name")
+    if st.sidebar.button("Create deck", type="primary"):
+        from data.db import get_database
+        db = get_database()
+        db.decks.update_one({"_id": new_deck.strip()}, {"$set": {"cards": []}}, upsert=True)
+        st.rerun()
     st.stop()
 
 deck_name = st.sidebar.selectbox("Choose a deck", options=deck_names)
+
 
 # ----------------------------
 # Main Page
@@ -66,16 +89,21 @@ current_user = get_user(logged_in_user)
 
 if not current_user:
     st.error("User not found")
-    st.stop()
+    st.rerun()
 
 cards = get_deck(deck_name)
 
 # ----------------------------
 # Tabs
 # ----------------------------
-tabs = ["📚 Study", "📊 Stats", "🏆 Leaderboard", "➕ Add Card", "🗂️ Manage Decks"]
-if current_user.get("is_admin", False):
-    tabs.append("🛡️ Admin")
+# ----------------------------
+# Tabs
+# ----------------------------
+tabs = ["📚 Study", "📊 Stats", "🏆 Leaderboard"]
+
+is_admin = current_user.get("is_admin", False)
+if is_admin:
+    tabs += ["🛡️ Admin", "🗂️ Manage Decks", "➕ Add Card"]
 
 tab_objects = st.tabs(tabs)
 
@@ -92,15 +120,13 @@ with tab_objects[2]:
     top_users = get_leaderboard(limit=10)
     leaderboard(top_users)
 
-# Tab 4: Add Card
-with tab_objects[3]:
-    render_add_card_tab()
-
-# Tab 5: Manage Decks
-with tab_objects[4]:
-    render_manage_tab()
-
-# Tab 6: Admin (if user is admin)
-if current_user.get("is_admin", False):
-    with tab_objects[5]:
+# Admin-only tabs
+if is_admin:
+    with tab_objects[3]:
         render_admin_tab()
+
+    with tab_objects[4]:
+        render_manage_tab()
+
+    with tab_objects[5]:
+        render_add_card_tab()
