@@ -2,6 +2,7 @@ import os
 import sys
 from pathlib import Path
 import streamlit as st
+import pymongo
 
 st.write("### Debug startup")
 st.write("Python:", sys.version)
