@@ -1,0 +1,192 @@
+/* Forest Theme - Natural earthy greens */
+
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Nunito:wght@300;400;600&display=swap');
+
+:root {
+    --forest-dark: #1a3a1a;
+    --forest-green: #2d5016;
+    --forest-sage: #4a6741;
+    --forest-moss: #6b8e23;
+    --forest-leaf: #8fbc8f;
+    --forest-mint: #b8d8b8;
+    --forest-cream: #f5f5dc;
+}
+
+.stApp {
+    background: 
+        radial-gradient(circle at 20% 30%, rgba(107, 142, 35, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(45, 80, 22, 0.2) 0%, transparent 40%),
+        linear-gradient(135deg, #1e3a1e 0%, var(--forest-dark) 50%, #2a4a2a 100%);
+    font-family: 'Nunito', sans-serif;
+    color: var(--forest-cream);
+}
+
+h1 {
+    font-family: 'Lora', serif !important;
+    font-weight: 700 !important;
+    font-size: 3.5rem !important;
+    color: var(--forest-leaf) !important;
+    margin-bottom: 0.5rem !important;
+    text-shadow: 0 2px 10px rgba(143, 188, 143, 0.3);
+}
+
+h2 {
+    font-family: 'Lora', serif !important;
+    font-weight: 600 !important;
+    font-size: 2rem !important;
+    color: var(--forest-moss) !important;
+}
+
+h3 {
+    font-family: 'Nunito', sans-serif !important;
+    font-weight: 600 !important;
+    font-size: 1.3rem !important;
+    color: var(--forest-sage) !important;
+}
+
+p, label {
+    color: var(--forest-mint);
+    font-size: 1rem;
+    line-height: 1.8;
+    font-weight: 300;
+}
+
+.stButton > button {
+    background: linear-gradient(135deg, var(--forest-moss), var(--forest-sage)) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 12px !important;
+    padding: 12px 32px !important;
+    font-family: 'Nunito', sans-serif !important;
+    font-weight: 600 !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 4px 12px rgba(107, 142, 35, 0.3) !important;
+}
+
+.stButton > button:hover {
+    background: linear-gradient(135deg, var(--forest-sage), var(--forest-leaf)) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(107, 142, 35, 0.4) !important;
+}
+
+.stTextInput > div > div > input,
+.stTextArea > div > div > textarea,
+.stSelectbox > div > div > select {
+    background: rgba(45, 80, 22, 0.3) !important;
+    backdrop-filter: blur(10px);
+    border: 2px solid var(--forest-sage) !important;
+    border-radius: 10px !important;
+    color: var(--forest-cream) !important;
+    padding: 12px 16px !important;
+    font-family: 'Nunito', sans-serif !important;
+    transition: all 0.3s ease !important;
+}
+
+.stTextInput > div > div > input:focus,
+.stTextArea > div > div > textarea:focus {
+    outline: none !important;
+    border-color: var(--forest-moss) !important;
+    box-shadow: 0 0 15px rgba(107, 142, 35, 0.3) !important;
+}
+
+.stTextInput > div > div > input::placeholder {
+    color: rgba(184, 216, 184, 0.4) !important;
+}
+
+.stTextInput > label,
+.stTextArea > label,
+.stSelectbox > label {
+    color: var(--forest-leaf) !important;
+    font-weight: 600 !important;
+}
+
+[data-testid="metric-container"] {
+    background: rgba(45, 80, 22, 0.2) !important;
+    backdrop-filter: blur(10px);
+    border: 2px solid var(--forest-sage) !important;
+    border-radius: 14px !important;
+    padding: 1.5rem !important;
+    box-shadow: 0 4px 15px rgba(74, 103, 65, 0.3) !important;
+    transition: all 0.3s ease;
+}
+
+[data-testid="metric-container"]:hover {
+    border-color: var(--forest-moss) !important;
+    box-shadow: 0 6px 20px rgba(107, 142, 35, 0.4) !important;
+    transform: translateY(-3px);
+}
+
+div[data-testid="stMetricValue"] {
+    font-family: 'Lora', serif !important;
+    font-size: 2.8rem !important;
+    font-weight: 700 !important;
+    color: var(--forest-leaf) !important;
+}
+
+div[data-testid="stMetricLabel"] {
+    color: var(--forest-mint) !important;
+    font-size: 0.85rem !important;
+    font-weight: 600 !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.stTabs [data-baseweb="tab-list"] {
+    background: rgba(45, 80, 22, 0.2);
+    backdrop-filter: blur(10px);
+    border: 2px solid var(--forest-sage);
+    border-radius: 10px;
+    padding: 6px;
+}
+
+.stTabs [data-baseweb="tab"] {
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+    color: rgba(184, 216, 184, 0.6);
+    font-family: 'Nunito', sans-serif;
+    font-weight: 600;
+    padding: 10px 20px;
+    transition: all 0.3s ease;
+}
+
+.stTabs [data-baseweb="tab"]:hover {
+    color: var(--forest-cream);
+    background: rgba(107, 142, 35, 0.2);
+}
+
+.stTabs [aria-selected="true"] {
+    background: linear-gradient(135deg, var(--forest-moss), var(--forest-sage)) !important;
+    color: white !important;
+}
+
+hr {
+    border: none;
+    height: 2px;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--forest-sage),
+        var(--forest-moss),
+        var(--forest-sage),
+        transparent
+    );
+    margin: 2rem 0;
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--forest-dark);
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, var(--forest-sage), var(--forest-moss));
+    border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--forest-leaf);
+}

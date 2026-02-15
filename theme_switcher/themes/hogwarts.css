@@ -1,0 +1,217 @@
+/* Hogwarts Theme - Magical castle vibes with house colors */
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=EB+Garamond:wght@400;600;700&display=swap');
+
+:root {
+    --hogwarts-night: #0a0a0f;
+    --hogwarts-stone: #2a2830;
+    --hogwarts-burgundy: #740001;
+    --hogwarts-crimson: #ae0001;
+    --hogwarts-gold: #eeb939;
+    --hogwarts-bronze: #d4af37;
+    --hogwarts-parchment: #f4e7d7;
+}
+
+.stApp {
+    background: 
+        radial-gradient(circle at 30% 20%, rgba(174, 0, 1, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 70% 80%, rgba(238, 185, 57, 0.1) 0%, transparent 50%),
+        repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 100px,
+            rgba(42, 40, 48, 0.3) 100px,
+            rgba(42, 40, 48, 0.3) 101px
+        ),
+        linear-gradient(180deg, #0d0d12 0%, var(--hogwarts-night) 50%, #12121a 100%);
+    font-family: 'EB Garamond', serif;
+    color: var(--hogwarts-parchment);
+}
+
+[data-testid="stSidebar"] {
+    background: linear-gradient(180deg, rgba(42, 40, 48, 0.9) 0%, rgba(10, 10, 15, 0.95) 100%) !important;
+    border-right: 2px solid var(--hogwarts-gold) !important;
+}
+
+h1 {
+    font-family: 'Cinzel Decorative', serif !important;
+    font-weight: 700 !important;
+    font-size: 3.8rem !important;
+    background: linear-gradient(135deg, var(--hogwarts-gold), var(--hogwarts-bronze), var(--hogwarts-crimson));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem !important;
+    text-shadow: 0 0 30px rgba(238, 185, 57, 0.4);
+    letter-spacing: 2px;
+}
+
+h2 {
+    font-family: 'Cinzel Decorative', serif !important;
+    font-weight: 700 !important;
+    font-size: 2.2rem !important;
+    color: var(--hogwarts-gold) !important;
+    text-shadow: 0 0 20px rgba(238, 185, 57, 0.3);
+    letter-spacing: 1px;
+}
+
+h3 {
+    font-family: 'EB Garamond', serif !important;
+    font-weight: 700 !important;
+    font-size: 1.4rem !important;
+    color: var(--hogwarts-bronze) !important;
+}
+
+p, label {
+    color: var(--hogwarts-parchment);
+    font-size: 1.1rem;
+    line-height: 1.8;
+    font-weight: 400;
+}
+
+.stButton > button {
+    background: linear-gradient(135deg, var(--hogwarts-crimson), var(--hogwarts-burgundy)) !important;
+    color: var(--hogwarts-gold) !important;
+    border: 2px solid var(--hogwarts-gold) !important;
+    border-radius: 8px !important;
+    padding: 14px 36px !important;
+    font-family: 'Cinzel Decorative', serif !important;
+    font-weight: 700 !important;
+    letter-spacing: 1px;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 4px 20px rgba(174, 0, 1, 0.4) !important;
+}
+
+.stButton > button:hover {
+    background: linear-gradient(135deg, var(--hogwarts-burgundy), var(--hogwarts-crimson)) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(238, 185, 57, 0.5) !important;
+}
+
+.stTextInput > div > div > input,
+.stTextArea > div > div > textarea,
+.stSelectbox > div > div > select {
+    background: rgba(42, 40, 48, 0.6) !important;
+    backdrop-filter: blur(10px);
+    border: 2px solid var(--hogwarts-bronze) !important;
+    border-radius: 8px !important;
+    color: var(--hogwarts-parchment) !important;
+    padding: 12px 18px !important;
+    font-family: 'EB Garamond', serif !important;
+    font-size: 1.1rem;
+    transition: all 0.3s ease !important;
+}
+
+.stTextInput > div > div > input:focus,
+.stTextArea > div > div > textarea:focus {
+    outline: none !important;
+    border-color: var(--hogwarts-gold) !important;
+    box-shadow: 0 0 20px rgba(238, 185, 57, 0.4) !important;
+}
+
+.stTextInput > label,
+.stTextArea > label,
+.stSelectbox > label {
+    color: var(--hogwarts-gold) !important;
+    font-weight: 600 !important;
+    font-family: 'Cinzel Decorative', serif !important;
+    letter-spacing: 1px;
+}
+
+[data-testid="metric-container"] {
+    background: rgba(42, 40, 48, 0.5) !important;
+    backdrop-filter: blur(15px);
+    border: 2px solid var(--hogwarts-burgundy) !important;
+    border-radius: 12px !important;
+    padding: 1.5rem !important;
+    box-shadow: 0 4px 25px rgba(116, 0, 1, 0.4) !important;
+    transition: all 0.3s ease;
+}
+
+[data-testid="metric-container"]:hover {
+    border-color: var(--hogwarts-gold) !important;
+    box-shadow: 0 8px 35px rgba(238, 185, 57, 0.4) !important;
+    transform: translateY(-4px);
+}
+
+div[data-testid="stMetricValue"] {
+    font-family: 'Cinzel Decorative', serif !important;
+    font-size: 3.2rem !important;
+    font-weight: 700 !important;
+    background: linear-gradient(135deg, var(--hogwarts-gold), var(--hogwarts-bronze));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+div[data-testid="stMetricLabel"] {
+    color: var(--hogwarts-parchment) !important;
+    font-size: 0.85rem !important;
+    font-weight: 600 !important;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.stTabs [data-baseweb="tab-list"] {
+    background: rgba(42, 40, 48, 0.5);
+    backdrop-filter: blur(10px);
+    border: 2px solid var(--hogwarts-bronze);
+    border-radius: 8px;
+    padding: 6px;
+}
+
+.stTabs [data-baseweb="tab"] {
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+    color: rgba(244, 231, 215, 0.6);
+    font-family: 'EB Garamond', serif;
+    font-weight: 700;
+    padding: 12px 24px;
+    transition: all 0.3s ease;
+}
+
+.stTabs [data-baseweb="tab"]:hover {
+    color: var(--hogwarts-parchment);
+    background: rgba(174, 0, 1, 0.2);
+}
+
+.stTabs [aria-selected="true"] {
+    background: linear-gradient(135deg, var(--hogwarts-crimson), var(--hogwarts-burgundy)) !important;
+    color: var(--hogwarts-gold) !important;
+    box-shadow: 0 0 15px rgba(238, 185, 57, 0.3) !important;
+}
+
+hr {
+    border: none;
+    height: 3px;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--hogwarts-burgundy),
+        var(--hogwarts-gold),
+        var(--hogwarts-burgundy),
+        transparent
+    );
+    margin: 2.5rem 0;
+    box-shadow: 0 0 10px rgba(238, 185, 57, 0.3);
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--hogwarts-night);
+    border: 1px solid var(--hogwarts-stone);
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, var(--hogwarts-crimson), var(--hogwarts-burgundy));
+    border-radius: 6px;
+    box-shadow: 0 0 10px rgba(174, 0, 1, 0.3);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, var(--hogwarts-gold), var(--hogwarts-bronze));
+}

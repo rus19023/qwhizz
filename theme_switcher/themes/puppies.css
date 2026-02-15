@@ -1,0 +1,190 @@
+/* Puppies Theme - Playful and warm */
+
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@300;400;700&family=Fredoka:wght@300;400;600&display=swap');
+
+:root {
+    --puppy-cream: #fef6e4;
+    --puppy-tan: #f3d2c1;
+    --puppy-brown: #8b4513;
+    --puppy-chocolate: #5d4037;
+    --puppy-nose: #2c1e1e;
+    --puppy-paw: #f582ae;
+    --puppy-collar: #ff6b6b;
+}
+
+.stApp {
+    background: 
+        radial-gradient(circle at 70% 30%, rgba(245, 130, 174, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 30% 70%, rgba(243, 210, 193, 0.2) 0%, transparent 40%),
+        linear-gradient(135deg, #fff8f0 0%, var(--puppy-cream) 50%, #fef0e0 100%);
+    font-family: 'Fredoka', sans-serif;
+    color: var(--puppy-chocolate);
+}
+
+[data-testid="stSidebar"] {
+    background: linear-gradient(180deg, rgba(243, 210, 193, 0.6) 0%, rgba(254, 246, 228, 0.8) 100%) !important;
+}
+
+h1 {
+    font-family: 'Comic Neue', cursive !important;
+    font-weight: 700 !important;
+    font-size: 3.8rem !important;
+    color: var(--puppy-collar) !important;
+    margin-bottom: 0.5rem !important;
+    text-shadow: 3px 3px 0 rgba(245, 130, 174, 0.3);
+}
+
+h2 {
+    font-family: 'Comic Neue', cursive !important;
+    font-weight: 700 !important;
+    font-size: 2.2rem !important;
+    color: var(--puppy-brown) !important;
+}
+
+h3 {
+    font-family: 'Fredoka', sans-serif !important;
+    font-weight: 600 !important;
+    font-size: 1.4rem !important;
+    color: var(--puppy-paw) !important;
+}
+
+p, label {
+    color: var(--puppy-chocolate);
+    font-size: 1.05rem;
+    line-height: 1.8;
+    font-weight: 300;
+}
+
+.stButton > button {
+    background: linear-gradient(135deg, var(--puppy-collar), var(--puppy-paw)) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 50px !important;
+    padding: 16px 40px !important;
+    font-family: 'Comic Neue', cursive !important;
+    font-weight: 700 !important;
+    font-size: 1.1rem;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 6px 0 var(--puppy-brown), 0 10px 20px rgba(0, 0, 0, 0.15) !important;
+}
+
+.stButton > button:hover {
+    transform: translateY(4px);
+    box-shadow: 0 2px 0 var(--puppy-brown), 0 6px 15px rgba(0, 0, 0, 0.15) !important;
+}
+
+.stTextInput > div > div > input,
+.stTextArea > div > div > textarea,
+.stSelectbox > div > div > select {
+    background: white !important;
+    border: 3px solid var(--puppy-tan) !important;
+    border-radius: 20px !important;
+    color: var(--puppy-chocolate) !important;
+    padding: 14px 20px !important;
+    font-family: 'Fredoka', sans-serif !important;
+    transition: all 0.3s ease !important;
+}
+
+.stTextInput > div > div > input:focus,
+.stTextArea > div > div > textarea:focus {
+    outline: none !important;
+    border-color: var(--puppy-paw) !important;
+    box-shadow: 0 0 0 4px rgba(245, 130, 174, 0.2) !important;
+}
+
+.stTextInput > label,
+.stTextArea > label,
+.stSelectbox > label {
+    color: var(--puppy-brown) !important;
+    font-weight: 600 !important;
+}
+
+[data-testid="metric-container"] {
+    background: white !important;
+    border: 3px solid var(--puppy-tan) !important;
+    border-radius: 25px !important;
+    padding: 1.5rem !important;
+    box-shadow: 0 4px 0 var(--puppy-tan), 0 8px 20px rgba(0, 0, 0, 0.1) !important;
+    transition: all 0.3s ease;
+}
+
+[data-testid="metric-container"]:hover {
+    transform: translateY(2px) rotate(-1deg);
+    box-shadow: 0 2px 0 var(--puppy-tan), 0 6px 15px rgba(0, 0, 0, 0.1) !important;
+}
+
+div[data-testid="stMetricValue"] {
+    font-family: 'Comic Neue', cursive !important;
+    font-size: 3.5rem !important;
+    font-weight: 700 !important;
+    color: var(--puppy-collar) !important;
+}
+
+div[data-testid="stMetricLabel"] {
+    color: var(--puppy-brown) !important;
+    font-size: 0.9rem !important;
+    font-weight: 600 !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.stTabs [data-baseweb="tab-list"] {
+    background: white;
+    border: 3px solid var(--puppy-tan);
+    border-radius: 20px;
+    padding: 8px;
+}
+
+.stTabs [data-baseweb="tab"] {
+    background: transparent;
+    border: none;
+    border-radius: 15px;
+    color: var(--puppy-chocolate);
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 600;
+    padding: 12px 24px;
+    transition: all 0.3s ease;
+}
+
+.stTabs [data-baseweb="tab"]:hover {
+    background: rgba(245, 130, 174, 0.15);
+}
+
+.stTabs [aria-selected="true"] {
+    background: linear-gradient(135deg, var(--puppy-collar), var(--puppy-paw)) !important;
+    color: white !important;
+}
+
+hr {
+    border: none;
+    height: 3px;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--puppy-tan),
+        var(--puppy-paw),
+        var(--puppy-collar),
+        var(--puppy-paw),
+        var(--puppy-tan),
+        transparent
+    );
+    margin: 2rem 0;
+}
+
+::-webkit-scrollbar {
+    width: 14px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--puppy-cream);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, var(--puppy-paw), var(--puppy-tan));
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--puppy-collar);
+}

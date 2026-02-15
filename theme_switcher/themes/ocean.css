@@ -1,0 +1,197 @@
+/* Ocean Theme - Deep underwater aesthetic */
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@400;700&display=swap');
+
+:root {
+    --ocean-deep: #001f3f;
+    --ocean-blue: #0074D9;
+    --ocean-cyan: #39CCCC;
+    --ocean-teal: #3D9970;
+    --ocean-light: #7FDBFF;
+    --ocean-foam: #AAFFFF;
+    --ocean-sand: #FFE6B3;
+}
+
+.stApp {
+    background: 
+        radial-gradient(ellipse at top, rgba(0, 116, 217, 0.3) 0%, transparent 50%),
+        radial-gradient(ellipse at bottom, rgba(57, 204, 204, 0.2) 0%, transparent 50%),
+        linear-gradient(180deg, #001a33 0%, var(--ocean-deep) 50%, #002244 100%);
+    font-family: 'Montserrat', sans-serif;
+    color: var(--ocean-foam);
+}
+
+h1 {
+    font-family: 'Playfair Display', serif !important;
+    font-weight: 700 !important;
+    font-size: 3.5rem !important;
+    background: linear-gradient(135deg, var(--ocean-light), var(--ocean-cyan), var(--ocean-teal));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem !important;
+    text-shadow: 0 0 30px rgba(127, 219, 255, 0.5);
+}
+
+h2 {
+    font-family: 'Playfair Display', serif !important;
+    font-weight: 700 !important;
+    font-size: 2rem !important;
+    color: var(--ocean-cyan) !important;
+    text-shadow: 0 0 20px rgba(57, 204, 204, 0.4);
+}
+
+h3 {
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: 600 !important;
+    font-size: 1.3rem !important;
+    color: var(--ocean-light) !important;
+}
+
+p, label {
+    color: var(--ocean-foam);
+    font-size: 1rem;
+    line-height: 1.7;
+    font-weight: 300;
+}
+
+.stButton > button {
+    background: linear-gradient(135deg, var(--ocean-blue), var(--ocean-cyan)) !important;
+    color: white !important;
+    border: 2px solid var(--ocean-cyan) !important;
+    border-radius: 25px !important;
+    padding: 12px 32px !important;
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: 600 !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 4px 15px rgba(57, 204, 204, 0.3) !important;
+}
+
+.stButton > button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(57, 204, 204, 0.5) !important;
+}
+
+.stTextInput > div > div > input,
+.stTextArea > div > div > textarea,
+.stSelectbox > div > div > select {
+    background: rgba(0, 116, 217, 0.15) !important;
+    backdrop-filter: blur(10px);
+    border: 2px solid var(--ocean-blue) !important;
+    border-radius: 12px !important;
+    color: var(--ocean-foam) !important;
+    padding: 12px 16px !important;
+    font-family: 'Montserrat', sans-serif !important;
+    transition: all 0.3s ease !important;
+}
+
+.stTextInput > div > div > input:focus,
+.stTextArea > div > div > textarea:focus {
+    outline: none !important;
+    border-color: var(--ocean-cyan) !important;
+    box-shadow: 0 0 20px rgba(57, 204, 204, 0.4) !important;
+}
+
+.stTextInput > div > div > input::placeholder {
+    color: rgba(170, 255, 255, 0.4) !important;
+}
+
+.stTextInput > label,
+.stTextArea > label,
+.stSelectbox > label {
+    color: var(--ocean-light) !important;
+    font-weight: 600 !important;
+}
+
+[data-testid="metric-container"] {
+    background: rgba(0, 116, 217, 0.1) !important;
+    backdrop-filter: blur(15px);
+    border: 2px solid var(--ocean-blue) !important;
+    border-radius: 16px !important;
+    padding: 1.5rem !important;
+    box-shadow: 0 4px 20px rgba(0, 116, 217, 0.3) !important;
+    transition: all 0.3s ease;
+}
+
+[data-testid="metric-container"]:hover {
+    border-color: var(--ocean-cyan) !important;
+    box-shadow: 0 6px 30px rgba(57, 204, 204, 0.4) !important;
+    transform: translateY(-4px);
+}
+
+div[data-testid="stMetricValue"] {
+    font-family: 'Playfair Display', serif !important;
+    font-size: 2.8rem !important;
+    font-weight: 700 !important;
+    color: var(--ocean-cyan) !important;
+    text-shadow: 0 0 20px rgba(57, 204, 204, 0.5);
+}
+
+div[data-testid="stMetricLabel"] {
+    color: var(--ocean-light) !important;
+    font-size: 0.85rem !important;
+    font-weight: 600 !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.stTabs [data-baseweb="tab-list"] {
+    background: rgba(0, 116, 217, 0.1);
+    backdrop-filter: blur(10px);
+    border: 2px solid var(--ocean-blue);
+    border-radius: 12px;
+    padding: 6px;
+}
+
+.stTabs [data-baseweb="tab"] {
+    background: transparent;
+    border: none;
+    border-radius: 8px;
+    color: rgba(170, 255, 255, 0.6);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    padding: 10px 20px;
+    transition: all 0.3s ease;
+}
+
+.stTabs [data-baseweb="tab"]:hover {
+    color: var(--ocean-foam);
+    background: rgba(57, 204, 204, 0.1);
+}
+
+.stTabs [aria-selected="true"] {
+    background: linear-gradient(135deg, var(--ocean-blue), var(--ocean-cyan)) !important;
+    color: white !important;
+}
+
+hr {
+    border: none;
+    height: 2px;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--ocean-blue),
+        var(--ocean-cyan),
+        var(--ocean-blue),
+        transparent
+    );
+    margin: 2rem 0;
+    box-shadow: 0 0 10px rgba(57, 204, 204, 0.3);
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--ocean-deep);
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, var(--ocean-blue), var(--ocean-cyan));
+    border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, var(--ocean-cyan), var(--ocean-light));
+}

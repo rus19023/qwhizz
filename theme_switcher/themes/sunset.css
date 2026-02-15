@@ -1,0 +1,203 @@
+/* Sunset Theme - Warm golden hour vibes */
+
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@300;400;600;700&family=Karla:wght@300;400;600&display=swap');
+
+:root {
+    --sunset-deep: #1a0a0f;
+    --sunset-purple: #4a1942;
+    --sunset-magenta: #8b2b6a;
+    --sunset-orange: #ff6b35;
+    --sunset-coral: #ff9671;
+    --sunset-peach: #ffc75f;
+    --sunset-gold: #f9f871;
+}
+
+.stApp {
+    background: 
+        radial-gradient(ellipse at top, rgba(255, 107, 53, 0.2) 0%, transparent 50%),
+        radial-gradient(ellipse at bottom, rgba(139, 43, 106, 0.3) 0%, transparent 50%),
+        linear-gradient(180deg, #2a1520 0%, var(--sunset-deep) 50%, #1f0a15 100%);
+    font-family: 'Karla', sans-serif;
+    color: var(--sunset-peach);
+}
+
+h1 {
+    font-family: 'Crimson Pro', serif !important;
+    font-weight: 700 !important;
+    font-size: 3.8rem !important;
+    background: linear-gradient(135deg, var(--sunset-gold), var(--sunset-peach), var(--sunset-orange), var(--sunset-magenta));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem !important;
+    text-shadow: 0 0 30px rgba(255, 150, 113, 0.5);
+}
+
+h2 {
+    font-family: 'Crimson Pro', serif !important;
+    font-weight: 600 !important;
+    font-size: 2.2rem !important;
+    color: var(--sunset-coral) !important;
+    text-shadow: 0 0 20px rgba(255, 150, 113, 0.3);
+}
+
+h3 {
+    font-family: 'Karla', sans-serif !important;
+    font-weight: 600 !important;
+    font-size: 1.3rem !important;
+    color: var(--sunset-peach) !important;
+}
+
+p, label {
+    color: rgba(255, 199, 95, 0.9);
+    font-size: 1rem;
+    line-height: 1.8;
+    font-weight: 300;
+}
+
+.stButton > button {
+    background: linear-gradient(135deg, var(--sunset-orange), var(--sunset-magenta)) !important;
+    color: white !important;
+    border: 2px solid var(--sunset-coral) !important;
+    border-radius: 30px !important;
+    padding: 14px 36px !important;
+    font-family: 'Karla', sans-serif !important;
+    font-weight: 600 !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 4px 20px rgba(255, 107, 53, 0.4) !important;
+}
+
+.stButton > button:hover {
+    background: linear-gradient(135deg, var(--sunset-coral), var(--sunset-orange)) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(255, 107, 53, 0.6) !important;
+}
+
+.stTextInput > div > div > input,
+.stTextArea > div > div > textarea,
+.stSelectbox > div > div > select {
+    background: rgba(139, 43, 106, 0.2) !important;
+    backdrop-filter: blur(15px);
+    border: 2px solid var(--sunset-magenta) !important;
+    border-radius: 14px !important;
+    color: var(--sunset-peach) !important;
+    padding: 12px 18px !important;
+    font-family: 'Karla', sans-serif !important;
+    transition: all 0.3s ease !important;
+}
+
+.stTextInput > div > div > input:focus,
+.stTextArea > div > div > textarea:focus {
+    outline: none !important;
+    border-color: var(--sunset-orange) !important;
+    box-shadow: 0 0 20px rgba(255, 107, 53, 0.4) !important;
+}
+
+.stTextInput > div > div > input::placeholder {
+    color: rgba(255, 199, 95, 0.4) !important;
+}
+
+.stTextInput > label,
+.stTextArea > label,
+.stSelectbox > label {
+    color: var(--sunset-coral) !important;
+    font-weight: 600 !important;
+}
+
+[data-testid="metric-container"] {
+    background: rgba(139, 43, 106, 0.15) !important;
+    backdrop-filter: blur(15px);
+    border: 2px solid var(--sunset-magenta) !important;
+    border-radius: 18px !important;
+    padding: 1.5rem !important;
+    box-shadow: 0 4px 25px rgba(255, 107, 53, 0.3) !important;
+    transition: all 0.3s ease;
+}
+
+[data-testid="metric-container"]:hover {
+    border-color: var(--sunset-orange) !important;
+    box-shadow: 0 8px 35px rgba(255, 107, 53, 0.5) !important;
+    transform: translateY(-4px) scale(1.02);
+}
+
+div[data-testid="stMetricValue"] {
+    font-family: 'Crimson Pro', serif !important;
+    font-size: 3rem !important;
+    font-weight: 700 !important;
+    background: linear-gradient(135deg, var(--sunset-peach), var(--sunset-orange));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+div[data-testid="stMetricLabel"] {
+    color: var(--sunset-coral) !important;
+    font-size: 0.85rem !important;
+    font-weight: 600 !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.stTabs [data-baseweb="tab-list"] {
+    background: rgba(139, 43, 106, 0.15);
+    backdrop-filter: blur(10px);
+    border: 2px solid var(--sunset-magenta);
+    border-radius: 16px;
+    padding: 6px;
+}
+
+.stTabs [data-baseweb="tab"] {
+    background: transparent;
+    border: none;
+    border-radius: 12px;
+    color: rgba(255, 199, 95, 0.6);
+    font-family: 'Karla', sans-serif;
+    font-weight: 600;
+    padding: 12px 24px;
+    transition: all 0.3s ease;
+}
+
+.stTabs [data-baseweb="tab"]:hover {
+    color: var(--sunset-peach);
+    background: rgba(255, 107, 53, 0.15);
+}
+
+.stTabs [aria-selected="true"] {
+    background: linear-gradient(135deg, var(--sunset-orange), var(--sunset-magenta)) !important;
+    color: white !important;
+    box-shadow: 0 0 20px rgba(255, 107, 53, 0.4) !important;
+}
+
+hr {
+    border: none;
+    height: 3px;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--sunset-magenta),
+        var(--sunset-orange),
+        var(--sunset-coral),
+        var(--sunset-peach),
+        transparent
+    );
+    margin: 2.5rem 0;
+    box-shadow: 0 0 10px rgba(255, 107, 53, 0.3);
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--sunset-deep);
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, var(--sunset-orange), var(--sunset-magenta));
+    border-radius: 6px;
+    box-shadow: 0 0 10px rgba(255, 107, 53, 0.3);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, var(--sunset-coral), var(--sunset-orange));
+}

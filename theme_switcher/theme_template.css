@@ -1,0 +1,198 @@
+/* 
+   THEME TEMPLATE - Quick Start
+   
+   Copy this file and just change the variables in :root{}
+   Everything else is already configured!
+*/
+
+@import url('theme_base.css');
+
+/* ================================
+   STEP 1: Define Your Color Palette
+   ================================ */
+:root {
+    /* Backgrounds */
+    --theme-bg-primary: #ffffff;
+    --theme-bg-secondary: #f5f5f5;
+    --theme-bg-card: #ffffff;
+    
+    /* Text Colors */
+    --theme-text-primary: #000000;
+    --theme-text-secondary: #666666;
+    --theme-text-muted: #999999;
+    
+    /* Accent Colors */
+    --theme-accent-primary: #0066cc;
+    --theme-accent-secondary: #0052a3;
+    --theme-accent-tertiary: #3399ff;
+    
+    /* Borders */
+    --theme-border-color: #dddddd;
+    --theme-border-hover: #0066cc;
+    
+    /* Shadows */
+    --theme-shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --theme-shadow-md: 0 4px 8px rgba(0, 0, 0, 0.15);
+    --theme-shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.2);
+    
+    /* Border Radius */
+    --theme-radius-sm: 4px;
+    --theme-radius-md: 8px;
+    --theme-radius-lg: 16px;
+    --theme-radius-full: 50px;
+    
+    /* Fonts (optional - use Google Fonts URL above) */
+    --theme-font-primary: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --theme-font-heading: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --theme-font-mono: 'Courier New', monospace;
+}
+
+/* ================================
+   STEP 2: Everything Below Uses Your Variables
+   (No need to edit anything here!)
+   ================================ */
+
+.stApp {
+    background: var(--theme-bg-primary);
+    font-family: var(--theme-font-primary);
+    color: var(--theme-text-primary);
+}
+
+h1, h2, h3 {
+    font-family: var(--theme-font-heading) !important;
+}
+
+h1 { color: var(--theme-text-primary) !important; }
+h2 { color: var(--theme-accent-primary) !important; }
+h3 { color: var(--theme-text-primary) !important; }
+
+p, label {
+    color: var(--theme-text-secondary);
+}
+
+/* Buttons */
+.stButton > button {
+    background: var(--theme-accent-primary) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: var(--theme-radius-md) !important;
+    box-shadow: var(--theme-shadow-sm) !important;
+}
+
+.stButton > button:hover {
+    background: var(--theme-accent-secondary) !important;
+    box-shadow: var(--theme-shadow-md) !important;
+}
+
+/* Inputs */
+.stTextInput > div > div > input,
+.stTextArea > div > div > textarea,
+.stSelectbox > div > div > select {
+    background: var(--theme-bg-card) !important;
+    border: 1px solid var(--theme-border-color) !important;
+    border-radius: var(--theme-radius-sm) !important;
+    color: var(--theme-text-primary) !important;
+}
+
+.stTextInput > div > div > input:focus,
+.stTextArea > div > div > textarea:focus {
+    border-color: var(--theme-border-hover) !important;
+    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1) !important;
+}
+
+.stTextInput > div > div > input::placeholder {
+    color: var(--theme-text-muted) !important;
+}
+
+.stTextInput > label,
+.stTextArea > label,
+.stSelectbox > label {
+    color: var(--theme-text-primary) !important;
+}
+
+/* Metric Cards */
+[data-testid="metric-container"] {
+    background: var(--theme-bg-card) !important;
+    border: 1px solid var(--theme-border-color) !important;
+    border-radius: var(--theme-radius-md) !important;
+    box-shadow: var(--theme-shadow-sm) !important;
+}
+
+[data-testid="metric-container"]:hover {
+    border-color: var(--theme-border-hover) !important;
+    box-shadow: var(--theme-shadow-md) !important;
+}
+
+div[data-testid="stMetricValue"] {
+    color: var(--theme-accent-primary) !important;
+    font-family: var(--theme-font-mono) !important;
+}
+
+div[data-testid="stMetricLabel"] {
+    color: var(--theme-text-secondary) !important;
+}
+
+/* Tabs */
+.stTabs [data-baseweb="tab-list"] {
+    background: var(--theme-bg-secondary);
+    border: 1px solid var(--theme-border-color);
+    border-radius: var(--theme-radius-md);
+    padding: 4px;
+}
+
+.stTabs [data-baseweb="tab"] {
+    background: transparent;
+    border: none;
+    border-radius: var(--theme-radius-sm);
+    color: var(--theme-text-secondary);
+}
+
+.stTabs [data-baseweb="tab"]:hover {
+    color: var(--theme-text-primary);
+    background: var(--theme-bg-card);
+}
+
+.stTabs [aria-selected="true"] {
+    background: var(--theme-accent-primary) !important;
+    color: white !important;
+}
+
+/* Horizontal Rule */
+hr {
+    height: 1px;
+    background: var(--theme-border-color);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar-track {
+    background: var(--theme-bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--theme-border-color);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--theme-accent-primary);
+}
+
+/* 
+   ================================
+   USAGE INSTRUCTIONS:
+   ================================
+   
+   1. Copy this file and rename it (e.g., "ocean.css")
+   2. Change ONLY the :root{} variables at the top
+   3. Add to your theme_switcher.py THEMES dict
+   4. Done!
+   
+   Example - Ocean Theme:
+   
+   :root {
+       --theme-bg-primary: #001a33;
+       --theme-accent-primary: #00a8e8;
+       ... etc
+   }
+   
+   That's it! The entire theme is controlled by those variables.
+*/
