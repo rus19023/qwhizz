@@ -4,6 +4,25 @@ from pathlib import Path
 import streamlit as st
 import pymongo
 
+import streamlit as st
+
+st.title("Cloud debug: app.py is running")
+
+try:
+    import sys
+    st.write("Python:", sys.version)
+
+    # Uncomment these one at a time if you want to test imports:
+    # import pymongo
+    # from theme_switcher import quick_theme_setup
+
+    st.success("If you can see this, Streamlit is up and app.py executed.")
+except Exception as e:
+    st.error("Startup failed inside app.py:")
+    st.exception(e)
+    raise
+
+
 st.write("### Debug startup")
 st.write("Python:", sys.version)
 st.write("Working dir:", os.getcwd())
