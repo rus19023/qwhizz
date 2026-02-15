@@ -1,43 +1,10 @@
+import os
+import sys
+from pathlib import Path
+import streamlit as st
+import pymongo
 
-
-st.title("Cloud debug: app.py is running")
-
-try:
-    import os
-    import sys
-    st.write("Python:", sys.version)
-
-    # Uncomment these one at a time if you want to test imports:
-    # import pymongo
-    # from theme_switcher import quick_theme_setup
-   
-    
-    # from pathlib import Path
-    # import streamlit as st
-    
-
-    st.success("If you can see this, Streamlit is up and app.py executed.")
-except Exception as e:
-    st.error("Startup failed inside app.py:")
-    st.exception(e)
-    raise
-
-
-st.write("### Debug startup")
-st.write("Python:", sys.version)
-st.write("Working dir:", os.getcwd())
-
-# Show what files exist in the deployed repo
-root = Path(__file__).resolve().parent
-st.write("Repo root:", str(root))
-st.write("Repo files:", sorted([p.name for p in root.iterdir()])[:50])
-
-# Check critical folders
-for folder in ["ui", "core", "data", "theme_switcher"]:
-    st.write(f"{folder} exists:", (root / folder).exists())
-
-# Check secrets
-st.write("Has MONGO_URI secret:", "MONGO_URI" in st.secrets)
+import streamlit as st
 
 
 # Page configuration MUST be first
