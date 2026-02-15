@@ -21,7 +21,7 @@ def handle_authentication():
     # st.sidebar.write("🔍 DEBUG: Sidebar is rendering!")
     # st.sidebar.write(f"Session state keys: {list(st.session_state.keys())}")
 
-    quick_theme_setup(default_theme='retro')
+    # quick_theme_setup(default_theme='retro')
 
     
     st.sidebar.title("🗝 Study Gamified")
