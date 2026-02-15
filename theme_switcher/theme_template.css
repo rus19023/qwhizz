@@ -1,198 +1,533 @@
 /* 
-   THEME TEMPLATE - Quick Start
+   ============================================================================
+   UNIVERSAL THEME TEMPLATE v2.0 - Complete Modular System
+   ============================================================================
    
-   Copy this file and just change the variables in :root{}
-   Everything else is already configured!
+   Copy this file for each new theme and ONLY edit the :root {} variables.
+   Everything else is automatically handled!
 */
 
-@import url('theme_base.css');
+/* ============================================================================
+   STEP 1: DEFINE YOUR THEME VARIABLES
+   ============================================================================ */
 
-/* ================================
-   STEP 1: Define Your Color Palette
-   ================================ */
 :root {
-    /* Backgrounds */
+    /* ========================================
+       BACKGROUNDS
+       ======================================== */
+
+    /* Main app background (simple or complex) */
     --theme-bg-primary: #ffffff;
+
+    /* For complex backgrounds (gradients, patterns) - leave as 'none' if not needed */
+    --theme-app-bg: none;
+    --theme-bg-size: auto;
+    --theme-bg-position: 0 0;
+
+    /* Secondary background (cards, containers) */
     --theme-bg-secondary: #f5f5f5;
+
+    /* Card/metric container background */
     --theme-bg-card: #ffffff;
-    
-    /* Text Colors */
+
+    /* Sidebar background (can be different from main app) */
+    --theme-sidebar-bg: #f8f9fa;
+    --theme-sidebar-app-bg: none;
+    /* Complex bg for sidebar if needed */
+
+
+    /* ========================================
+       COLORS
+       ======================================== */
+
+    /* Primary brand colors */
+    --theme-color-primary: #0066cc;
+    --theme-color-secondary: #0052a3;
+
+    /* Accent colors (for highlights, special elements) */
+    --theme-color-accent-1: #ff4da6;
+    --theme-color-accent-2: #a64dff;
+    --theme-color-accent-3: #4dffff;
+    --theme-color-accent-4: #ffff4d;
+
+
+    /* ========================================
+       TEXT COLORS
+       ======================================== */
+
+    /* Default text colors */
     --theme-text-primary: #000000;
     --theme-text-secondary: #666666;
     --theme-text-muted: #999999;
-    
-    /* Accent Colors */
-    --theme-accent-primary: #0066cc;
-    --theme-accent-secondary: #0052a3;
-    --theme-accent-tertiary: #3399ff;
-    
-    /* Borders */
+
+    /* Heading-specific colors (can override default) */
+    --theme-text-h1: inherit;
+    /* 'inherit' uses text-primary */
+    --theme-text-h2: inherit;
+    --theme-text-h3: inherit;
+
+    /* Sidebar text color */
+    --theme-sidebar-text: #000000;
+
+
+    /* ========================================
+       FONTS
+       ======================================== */
+
+    /* Body/paragraph font */
+    --theme-font-primary: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+    /* Heading fonts (can be different per level) */
+    --theme-font-h1: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --theme-font-h2: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --theme-font-h3: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+    /* Monospace font (for code, metrics) */
+    --theme-font-mono: 'Courier New', monospace;
+
+
+    /* ========================================
+       FONT SIZES
+       ======================================== */
+
+    --theme-size-h1: 3.5rem;
+    --theme-size-h2: 2rem;
+    --theme-size-h3: 1.3rem;
+    --theme-size-body: 1rem;
+    --theme-size-label: 0.9rem;
+    --theme-size-metric-value: 2.5rem;
+    --theme-size-metric-label: 0.85rem;
+
+
+    /* ========================================
+       FONT WEIGHTS
+       ======================================== */
+
+    --theme-weight-h1: 700;
+    --theme-weight-h2: 600;
+    --theme-weight-h3: 600;
+    --theme-weight-body: 400;
+    --theme-weight-bold: 600;
+
+
+    /* ========================================
+       BORDERS
+       ======================================== */
+
     --theme-border-color: #dddddd;
     --theme-border-hover: #0066cc;
-    
-    /* Shadows */
-    --theme-shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
-    --theme-shadow-md: 0 4px 8px rgba(0, 0, 0, 0.15);
-    --theme-shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.2);
-    
-    /* Border Radius */
+    --theme-border-width: 1px;
+    --theme-border-style: solid;
+
+
+    /* ========================================
+       BORDER RADIUS
+       ======================================== */
+
     --theme-radius-sm: 4px;
     --theme-radius-md: 8px;
     --theme-radius-lg: 16px;
     --theme-radius-full: 50px;
-    
-    /* Fonts (optional - use Google Fonts URL above) */
-    --theme-font-primary: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    --theme-font-heading: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    --theme-font-mono: 'Courier New', monospace;
+    --theme-radius-button: 8px;
+    --theme-radius-input: 6px;
+    --theme-radius-card: 8px;
+
+
+    /* ========================================
+       SHADOWS
+       ======================================== */
+
+    /* Box shadows */
+    --theme-shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --theme-shadow-md: 0 4px 8px rgba(0, 0, 0, 0.15);
+    --theme-shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.2);
+    --theme-shadow-button: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --theme-shadow-button-hover: 0 4px 8px rgba(0, 0, 0, 0.15);
+    --theme-shadow-card: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --theme-shadow-card-hover: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+    /* Text shadows */
+    --theme-shadow-text-h1: none;
+    --theme-shadow-text-h2: none;
+    --theme-shadow-text-h3: none;
+
+
+    /* ========================================
+       EFFECTS & TRANSFORMS
+       ======================================== */
+
+    /* Text transform */
+    --theme-text-transform-h1: none;
+    --theme-text-transform-h2: none;
+    --theme-text-transform-h3: none;
+    --theme-text-transform-button: none;
+    --theme-text-transform-label: none;
+    --theme-text-transform-metric-label: uppercase;
+
+    /* Letter spacing */
+    --theme-letter-spacing-h1: normal;
+    --theme-letter-spacing-h2: normal;
+    --theme-letter-spacing-h3: normal;
+    --theme-letter-spacing-button: normal;
+
+    /* Image rendering (auto, pixelated, crisp-edges) */
+    --theme-image-rendering: auto;
+
+
+    /* ========================================
+       ANIMATIONS
+       ======================================== */
+
+    /* Animation names and durations */
+    --theme-animation-h1: none;
+    --theme-animation-h2: none;
+    --theme-animation-button-hover: none;
+
+    /* Transition speeds */
+    --theme-transition-speed: 0.3s;
+    --theme-transition-speed-fast: 0.15s;
+
+
+    /* ========================================
+       SPACING
+       ======================================== */
+
+    --theme-padding-button: 12px 32px;
+    --theme-padding-input: 12px 16px;
+    --theme-padding-card: 1.5rem;
+
+
+    /* ========================================
+       BUTTONS
+       ======================================== */
+
+    --theme-button-bg: var(--theme-color-primary);
+    --theme-button-bg-hover: var(--theme-color-secondary);
+    --theme-button-text: #ffffff;
+    --theme-button-border: var(--theme-color-primary);
+    --theme-button-border-width: 1px;
+
+
+    /* ========================================
+       INPUTS
+       ======================================== */
+
+    --theme-input-bg: #ffffff;
+    --theme-input-bg-focus: #ffffff;
+    --theme-input-border: var(--theme-border-color);
+    --theme-input-border-focus: var(--theme-border-hover);
+    --theme-input-text: var(--theme-text-primary);
+    --theme-input-placeholder: var(--theme-text-muted);
+
+
+    /* ========================================
+       TABS
+       ======================================== */
+
+    --theme-tab-bg: transparent;
+    --theme-tab-bg-hover: rgba(0, 0, 0, 0.05);
+    --theme-tab-bg-active: var(--theme-color-primary);
+    --theme-tab-text: var(--theme-text-secondary);
+    --theme-tab-text-hover: var(--theme-text-primary);
+    --theme-tab-text-active: #ffffff;
+    --theme-tab-border: var(--theme-border-color);
+
+
+    /* ========================================
+       HORIZONTAL RULE
+       ======================================== */
+
+    --theme-hr-height: 1px;
+    --theme-hr-color: var(--theme-border-color);
+    --theme-hr-style: solid;
+    /* or use 'gradient' for gradient hrs */
+    --theme-hr-gradient: linear-gradient(90deg, transparent, var(--theme-border-color), transparent);
 }
 
-/* ================================
-   STEP 2: Everything Below Uses Your Variables
-   (No need to edit anything here!)
-   ================================ */
+
+/* ============================================================================
+   STEP 2: CSS RULES (DON'T EDIT - Uses variables from above)
+   ============================================================================ */
+
+/* ========================================
+   MAIN APP
+   ======================================== */
 
 .stApp {
     background: var(--theme-bg-primary);
     font-family: var(--theme-font-primary);
     color: var(--theme-text-primary);
+    image-rendering: var(--theme-image-rendering);
 }
 
-h1, h2, h3 {
-    font-family: var(--theme-font-heading) !important;
+/* Apply complex background if defined */
+.stApp {
+    background: var(--theme-app-bg), var(--theme-bg-primary);
+    background-size: var(--theme-bg-size);
+    background-position: var(--theme-bg-position);
 }
 
-h1 { color: var(--theme-text-primary) !important; }
-h2 { color: var(--theme-accent-primary) !important; }
-h3 { color: var(--theme-text-primary) !important; }
 
-p, label {
+/* ========================================
+   SIDEBAR
+   ======================================== */
+
+/* Force sidebar to always be visible and accessible */
+section[data-testid="stSidebar"] {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+/* Sidebar background */
+section[data-testid="stSidebar"]>div {
+    background: var(--theme-sidebar-app-bg), var(--theme-sidebar-bg) !important;
+    background-size: var(--theme-bg-size);
+    background-position: var(--theme-bg-position);
+    color: var(--theme-sidebar-text) !important;
+}
+
+/* Sidebar text inherits theme */
+section[data-testid="stSidebar"] * {
+    color: inherit;
+    font-family: var(--theme-font-primary);
+}
+
+/* Sidebar toggle button visibility */
+button[kind="header"],
+[data-testid="collapsedControl"] {
+    visibility: visible !important;
+    display: block !important;
+    opacity: 1 !important;
+}
+
+/* Fallback for some Streamlit versions */
+[data-testid="stSidebar"] {
+    background: transparent !important;
+}
+
+
+/* ========================================
+   TYPOGRAPHY
+   ======================================== */
+
+h1 {
+    font-family: var(--theme-font-h1) !important;
+    font-weight: var(--theme-weight-h1) !important;
+    font-size: var(--theme-size-h1) !important;
+    color: var(--theme-text-h1) !important;
+    text-transform: var(--theme-text-transform-h1) !important;
+    letter-spacing: var(--theme-letter-spacing-h1) !important;
+    text-shadow: var(--theme-shadow-text-h1);
+    animation: var(--theme-animation-h1);
+    line-height: 1.2 !important;
+    margin-bottom: 0.5rem !important;
+}
+
+h2 {
+    font-family: var(--theme-font-h2) !important;
+    font-weight: var(--theme-weight-h2) !important;
+    font-size: var(--theme-size-h2) !important;
+    color: var(--theme-text-h2) !important;
+    text-transform: var(--theme-text-transform-h2) !important;
+    letter-spacing: var(--theme-letter-spacing-h2) !important;
+    text-shadow: var(--theme-shadow-text-h2);
+    animation: var(--theme-animation-h2);
+    line-height: 1.3 !important;
+}
+
+h3 {
+    font-family: var(--theme-font-h3) !important;
+    font-weight: var(--theme-weight-h3) !important;
+    font-size: var(--theme-size-h3) !important;
+    color: var(--theme-text-h3) !important;
+    text-transform: var(--theme-text-transform-h3) !important;
+    letter-spacing: var(--theme-letter-spacing-h3) !important;
+    text-shadow: var(--theme-shadow-text-h3);
+}
+
+p,
+label {
     color: var(--theme-text-secondary);
+    font-size: var(--theme-size-body);
+    line-height: 1.7;
+    font-weight: var(--theme-weight-body);
 }
 
-/* Buttons */
-.stButton > button {
-    background: var(--theme-accent-primary) !important;
-    color: white !important;
-    border: none !important;
-    border-radius: var(--theme-radius-md) !important;
-    box-shadow: var(--theme-shadow-sm) !important;
+
+/* ========================================
+   BUTTONS
+   ======================================== */
+
+.stButton>button {
+    background: var(--theme-button-bg) !important;
+    color: var(--theme-button-text) !important;
+    border: var(--theme-button-border-width) var(--theme-border-style) var(--theme-button-border) !important;
+    border-radius: var(--theme-radius-button) !important;
+    padding: var(--theme-padding-button) !important;
+    font-family: var(--theme-font-primary) !important;
+    font-weight: var(--theme-weight-bold) !important;
+    text-transform: var(--theme-text-transform-button) !important;
+    letter-spacing: var(--theme-letter-spacing-button) !important;
+    box-shadow: var(--theme-shadow-button) !important;
+    transition: all var(--theme-transition-speed) ease !important;
 }
 
-.stButton > button:hover {
-    background: var(--theme-accent-secondary) !important;
-    box-shadow: var(--theme-shadow-md) !important;
+.stButton>button:hover {
+    background: var(--theme-button-bg-hover) !important;
+    box-shadow: var(--theme-shadow-button-hover) !important;
+    transform: translateY(-2px);
+    animation: var(--theme-animation-button-hover);
 }
 
-/* Inputs */
-.stTextInput > div > div > input,
-.stTextArea > div > div > textarea,
-.stSelectbox > div > div > select {
-    background: var(--theme-bg-card) !important;
-    border: 1px solid var(--theme-border-color) !important;
-    border-radius: var(--theme-radius-sm) !important;
-    color: var(--theme-text-primary) !important;
+
+/* ========================================
+   INPUTS
+   ======================================== */
+
+.stTextInput>div>div>input,
+.stTextArea>div>div>textarea,
+.stSelectbox>div>div>select {
+    background: var(--theme-input-bg) !important;
+    border: var(--theme-border-width) var(--theme-border-style) var(--theme-input-border) !important;
+    border-radius: var(--theme-radius-input) !important;
+    color: var(--theme-input-text) !important;
+    padding: var(--theme-padding-input) !important;
+    font-family: var(--theme-font-primary) !important;
+    transition: all var(--theme-transition-speed) ease !important;
 }
 
-.stTextInput > div > div > input:focus,
-.stTextArea > div > div > textarea:focus {
-    border-color: var(--theme-border-hover) !important;
+.stTextInput>div>div>input:focus,
+.stTextArea>div>div>textarea:focus {
+    outline: none !important;
+    border-color: var(--theme-input-border-focus) !important;
+    background: var(--theme-input-bg-focus) !important;
     box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1) !important;
 }
 
-.stTextInput > div > div > input::placeholder {
-    color: var(--theme-text-muted) !important;
+.stTextInput>div>div>input::placeholder,
+.stTextArea>div>div>textarea::placeholder {
+    color: var(--theme-input-placeholder) !important;
 }
 
-.stTextInput > label,
-.stTextArea > label,
-.stSelectbox > label {
+.stTextInput>label,
+.stTextArea>label,
+.stSelectbox>label {
     color: var(--theme-text-primary) !important;
+    font-weight: var(--theme-weight-bold) !important;
+    font-size: var(--theme-size-label) !important;
+    text-transform: var(--theme-text-transform-label);
 }
 
-/* Metric Cards */
+
+/* ========================================
+   METRIC CARDS
+   ======================================== */
+
 [data-testid="metric-container"] {
     background: var(--theme-bg-card) !important;
-    border: 1px solid var(--theme-border-color) !important;
-    border-radius: var(--theme-radius-md) !important;
-    box-shadow: var(--theme-shadow-sm) !important;
+    border: var(--theme-border-width) var(--theme-border-style) var(--theme-border-color) !important;
+    border-radius: var(--theme-radius-card) !important;
+    padding: var(--theme-padding-card) !important;
+    box-shadow: var(--theme-shadow-card) !important;
+    transition: all var(--theme-transition-speed) ease;
 }
 
 [data-testid="metric-container"]:hover {
     border-color: var(--theme-border-hover) !important;
-    box-shadow: var(--theme-shadow-md) !important;
+    box-shadow: var(--theme-shadow-card-hover) !important;
+    transform: translateY(-2px);
 }
 
 div[data-testid="stMetricValue"] {
-    color: var(--theme-accent-primary) !important;
     font-family: var(--theme-font-mono) !important;
+    font-size: var(--theme-size-metric-value) !important;
+    font-weight: var(--theme-weight-h1) !important;
+    color: var(--theme-color-primary) !important;
 }
 
 div[data-testid="stMetricLabel"] {
     color: var(--theme-text-secondary) !important;
+    font-size: var(--theme-size-metric-label) !important;
+    font-weight: var(--theme-weight-bold) !important;
+    text-transform: var(--theme-text-transform-metric-label);
+    letter-spacing: 1px;
 }
 
-/* Tabs */
+
+/* ========================================
+   TABS
+   ======================================== */
+
 .stTabs [data-baseweb="tab-list"] {
     background: var(--theme-bg-secondary);
-    border: 1px solid var(--theme-border-color);
+    border: var(--theme-border-width) var(--theme-border-style) var(--theme-tab-border);
     border-radius: var(--theme-radius-md);
     padding: 4px;
 }
 
 .stTabs [data-baseweb="tab"] {
-    background: transparent;
+    background: var(--theme-tab-bg);
     border: none;
     border-radius: var(--theme-radius-sm);
-    color: var(--theme-text-secondary);
+    color: var(--theme-tab-text);
+    font-family: var(--theme-font-primary);
+    font-weight: var(--theme-weight-bold);
+    padding: 12px 24px;
+    transition: all var(--theme-transition-speed-fast) ease;
 }
 
 .stTabs [data-baseweb="tab"]:hover {
-    color: var(--theme-text-primary);
-    background: var(--theme-bg-card);
+    color: var(--theme-tab-text-hover);
+    background: var(--theme-tab-bg-hover);
 }
 
 .stTabs [aria-selected="true"] {
-    background: var(--theme-accent-primary) !important;
-    color: white !important;
+    background: var(--theme-tab-bg-active) !important;
+    color: var(--theme-tab-text-active) !important;
 }
 
-/* Horizontal Rule */
+
+/* ========================================
+   HORIZONTAL RULE
+   ======================================== */
+
 hr {
-    height: 1px;
-    background: var(--theme-border-color);
+    border: none;
+    height: var(--theme-hr-height);
+    background: var(--theme-hr-color);
+    margin: 2rem 0;
 }
 
-/* Scrollbar */
+/* If gradient style is preferred */
+hr[data-style="gradient"] {
+    background: var(--theme-hr-gradient);
+}
+
+
+/* ========================================
+   SCROLLBAR
+   ======================================== */
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
 ::-webkit-scrollbar-track {
     background: var(--theme-bg-secondary);
 }
 
 ::-webkit-scrollbar-thumb {
     background: var(--theme-border-color);
+    border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--theme-accent-primary);
+    background: var(--theme-color-primary);
 }
 
-/* 
-   ================================
-   USAGE INSTRUCTIONS:
-   ================================
-   
-   1. Copy this file and rename it (e.g., "ocean.css")
-   2. Change ONLY the :root{} variables at the top
-   3. Add to your theme_switcher.py THEMES dict
-   4. Done!
-   
-   Example - Ocean Theme:
-   
-   :root {
-       --theme-bg-primary: #001a33;
-       --theme-accent-primary: #00a8e8;
-       ... etc
-   }
-   
-   That's it! The entire theme is controlled by those variables.
-*/
+
+/* ============================================================================
+   DONE! Your theme is complete.
+   To create a new theme, copy this file and only edit the :root{} variables.
+   ============================================================================ */

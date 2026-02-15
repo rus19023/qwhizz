@@ -6,6 +6,31 @@ import pymongo
 
 import streamlit as st
 
+# Force sidebar to always be visible
+st.markdown("""
+<style>
+/* Force sidebar open */
+section[data-testid="stSidebar"] {
+    display: block !important;
+    visibility: visible !important;
+    transform: translateX(0) !important;
+    margin-left: 0 !important;
+}
+
+/* Make toggle button visible */
+button[kind="header"],
+[data-testid="collapsedControl"] {
+    background: #ffffff !important;
+    color: #000000 !important;
+    border: 2px solid #000000 !important;
+    padding: 8px !important;
+    visibility: visible !important;
+    display: block !important;
+    opacity: 1 !important;
+    z-index: 999999 !important;
+}
+</style>
+""", unsafe_allow_html=True)
 
 # Page configuration MUST be first
 st.set_page_config(
@@ -41,7 +66,7 @@ logged_in_user = handle_authentication()
 
 # Theme setup SECOND (so it runs every time)
 from theme_switcher import quick_theme_setup
-quick_theme_setup(default_theme='retro')
+quick_theme_setup(default_theme='dragons')
 
 if not logged_in_user:
     #st.title("🧬 Flashcard Study Mode")

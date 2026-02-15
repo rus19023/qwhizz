@@ -1,197 +1,331 @@
-/* Ocean Theme - Deep underwater aesthetic */
+/* 
+   ============================================================================
+   OCEAN THEME - Standalone Version (No Imports Needed)
+   ============================================================================
+*/
 
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
 
 :root {
-    --ocean-deep: #001f3f;
-    --ocean-blue: #0074D9;
-    --ocean-cyan: #39CCCC;
-    --ocean-teal: #3D9970;
-    --ocean-light: #7FDBFF;
-    --ocean-foam: #AAFFFF;
-    --ocean-sand: #FFE6B3;
+    /* Backgrounds */
+    --theme-bg-primary: #001a33;
+    --theme-bg-secondary: #002447;
+    --theme-bg-card: #003d5c;
+    --theme-sidebar-bg: #00131f;
+
+    /* Colors */
+    --theme-color-primary: #00a8e8;
+    --theme-color-secondary: #0077b6;
+    --theme-color-accent-1: #00d9ff;
+    --theme-color-accent-2: #0496c7;
+    --theme-color-accent-3: #48cae4;
+
+    /* Text Colors */
+    --theme-text-primary: #e6f3ff;
+    --theme-text-secondary: #99c9ff;
+    --theme-text-muted: #6699cc;
+    --theme-text-h1: #00d9ff;
+    --theme-text-h2: #00a8e8;
+    --theme-sidebar-text: #e6f3ff;
+
+    /* Fonts */
+    --theme-font-primary: 'Montserrat', sans-serif;
+    --theme-font-h1: 'Montserrat', sans-serif;
+    --theme-font-h2: 'Montserrat', sans-serif;
+    --theme-font-h3: 'Montserrat', sans-serif;
+    --theme-font-mono: 'Courier New', monospace;
+
+    /* Font Sizes */
+    --theme-size-h1: 3.5rem;
+    --theme-size-h2: 2rem;
+    --theme-size-h3: 1.3rem;
+    --theme-size-body: 1rem;
+    --theme-size-label: 0.9rem;
+    --theme-size-metric-value: 2.5rem;
+    --theme-size-metric-label: 0.85rem;
+
+    /* Font Weights */
+    --theme-weight-h1: 700;
+    --theme-weight-h2: 600;
+    --theme-weight-h3: 600;
+    --theme-weight-body: 400;
+    --theme-weight-bold: 600;
+
+    /* Borders */
+    --theme-border-color: #004d73;
+    --theme-border-hover: #00a8e8;
+    --theme-border-width: 1px;
+    --theme-border-style: solid;
+
+    /* Border Radius */
+    --theme-radius-button: 8px;
+    --theme-radius-input: 8px;
+    --theme-radius-card: 12px;
+    --theme-radius-sm: 4px;
+    --theme-radius-md: 8px;
+
+    /* Shadows */
+    --theme-shadow-sm: 0 2px 8px rgba(0, 168, 232, 0.2);
+    --theme-shadow-md: 0 4px 16px rgba(0, 168, 232, 0.3);
+    --theme-shadow-button: 0 4px 12px rgba(0, 168, 232, 0.4);
+    --theme-shadow-button-hover: 0 6px 20px rgba(0, 168, 232, 0.6);
+    --theme-shadow-card: 0 2px 8px rgba(0, 168, 232, 0.2);
+    --theme-shadow-card-hover: 0 4px 16px rgba(0, 168, 232, 0.3);
+
+    /* Transitions */
+    --theme-transition-speed: 0.3s;
+    --theme-transition-speed-fast: 0.15s;
+
+    /* Spacing */
+    --theme-padding-button: 12px 32px;
+    --theme-padding-input: 12px 16px;
+    --theme-padding-card: 1.5rem;
+
+    /* Buttons */
+    --theme-button-bg: #00a8e8;
+    --theme-button-bg-hover: #0077b6;
+    --theme-button-text: white;
+    --theme-button-border: #00a8e8;
+
+    /* Inputs */
+    --theme-input-bg: #003d5c;
+    --theme-input-bg-focus: #004d73;
+    --theme-input-border: #004d73;
+    --theme-input-border-focus: #00a8e8;
+    --theme-input-text: #e6f3ff;
+    --theme-input-placeholder: #6699cc;
+
+    /* Tabs */
+    --theme-tab-bg: transparent;
+    --theme-tab-bg-hover: rgba(0, 168, 232, 0.1);
+    --theme-tab-bg-active: #00a8e8;
+    --theme-tab-text: #99c9ff;
+    --theme-tab-text-hover: #e6f3ff;
+    --theme-tab-text-active: white;
+    --theme-tab-border: #004d73;
 }
 
+/* Main App */
 .stApp {
-    background: 
-        radial-gradient(ellipse at top, rgba(0, 116, 217, 0.3) 0%, transparent 50%),
-        radial-gradient(ellipse at bottom, rgba(57, 204, 204, 0.2) 0%, transparent 50%),
-        linear-gradient(180deg, #001a33 0%, var(--ocean-deep) 50%, #002244 100%);
-    font-family: 'Montserrat', sans-serif;
-    color: var(--ocean-foam);
+    background: var(--theme-bg-primary);
+    font-family: var(--theme-font-primary);
+    color: var(--theme-text-primary);
 }
 
+/* Sidebar */
+section[data-testid="stSidebar"] {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+section[data-testid="stSidebar"]>div {
+    background: var(--theme-sidebar-bg) !important;
+    color: var(--theme-sidebar-text) !important;
+}
+
+section[data-testid="stSidebar"] * {
+    color: inherit;
+    font-family: var(--theme-font-primary);
+}
+
+/* Sidebar toggle button */
+button[kind="header"],
+[data-testid="collapsedControl"] {
+    visibility: visible !important;
+    display: block !important;
+    opacity: 1 !important;
+    background: var(--theme-bg-secondary) !important;
+    color: var(--theme-text-primary) !important;
+    border: 1px solid var(--theme-border-color) !important;
+}
+
+button[kind="header"]:hover,
+[data-testid="collapsedControl"]:hover {
+    background: var(--theme-color-primary) !important;
+    color: white !important;
+}
+
+[data-testid="stSidebar"] {
+    background: transparent !important;
+}
+
+/* Typography */
 h1 {
-    font-family: 'Playfair Display', serif !important;
-    font-weight: 700 !important;
-    font-size: 3.5rem !important;
-    background: linear-gradient(135deg, var(--ocean-light), var(--ocean-cyan), var(--ocean-teal));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    font-family: var(--theme-font-h1) !important;
+    font-weight: var(--theme-weight-h1) !important;
+    font-size: var(--theme-size-h1) !important;
+    color: var(--theme-text-h1) !important;
+    line-height: 1.2 !important;
     margin-bottom: 0.5rem !important;
-    text-shadow: 0 0 30px rgba(127, 219, 255, 0.5);
 }
 
 h2 {
-    font-family: 'Playfair Display', serif !important;
-    font-weight: 700 !important;
-    font-size: 2rem !important;
-    color: var(--ocean-cyan) !important;
-    text-shadow: 0 0 20px rgba(57, 204, 204, 0.4);
+    font-family: var(--theme-font-h2) !important;
+    font-weight: var(--theme-weight-h2) !important;
+    font-size: var(--theme-size-h2) !important;
+    color: var(--theme-text-h2) !important;
+    line-height: 1.3 !important;
 }
 
 h3 {
-    font-family: 'Montserrat', sans-serif !important;
-    font-weight: 600 !important;
-    font-size: 1.3rem !important;
-    color: var(--ocean-light) !important;
+    font-family: var(--theme-font-h3) !important;
+    font-weight: var(--theme-weight-h3) !important;
+    font-size: var(--theme-size-h3) !important;
+    color: var(--theme-text-primary) !important;
 }
 
-p, label {
-    color: var(--ocean-foam);
-    font-size: 1rem;
+p,
+label {
+    color: var(--theme-text-secondary);
+    font-size: var(--theme-size-body);
     line-height: 1.7;
-    font-weight: 300;
+    font-weight: var(--theme-weight-body);
 }
 
-.stButton > button {
-    background: linear-gradient(135deg, var(--ocean-blue), var(--ocean-cyan)) !important;
-    color: white !important;
-    border: 2px solid var(--ocean-cyan) !important;
-    border-radius: 25px !important;
-    padding: 12px 32px !important;
-    font-family: 'Montserrat', sans-serif !important;
-    font-weight: 600 !important;
-    transition: all 0.3s ease !important;
-    box-shadow: 0 4px 15px rgba(57, 204, 204, 0.3) !important;
+/* Buttons */
+.stButton>button {
+    background: var(--theme-button-bg) !important;
+    color: var(--theme-button-text) !important;
+    border: none !important;
+    border-radius: var(--theme-radius-button) !important;
+    padding: var(--theme-padding-button) !important;
+    font-family: var(--theme-font-primary) !important;
+    font-weight: var(--theme-weight-bold) !important;
+    box-shadow: var(--theme-shadow-button) !important;
+    transition: all var(--theme-transition-speed) ease !important;
 }
 
-.stButton > button:hover {
+.stButton>button:hover {
+    background: var(--theme-button-bg-hover) !important;
+    box-shadow: var(--theme-shadow-button-hover) !important;
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(57, 204, 204, 0.5) !important;
 }
 
-.stTextInput > div > div > input,
-.stTextArea > div > div > textarea,
-.stSelectbox > div > div > select {
-    background: rgba(0, 116, 217, 0.15) !important;
-    backdrop-filter: blur(10px);
-    border: 2px solid var(--ocean-blue) !important;
-    border-radius: 12px !important;
-    color: var(--ocean-foam) !important;
-    padding: 12px 16px !important;
-    font-family: 'Montserrat', sans-serif !important;
+/* Inputs */
+
+/* Inputs - Simple like rosegold/dragons */
+.stTextInput>div>div>input,
+.stTextArea>div>div>textarea,
+.stSelectbox>div>div>select {
+    background: var(--theme-bg-secondary) !important;
+    border: var(--theme-border-width) var(--theme-border-style) var(--theme-border-color) !important;
+    border-radius: var(--theme-radius-input) !important;
+    color: var(--theme-text-primary) !important;
+    padding: var(--theme-padding-input) !important;
+    font-family: var(--theme-font-primary) !important;
     transition: all 0.3s ease !important;
 }
 
-.stTextInput > div > div > input:focus,
-.stTextArea > div > div > textarea:focus {
+.stTextInput>div>div>input:focus,
+.stTextArea>div>div>textarea:focus,
+.stSelectbox>div>div>select:focus {
     outline: none !important;
-    border-color: var(--ocean-cyan) !important;
-    box-shadow: 0 0 20px rgba(57, 204, 204, 0.4) !important;
+    border-color: var(--theme-color-primary) !important;
+    box-shadow: 0 0 0 3px rgba(0, 168, 232, 0.2) !important;
 }
 
-.stTextInput > div > div > input::placeholder {
-    color: rgba(170, 255, 255, 0.4) !important;
+.stTextInput>div>div>input::placeholder,
+.stTextArea>div>div>textarea::placeholder {
+    color: var(--theme-text-muted) !important;
 }
 
-.stTextInput > label,
-.stTextArea > label,
-.stSelectbox > label {
-    color: var(--ocean-light) !important;
-    font-weight: 600 !important;
+.stTextInput>label,
+.stTextArea>label,
+.stSelectbox>label {
+    color: var(--theme-text-primary) !important;
+    font-weight: var(--theme-weight-bold) !important;
+    font-size: var(--theme-size-label) !important;
 }
 
+/* Selectbox dropdown options */
+select option {
+    background: var(--theme-bg-secondary) !important;
+    color: var(--theme-text-primary) !important;
+}
+
+/* Metric Cards */
 [data-testid="metric-container"] {
-    background: rgba(0, 116, 217, 0.1) !important;
-    backdrop-filter: blur(15px);
-    border: 2px solid var(--ocean-blue) !important;
-    border-radius: 16px !important;
-    padding: 1.5rem !important;
-    box-shadow: 0 4px 20px rgba(0, 116, 217, 0.3) !important;
-    transition: all 0.3s ease;
+    background: var(--theme-bg-card) !important;
+    border: var(--theme-border-width) var(--theme-border-style) var(--theme-border-color) !important;
+    border-radius: var(--theme-radius-card) !important;
+    padding: var(--theme-padding-card) !important;
+    box-shadow: var(--theme-shadow-card) !important;
+    transition: all var(--theme-transition-speed) ease;
 }
 
 [data-testid="metric-container"]:hover {
-    border-color: var(--ocean-cyan) !important;
-    box-shadow: 0 6px 30px rgba(57, 204, 204, 0.4) !important;
-    transform: translateY(-4px);
+    border-color: var(--theme-border-hover) !important;
+    box-shadow: var(--theme-shadow-card-hover) !important;
+    transform: translateY(-2px);
 }
 
 div[data-testid="stMetricValue"] {
-    font-family: 'Playfair Display', serif !important;
-    font-size: 2.8rem !important;
-    font-weight: 700 !important;
-    color: var(--ocean-cyan) !important;
-    text-shadow: 0 0 20px rgba(57, 204, 204, 0.5);
+    font-family: var(--theme-font-mono) !important;
+    font-size: var(--theme-size-metric-value) !important;
+    font-weight: var(--theme-weight-h1) !important;
+    color: var(--theme-color-primary) !important;
 }
 
 div[data-testid="stMetricLabel"] {
-    color: var(--ocean-light) !important;
-    font-size: 0.85rem !important;
-    font-weight: 600 !important;
+    color: var(--theme-text-secondary) !important;
+    font-size: var(--theme-size-metric-label) !important;
+    font-weight: var(--theme-weight-bold) !important;
     text-transform: uppercase;
     letter-spacing: 1px;
 }
 
+/* Tabs */
 .stTabs [data-baseweb="tab-list"] {
-    background: rgba(0, 116, 217, 0.1);
-    backdrop-filter: blur(10px);
-    border: 2px solid var(--ocean-blue);
-    border-radius: 12px;
-    padding: 6px;
+    background: var(--theme-bg-secondary);
+    border: var(--theme-border-width) var(--theme-border-style) var(--theme-tab-border);
+    border-radius: var(--theme-radius-md);
+    padding: 4px;
 }
 
 .stTabs [data-baseweb="tab"] {
-    background: transparent;
+    background: var(--theme-tab-bg);
     border: none;
-    border-radius: 8px;
-    color: rgba(170, 255, 255, 0.6);
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 600;
-    padding: 10px 20px;
-    transition: all 0.3s ease;
+    border-radius: var(--theme-radius-sm);
+    color: var(--theme-tab-text);
+    font-family: var(--theme-font-primary);
+    font-weight: var(--theme-weight-bold);
+    padding: 12px 24px;
+    transition: all var(--theme-transition-speed-fast) ease;
 }
 
 .stTabs [data-baseweb="tab"]:hover {
-    color: var(--ocean-foam);
-    background: rgba(57, 204, 204, 0.1);
+    color: var(--theme-tab-text-hover);
+    background: var(--theme-tab-bg-hover);
 }
 
 .stTabs [aria-selected="true"] {
-    background: linear-gradient(135deg, var(--ocean-blue), var(--ocean-cyan)) !important;
-    color: white !important;
+    background: var(--theme-tab-bg-active) !important;
+    color: var(--theme-tab-text-active) !important;
 }
 
+/* HR */
 hr {
     border: none;
-    height: 2px;
-    background: linear-gradient(
-        90deg,
-        transparent,
-        var(--ocean-blue),
-        var(--ocean-cyan),
-        var(--ocean-blue),
-        transparent
-    );
+    height: 1px;
+    background: var(--theme-border-color);
     margin: 2rem 0;
-    box-shadow: 0 0 10px rgba(57, 204, 204, 0.3);
 }
 
+/* Scrollbar */
 ::-webkit-scrollbar {
-    width: 12px;
+    width: 10px;
 }
 
 ::-webkit-scrollbar-track {
-    background: var(--ocean-deep);
+    background: var(--theme-bg-secondary);
 }
 
 ::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, var(--ocean-blue), var(--ocean-cyan));
-    border-radius: 6px;
+    background: var(--theme-border-color);
+    border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, var(--ocean-cyan), var(--ocean-light));
+    background: var(--theme-color-primary);
 }

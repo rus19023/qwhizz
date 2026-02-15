@@ -9,11 +9,14 @@
     --rose-pink: #d4a5a5;
     --rose-blush: #f4c2c2;
     --rose-gold: #d4af37;
-    --rose-champagne: #f7e7ce;
+    --rose-champagne: #e8d4ba;
+    /* Darker from #f7e7ce */
+    --rose-text: #d4c2a8;
+    /* New darker text color */
 }
 
 .stApp {
-    background: 
+    background:
         radial-gradient(circle at 30% 20%, rgba(212, 175, 55, 0.1) 0%, transparent 40%),
         radial-gradient(circle at 70% 80%, rgba(212, 165, 165, 0.15) 0%, transparent 40%),
         linear-gradient(135deg, #221518 0%, var(--rose-dark) 50%, #2a1820 100%);
@@ -50,14 +53,17 @@ h3 {
     letter-spacing: 1px;
 }
 
-p, label {
-    color: var(--rose-champagne);
+p,
+label {
+    color: var(--rose-text);
+    /* Using new darker variable */
     font-size: 1rem;
     line-height: 1.8;
-    font-weight: 300;
+    font-weight: 500;
+    /* Changed from 300 to 500 for better readability */
 }
 
-.stButton > button {
+.stButton>button {
     background: linear-gradient(135deg, var(--rose-gold), var(--rose-pink)) !important;
     color: white !important;
     border: 2px solid var(--rose-gold) !important;
@@ -72,15 +78,15 @@ p, label {
     box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3) !important;
 }
 
-.stButton > button:hover {
+.stButton>button:hover {
     background: linear-gradient(135deg, var(--rose-pink), var(--rose-gold)) !important;
     transform: translateY(-2px);
     box-shadow: 0 6px 25px rgba(212, 175, 55, 0.5) !important;
 }
 
-.stTextInput > div > div > input,
-.stTextArea > div > div > textarea,
-.stSelectbox > div > div > select {
+.stTextInput>div>div>input,
+.stTextArea>div>div>textarea,
+.stSelectbox>div>div>select {
     background: rgba(61, 40, 50, 0.4) !important;
     backdrop-filter: blur(15px);
     border: 2px solid var(--rose-mauve) !important;
@@ -91,20 +97,20 @@ p, label {
     transition: all 0.3s ease !important;
 }
 
-.stTextInput > div > div > input:focus,
-.stTextArea > div > div > textarea:focus {
+.stTextInput>div>div>input:focus,
+.stTextArea>div>div>textarea:focus {
     outline: none !important;
     border-color: var(--rose-gold) !important;
     box-shadow: 0 0 20px rgba(212, 175, 55, 0.3) !important;
 }
 
-.stTextInput > div > div > input::placeholder {
+.stTextInput>div>div>input::placeholder {
     color: rgba(247, 231, 206, 0.3) !important;
 }
 
-.stTextInput > label,
-.stTextArea > label,
-.stSelectbox > label {
+.stTextInput>label,
+.stTextArea>label,
+.stSelectbox>label {
     color: var(--rose-gold) !important;
     font-weight: 600 !important;
     letter-spacing: 1px;
@@ -177,14 +183,12 @@ div[data-testid="stMetricLabel"] {
 hr {
     border: none;
     height: 2px;
-    background: linear-gradient(
-        90deg,
-        transparent,
-        var(--rose-mauve),
-        var(--rose-gold),
-        var(--rose-pink),
-        transparent
-    );
+    background: linear-gradient(90deg,
+            transparent,
+            var(--rose-mauve),
+            var(--rose-gold),
+            var(--rose-pink),
+            transparent);
     margin: 2.5rem 0;
     box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
 }

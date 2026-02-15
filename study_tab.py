@@ -236,34 +236,59 @@ def render_multi_select_mode(card, all_cards, username):
 def render_true_false_mode(card, username):
     """True/False mode"""
 
-    # If this isn't a true/false card, generate a TF statement on the fly
+    # If this isn't a true/false card, generate one dynamically
     if get_card_type(card) != "true_false":
         if "tf_generated" not in st.session_state or st.session_state.get("tf_card_id") != id(card):
             is_true = random.random() > 0.5
-            statement = generate_true_false_statement(card["question"], card["answer"], is_true=is_true)
+            statement = generate_true_false_statement(
+                card["question"],
+                card["answer"],
+                is_true=is_true
+            )
 
             st.session_state.tf_generated = {
-                "type": "true_false",
                 "question": statement,
-                "answer": f"Base card answer: {card['answer']}",
+                "answer": card["answer"],
                 "correct_answer": is_true
             }
 
         card = st.session_state.tf_generated
 
-    # Initialize game state
+    # Initialize state
     if "tf_answered" not in st.session_state or st.session_state.get("tf_card_id") != id(card):
         st.session_state.tf_card_id = id(card)
         st.session_state.tf_answered = False
         st.session_state.tf_user_answer = None
-        st.session_state.tf_correct = card.get("correct_answer", True)
+        st.session_state.tf_correct = card["correct_answer"]
 
     # Display question
-    image_url = card.get("image_url")
-    if image_url:
-        display_question_with_image(card["question"], image_url)
-    else:
-        st.markdown(f"### {card['question']}")
+    st.markdown(f"### {card['question']}")
+
+    def on_answer(user_answer):
+        st.session_state.tf_user_answer = user_answer
+        st.session_state.tf_answered = True
+        is_correct = (user_answer == st.session_state.tf_correct)
+        handle_answer(is_correct, username)
+
+    true_false_buttons(
+        on_answer=on_answer,
+        correct_answer=st.session_state.tf_correct if st.session_state.tf_answered else None,
+        show_result=st.session_state.tf_answered
+    )
+
+    if st.session_state.tf_answered:
+        if st.session_state.tf_user_answer == st.session_state.tf_correct:
+            st.success("✓ Correct!")
+        else:
+            st.error(
+                f"✗ Incorrect. The correct answer was: "
+                f"{'TRUE' if st.session_state.tf_correct else 'FALSE'}"
+            )
+
+        st.info(f"**Explanation:** {card['answer']}")
+
+        if st.button("Next Card →", key="tf_next", type="primary", width='stretch'):
+            advance_to_next_card()
 
 
 
