@@ -1,20 +1,20 @@
-import os
-import sys
-from pathlib import Path
-import streamlit as st
-import pymongo
 
-import streamlit as st
 
 st.title("Cloud debug: app.py is running")
 
 try:
+    import os
     import sys
     st.write("Python:", sys.version)
 
     # Uncomment these one at a time if you want to test imports:
     # import pymongo
     # from theme_switcher import quick_theme_setup
+   
+    
+    # from pathlib import Path
+    # import streamlit as st
+    
 
     st.success("If you can see this, Streamlit is up and app.py executed.")
 except Exception as e:
