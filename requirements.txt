@@ -1,2 +1,1 @@
 streamlit
-git+ssh://git@github.com/rus19023/theme-switcher.git@main
