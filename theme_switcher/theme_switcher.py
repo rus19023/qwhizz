@@ -188,11 +188,12 @@ class ThemeSwitcher:
                 st.session_state[theme_state_key] = theme_keys[0]
             
             # Dropdown selector with unique key
+            loc = location or "main"
             selected_label = st.selectbox(
                 "Choose a theme:",
                 options=theme_labels,
                 index=current_index,
-                key=f"{self.key_prefix}_selector_dropdown"
+                key=f"{self.key_prefix}_{loc}_selector_dropdown"
             )
             
             # Get the theme key from the selected label
