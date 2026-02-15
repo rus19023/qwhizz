@@ -1,0 +1,179 @@
+
+[     UTC     ] Logs for quizz-study.streamlit.app/
+────────────────────────────────────────────────────────────────────────────────────────
+[07:40:30] 🚀 Starting up repository: 'quizz', branch: 'main', main module: 'app.py'
+[07:40:30] 🐙 Cloning repository...
+[07:40:31] 🐙 Cloning into '/mount/src/quizz'...
+
+[07:40:31] 🐙 Cloned repository!
+[07:40:31] 🐙 Pulling code changes from Github...
+[07:40:33] 📦 Processing dependencies...
+
+──────────────────────────────────────── uv ───────────────────────────────────────────
+
+Using uv pip install.
+Using Python 3.11.14 environment at /home/adminuser/venv
+error: Git operation failed
+  Caused by: failed to clone into: /home/adminuser/.cache/uv/git-v0/db/7440f1d6e78369cd
+  Caused by: failed to fetch branch or tag `main`
+  Caused by: process didn't exit successfully: `/usr/bin/git fetch --force --update-head-ok 'ssh://git@github.com/rus19023/theme-switcher.git' '+refs/tags/main:refs/remotes/origin/tags/main'` (exit status: 128)
+--- stderr
+Host key verification failed.
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+Checking if Streamlit is installed
+Installing rich for an improved exception logging
+Using uv pip install.
+Using Python 3.11.14 environment at /home/adminuser/venv
+Resolved 4 packages in 125ms
+Prepared 4 packages in 103ms
+Installed 4 packages in 13ms
+ + markdown-it-py==4.0.0
+ +[2026-02-15 07:40:34.457772]  mdurl==0.1.2
+ + pygments==2.19.2
+ + rich==14.3.2
+
+────────────────────────────────────────────────────────────────────────────────────────
+
+
+──────────────────────────────────────── pip ───────────────────────────────────────────
+
+Using standard pip install.
+Collecting git+ssh://****@github.com/rus19023/theme-switcher.git@main (from -r /mount/src/quizz/requirements.txt (line 2))
+  Cloning ssh://****@github.com/rus19023/theme-switcher.git (to revision main) to /tmp/pip-req-build-_gpndtx_
+  Running command git clone --filter=blob:none --quiet 'ssh://****@github.com/rus19023/theme-switcher.git' /tmp/pip-req-build-_gpndtx_
+  Host key verification failed.
+  fatal: Could not read from remote repository.
+
+  Please make sure you have the correct access rights
+  and the repository exists.
+  error: subprocess-exited-with-error
+  
+  × git clone --filter=blob:none --quiet 'ssh://****@github.com/rus19023/theme-switcher.git' /tmp/pip-req-build-_gpndtx_ did not run successfully.
+  │ exit code: 128
+  ╰─> See above for output.
+  
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+error: subprocess-exited-with-error
+
+× git clone --filter=blob:none --quiet 'ssh://****@github.com/rus19023/theme-switcher.git' /tmp/pip-req-build-_gpndtx_ did not run successfully.
+│ exit code: 128
+╰─> See above for output.
+
+note: This error originates from a subprocess, and is likely not a problem with pip.
+
+[notice] A new release of pip is available: 24.0 -> 26.0.1
+[notice] To update, run: pip install --upgrade pip
+Checking if Streamlit is installed
+Installing rich for an improved exception logging
+Using standard pip install.
+Collecting rich>=10.14.0
+  Downloading rich-14.3.2-py3-none-any.whl.metadata (18 kB)
+Collecting markdown-it-py>=2.2.0 (from rich>=10.14.0)
+  Downloading markdown_it_py-4.0.0-py3-none-any.whl.metadata (7.3 kB)
+Collecting pygments<3.0.0,>=2.13.0 (from rich>=10.14.0)
+  Downloading pygments-2.19.2-py3-none-any.whl.metadata (2.5 kB)
+Collecting mdurl~=0.1 (from markdown-it-py>=2.2.0->rich>=10.14.0)
+  Downloading mdurl-0.1.2-py3-none-any.whl.metadata (1.6 kB)
+Downloading rich-14.3.2-py3-none-any.whl (309 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 310.0/310.0 kB 12.7 MB/s eta 0:00:00[2026-02-15 07:40:37.552869] 
+Downloading markdown_it_py-4.0.0-py3-none-any.whl (87 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 87.3/87.3 kB 159.5 MB/s eta 0:00:00[2026-02-15 07:40:37.566983] 
+Downloading pygments-2.19.2-py3-none-any.whl (1.2 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.2/1.2 MB 71.1 MB/s eta 0:00:00[2026-02-15 07:40:37.596962] 
+Downloading mdurl-0.1.2-py3-none-any.whl (10.0 kB)
+Installing collected packages: pygments, mdurl, markdown-it-py, rich
+  Attempting uninstall: pygments
+    Found existing installation: Pygments 2.19.2
+    Uninstalling Pygments-2.19.2:
+      Successfully uninstalled Pygments-2.19.2
+  Attempting uninstall: mdurl
+    Found existing installation: mdurl 0.1.2
+    Uninstalling mdurl-0.1.2:
+      Successfully uninstalled mdurl-0.1.2
+  Attempting uninstall: markdown-it-py
+    Found existing installation: markdown-it-py 4.0.0
+    Uninstalling markdown-it-py-4.0.0:
+      Successfully uninstalled markdown-it-py-4.0.0
+  Attempting uninstall: rich
+    Found existing installation: rich 14.3.2
+    Uninstalling rich-14.3.2:
+      Successfully uninstalled rich-14.3.2
+Successfully installed markdown-it-py-4.0.0 mdurl-0.1.2 pygments-2.19.2 rich-14.3.2
+
+[notice] A new release of pip is available: 24.0 -> 26.0.1
+[notice] To update, run: pip install --upgrade pip
+
+────────────────────────────────────────────────────────────────────────────────────────
+
+[07:40:40] ❗️ installer returned a non-zero exit code
+[07:40:40] ❗️ Error during processing dependencies! Please fix the error and push an update, or try restarting the app.
+[07:41:39] 🐙 Pulling code changes from Github...
+[07:41:41] 📦 Processing dependencies...
+
+──────────────────────────────────────── uv ───────────────────────────────────────────
+
+Using uv pip install.
+Using Python 3.11.14 environment at /home/adminuser/venv
+Resolved 37 packages in 397ms
+Prepared 37 packages in 1.50s
+Installed 37 packages in 67ms
+ + [2026-02-15 07:41:43.370130] altair==6.0.0
+ + attrs==25.4.0
+ + blinker==1.9.0
+ + cachetools==6.2.6
+ + certifi==2026.1.4
+ + charset-normalizer==3.4.4
+ + click==8.3.1
+ + gitdb==4.0.12
+ + gitpython==3.1.46
+ + idna==3.11
+ + jinja2==3.1.6
+ + jsonschema==4.26.0
+ + jsonschema-specifications==2025.9.1
+ + markupsafe==3.0.3
+ [2026-02-15 07:41:43.370402] + narwhals==2.16.0
+ + numpy==2.4.2
+ + packaging==26.0
+ + pandas==2.3.3
+ + pillow==12.1.1
+ + protobuf==6.33.5
+ + pyarrow==23.0.0
+ + pydeck==0.9.1[2026-02-15 07:41:43.370684] 
+ + python-dateutil==2.9.0.post0
+ + pytz==2025.2
+ + referencing==0.37.0
+ + requests==2.32.5
+ + rpds-py==0.30.0
+ + six==1.17.0
+ + smmap==5.0.2
+ [2026-02-15 07:41:43.370922] + streamlit==1.54.0
+ + tenacity==9.1.4
+ + toml==0.10.2
+ + tornado==6.5.4
+ + typing-extensions==4.15.0
+ + tzdata==2025.3
+ + urllib3==2.6.3
+ +[2026-02-15 07:41:43.371084]  watchdog==6.0.0
+Checking if Streamlit is installed
+Found Streamlit version 1.54.0 in the environment
+Installing rich for an improved exception logging
+Using uv pip install.
+Using Python 3.11.14 environment at /home/adminuser/venv
+Audited 1 package in 2ms
+
+────────────────────────────────────────────────────────────────────────────────────────
+
+[07:41:44] 🐍 Python dependencies were installed from /mount/src/quizz/requirements.txt using uv.
+[07:41:44] 📦 Processed dependencies!
+
+
+
+[07:41:47] 🔄 Updated app!
+[07:41:47] ❗️ The service has encountered an error while checking the health of the Streamlit app: Get "http://localhost:8501/healthz": dial tcp 127.0.0.1:8501: connect: connection refused
+[08:01:01] 🐙 Pulling code changes from Github...
+[08:01:02] 📦 Processing dependencies...
+[08:01:02] 📦 Processed dependencies!
+[08:01:04] 🔄 Updated app!

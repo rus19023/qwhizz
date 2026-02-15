@@ -1,4 +1,24 @@
+import os
+import sys
+from pathlib import Path
 import streamlit as st
+
+st.write("### Debug startup")
+st.write("Python:", sys.version)
+st.write("Working dir:", os.getcwd())
+
+# Show what files exist in the deployed repo
+root = Path(__file__).resolve().parent
+st.write("Repo root:", str(root))
+st.write("Repo files:", sorted([p.name for p in root.iterdir()])[:50])
+
+# Check critical folders
+for folder in ["ui", "core", "data", "theme_switcher"]:
+    st.write(f"{folder} exists:", (root / folder).exists())
+
+# Check secrets
+st.write("Has MONGO_URI secret:", "MONGO_URI" in st.secrets)
+
 
 # Page configuration MUST be first
 st.set_page_config(
