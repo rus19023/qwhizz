@@ -1,183 +1,420 @@
 # ui/study_tab.py
 
 import streamlit as st
-import time
 import random
-from core.study_modes import get_mode_config
-from core.scoring import calculate_points
-from core.answer_checking import check_answer
-from ui.components import (
-    flashcard_box, controls, answer_buttons, commit_buttons,
-    quiz_input, timer_display
+from core.study_modes import get_mode_config, is_game_mode
+from core.game_mode_logic import (
+    generate_multiple_choice_options,
+    generate_multi_select_options,
+    check_multiple_choice_answer,
+    check_multi_select_answer,
+    check_true_false_answer,
+    check_typed_answer
 )
-from data.user_store import update_user_score, log_study_session
+from ui.components import (
+    flashcard_box,
+    controls,
+    answer_buttons,
+    commit_buttons,
+    quiz_input,
+    multiple_choice_buttons,
+    multi_select_checkboxes,
+    true_false_buttons,
+    display_question_with_image,
+    points_info,
+    user_stats
+)
+from data.card_format import get_card_type
+from data.user_store import update_user_score
+from core.quiz_generator import generate_true_false_statement
 
 
-def render_study_tab(cards, deck_name, username, study_mode, init_state_func):
-    """Render the study flashcards tab"""
+def render_study_tab(cards, deck_name, username, study_mode, init_state):
+    """
+    Main study tab rendering function
+    
+    Args:
+        cards: List of flashcard dicts
+        deck_name: Name of current deck
+        username: Logged in username
+        study_mode: Current study mode key
+        init_state: Function to initialize session state
+    """
     
     if not cards:
-        st.warning(f"The deck is empty. Add some cards in the 'Add Card' tab!")
+        st.warning("No cards in this deck. Add some cards to get started!")
         return
     
-    init_state_func(cards)
+    # Initialize state
+    init_state(cards)
+    
+    # Before trying to access it, check if it exists:
+    if 'current_card_index' not in st.session_state:
+        st.session_state.current_card_index = 0
+
+    current_idx = st.session_state.current_card_index
+    
+    # Get current card
+    current_idx = st.session_state.current_card_index
+    current_card = cards[current_idx]
+
+    card_type = get_card_type(current_card)
+    if card_type == "essay":
+        render_essay_mode(current_card, username)
+        return
+
+    
+    # Get mode configuration
     mode_config = get_mode_config(study_mode)
     
-    # Initialize session variables
-    if "session_streak" not in st.session_state:
-        st.session_state.session_streak = 0
-    if "card_start_time" not in st.session_state:
-        st.session_state.card_start_time = time.time()
-    if "committed_answer" not in st.session_state:
-        st.session_state.committed_answer = None
-    if "is_verification" not in st.session_state:
-        st.session_state.is_verification = random.random() < mode_config["verification_rate"]
-
-    card = st.session_state.cards[st.session_state.index]
+    # Display points info
+    points_info()
     
-    # Show verification badge
-    if st.session_state.is_verification:
-        st.info("🔍 This is a verification question - answer will be checked!")
+    # Progress bar
+    st.progress((current_idx + 1) / len(cards))
+    st.caption(f"Card {current_idx + 1} of {len(cards)}")
+
+    # === ROUTE TO APPROPRIATE STUDY MODE ===
+    
+    if study_mode == "flashcard":
+        render_flashcard_mode(current_card, username)
+    
+    elif study_mode == "multiple_choice":
+        render_multiple_choice_mode(current_card, cards, username)
+    
+    elif study_mode == "multi_select":
+        render_multi_select_mode(current_card, cards, username)
+    
+    elif study_mode == "true_false":
+        render_true_false_mode(current_card, username)
+    
+    elif study_mode == "quiz":
+        render_quiz_mode(current_card, username)
+    
+    elif study_mode == "commit":
+        render_commit_mode(current_card, username)
+    
+    elif study_mode == "hardcore":
+        render_hardcore_mode(current_card, username)
+    
+    else:
+        st.error(f"Unknown study mode: {study_mode}")
+
+
+# ============================================================================
+# MODE RENDERERS
+# ============================================================================
+
+def render_flashcard_mode(card, username):
+    """Traditional flashcard with flip"""
+    
+    # Display question (with optional image)
+    image_url = card.get("image_url")
+    if image_url:
+        display_question_with_image(card["question"], image_url)
+    else:
+        flashcard_box(card["question"])
+    
+    # Show answer if flipped
+    if st.session_state.get("flipped", False):
+        st.success("**Answer:**")
+        flashcard_box(card["answer"])
+        
+        # Answer buttons
+        answer_buttons(
+            on_correct=lambda: handle_answer(True, username),
+            on_incorrect=lambda: handle_answer(False, username)
+        )
+    else:
+        # Control buttons
+        controls()
+
+
+def render_multiple_choice_mode(card, all_cards, username):
+    """Multiple choice mode (single correct answer)"""
+    
+    # Initialize game state for this card if needed
+    if "mc_options" not in st.session_state or st.session_state.get("mc_card_id") != id(card):
+        options, correct_idx = generate_multiple_choice_options(card, all_cards, num_options=4)
+        st.session_state.mc_options = options
+        st.session_state.mc_correct_index = correct_idx
+        st.session_state.mc_card_id = id(card)
+        st.session_state.mc_answered = False
+        st.session_state.mc_user_answer = None
     
     # Display question
-    if not st.session_state.show_answer:
-        flashcard_box(card["question"])
-        
-        if mode_config["requires_commit"]:
-            _handle_commit_mode()
-        elif mode_config["requires_typing"] or st.session_state.is_verification:
-            _handle_quiz_mode(card, deck_name, username, study_mode)
+    image_url = card.get("image_url")
+    if image_url:
+        display_question_with_image(card["question"], image_url)
+    else:
+        st.markdown(f"### {card['question']}")
+    
+    # Show options
+    def on_answer(selected_idx):
+        st.session_state.mc_user_answer = selected_idx
+        st.session_state.mc_answered = True
+        is_correct = check_multiple_choice_answer(
+            st.session_state.mc_correct_index,
+            selected_idx
+        )
+        handle_answer(is_correct, username)
+    
+    multiple_choice_buttons(
+        options=st.session_state.mc_options,
+        on_answer=on_answer,
+        correct_index=st.session_state.mc_correct_index if st.session_state.mc_answered else None,
+        show_result=st.session_state.mc_answered
+    )
+    
+    # Show result and next button
+    if st.session_state.mc_answered:
+        if st.session_state.mc_user_answer == st.session_state.mc_correct_index:
+            st.success("✓ Correct!")
         else:
-            controls()
-    else:
-        _handle_answer_display(card, deck_name, username, study_mode, mode_config)
-
-    st.write(f"Card {st.session_state.index + 1} of {len(st.session_state.cards)}")
-    st.write(f"Session Streak: {st.session_state.session_streak} 🔥")
-
-
-def _handle_commit_mode():
-    """Handle commit-before-reveal mode"""
-    if st.session_state.committed_answer is None:
-        def commit_know():
-            st.session_state.committed_answer = True
-            st.session_state.card_start_time = time.time()
+            st.error(f"✗ Incorrect. The correct answer was: {st.session_state.mc_options[st.session_state.mc_correct_index]}")
         
-        def commit_dont_know():
-            st.session_state.committed_answer = False
-            st.session_state.show_answer = True
+        st.info(f"**Full answer:** {card['answer']}")
         
-        commit_buttons(on_know=commit_know, on_dont_know=commit_dont_know)
-    else:
-        if st.button("🔄 Reveal Answer", width='stretch'):
-            st.session_state.show_answer = True
-            st.rerun()
+        if st.button("Next Card →", key="mc_next", width='stretch', type="primary"):
+            advance_to_next_card()
 
 
-def _handle_quiz_mode(card, deck_name, username, study_mode):
-    """Handle quiz/typing mode"""
-    def handle_quiz_submit(user_answer):
-        response_time = time.time() - st.session_state.card_start_time
-        is_correct, similarity = check_answer(user_answer, card["answer"])
+def render_multi_select_mode(card, all_cards, username):
+    """Multi-select mode (multiple correct answers)"""
+    
+    # Initialize game state
+    if "ms_options" not in st.session_state or st.session_state.get("ms_card_id") != id(card):
+        options, correct_indices = generate_multi_select_options(card, all_cards, num_options=6)
         
-        points = calculate_points(is_correct)
-        update_user_score(username, points, correct=is_correct, verified=st.session_state.is_verification)
-        log_study_session(username, deck_name, card["question"], response_time, is_correct, study_mode)
+        # Fallback if card doesn't have multi-select data
+        if not options:
+            st.warning("This card doesn't have multi-select data. Using flashcard mode instead.")
+            render_flashcard_mode(card, username)
+            return
         
-        st.session_state.session_streak = st.session_state.session_streak + 1 if is_correct else 0
-        st.session_state.quiz_result = {"correct": is_correct, "similarity": similarity, "user_answer": user_answer}
-        st.session_state.show_answer = True
+        st.session_state.ms_options = options
+        st.session_state.ms_correct_indices = correct_indices
+        st.session_state.ms_card_id = id(card)
+        st.session_state.ms_answered = False
+        st.session_state.ms_user_answer = None
     
-    quiz_input(on_submit=handle_quiz_submit)
-
-
-def _handle_answer_display(card, deck_name, username, study_mode, mode_config):
-    """Handle answer display and scoring"""
-    flashcard_box(card["answer"])
-    
-    if "quiz_result" in st.session_state:
-        _show_quiz_result()
-    elif mode_config["requires_commit"]:
-        _handle_commit_verification(card, deck_name, username, study_mode, mode_config)
+    # Display question
+    image_url = card.get("image_url")
+    if image_url:
+        display_question_with_image(card["question"], image_url)
     else:
-        _handle_regular_mode(card, deck_name, username, study_mode)
+        st.markdown(f"### {card['question']}")
+    
+    st.info(f"💡 Select exactly {len(st.session_state.ms_correct_indices)} correct answer(s)")
+    
+    # Show checkboxes
+    def on_submit(selected_indices):
+        st.session_state.ms_user_answer = selected_indices
+        st.session_state.ms_answered = True
+        is_correct = check_multi_select_answer(
+            st.session_state.ms_correct_indices,
+            selected_indices
+        )
+        handle_answer(is_correct, username)
+    
+    multi_select_checkboxes(
+        options=st.session_state.ms_options,
+        on_submit=on_submit,
+        correct_indices=st.session_state.ms_correct_indices if st.session_state.ms_answered else None,
+        show_result=st.session_state.ms_answered
+    )
+    
+    # Show result
+    if st.session_state.ms_answered:
+        if set(st.session_state.ms_user_answer) == set(st.session_state.ms_correct_indices):
+            st.success("✓ Correct! You selected all the right answers.")
+        else:
+            st.error("✗ Incorrect selection.")
+            correct_options = [st.session_state.ms_options[i] for i in st.session_state.ms_correct_indices]
+            st.write(f"**Correct answers were:** {', '.join(correct_options)}")
+        
+        st.info(f"**Explanation:** {card['answer']}")
+        
+        if st.button("Next Card →", key="ms_next", width='stretch', type="primary"):
+            advance_to_next_card()
 
 
-def _show_quiz_result():
-    """Show quiz mode results"""
-    result = st.session_state.quiz_result
-    if result["correct"]:
-        st.success(f"✓ Correct! (Match: {result['similarity']*100:.0f}%)")
+def render_true_false_mode(card, username):
+    """True/False mode"""
+
+    # If this isn't a true/false card, generate one dynamically
+    if get_card_type(card) != "true_false":
+        if "tf_generated" not in st.session_state or st.session_state.get("tf_card_id") != id(card):
+            is_true = random.random() > 0.5
+            statement = generate_true_false_statement(
+                card["question"],
+                card["answer"],
+                is_true=is_true
+            )
+
+            st.session_state.tf_generated = {
+                "question": statement,
+                "answer": card["answer"],
+                "correct_answer": is_true
+            }
+
+        card = st.session_state.tf_generated
+
+    # Initialize state
+    if "tf_answered" not in st.session_state or st.session_state.get("tf_card_id") != id(card):
+        st.session_state.tf_card_id = id(card)
+        st.session_state.tf_answered = False
+        st.session_state.tf_user_answer = None
+        st.session_state.tf_correct = card["correct_answer"]
+
+    # Display question
+    st.markdown(f"### {card['question']}")
+
+    def on_answer(user_answer):
+        st.session_state.tf_user_answer = user_answer
+        st.session_state.tf_answered = True
+        is_correct = (user_answer == st.session_state.tf_correct)
+        handle_answer(is_correct, username)
+
+    true_false_buttons(
+        on_answer=on_answer,
+        correct_answer=st.session_state.tf_correct if st.session_state.tf_answered else None,
+        show_result=st.session_state.tf_answered
+    )
+
+    if st.session_state.tf_answered:
+        if st.session_state.tf_user_answer == st.session_state.tf_correct:
+            st.success("✓ Correct!")
+        else:
+            st.error(
+                f"✗ Incorrect. The correct answer was: "
+                f"{'TRUE' if st.session_state.tf_correct else 'FALSE'}"
+            )
+
+        st.info(f"**Explanation:** {card['answer']}")
+
+        if st.button("Next Card →", key="tf_next", type="primary", width='stretch'):
+            advance_to_next_card()
+
+
+
+def render_quiz_mode(card, username):
+    """Quiz mode - type your answer"""
+    
+    # Display question
+    image_url = card.get("image_url")
+    if image_url:
+        display_question_with_image(card["question"], image_url)
     else:
-        st.error(f"✗ Incorrect. You answered: {result['user_answer']}")
+        flashcard_box(card["question"])
     
-    if st.button("➡️ Next Card", width='stretch'):
-        _next_card()
-
-
-def _handle_commit_verification(card, deck_name, username, study_mode, mode_config):
-    """Handle commit mode verification"""
-    elapsed = time.time() - st.session_state.card_start_time
-    can_answer = elapsed >= mode_config["min_delay"]
-    
-    if not can_answer:
-        timer_display(st.session_state.card_start_time, mode_config["min_delay"])
-    
-    if st.session_state.committed_answer:
-        st.info("✓ You said you knew this - were you right?")
+    # Show input or result
+    if not st.session_state.get("quiz_answered", False):
+        def on_submit(user_answer):
+            is_correct, similarity = check_typed_answer(card["answer"], user_answer)
+            st.session_state.quiz_answered = True
+            st.session_state.quiz_user_answer = user_answer
+            st.session_state.quiz_similarity = similarity
+            handle_answer(is_correct, username)
+        
+        quiz_input(on_submit)
     else:
-        st.warning("✗ You said you didn't know this")
-    
-    def handle_was_correct():
-        _record_answer(card, deck_name, username, study_mode, st.session_state.committed_answer)
-        _next_card()
-    
-    def handle_was_incorrect():
-        _record_answer(card, deck_name, username, study_mode, False)
-        _next_card()
-    
-    answer_buttons(on_correct=handle_was_correct, on_incorrect=handle_was_incorrect, disabled=not can_answer)
+        st.write(f"**Your answer:** {st.session_state.quiz_user_answer}")
+        st.write(f"**Correct answer:** {card['answer']}")
+        st.write(f"**Similarity:** {st.session_state.quiz_similarity*100:.1f}%")
+        
+        if st.session_state.quiz_similarity >= 0.8:
+            st.success("✓ Correct!")
+        else:
+            st.error("✗ Not quite right")
+        
+        if st.button("Next Card →", width='stretch', type="primary"):
+            st.session_state.quiz_answered = False
+            advance_to_next_card()
 
 
-def _handle_regular_mode(card, deck_name, username, study_mode):
-    """Handle regular flashcard mode"""
-    def handle_correct():
-        _record_answer(card, deck_name, username, study_mode, True)
-        _next_card()
+def render_commit_mode(card, username):
+    """Commit mode - commit before seeing answer"""
     
-    def handle_incorrect():
-        _record_answer(card, deck_name, username, study_mode, False)
-        _next_card()
+    flashcard_box(card["question"])
     
-    answer_buttons(on_correct=handle_correct, on_incorrect=handle_incorrect)
-
-
-def _record_answer(card, deck_name, username, study_mode, correct):
-    """Record answer and update score"""
-    response_time = time.time() - st.session_state.card_start_time
-    points = calculate_points(correct)
-    update_user_score(username, points, correct=correct, verified=st.session_state.is_verification)
-    log_study_session(username, deck_name, card["question"], response_time, correct, study_mode)
-    
-    if correct:
-        st.session_state.session_streak += 1
+    if not st.session_state.get("committed", False):
+        commit_buttons(
+            on_know=lambda: commit_answer(True, username),
+            on_dont_know=lambda: commit_answer(False, username)
+        )
     else:
-        st.session_state.session_streak = 0
+        st.success("**Answer:**")
+        flashcard_box(card["answer"])
+        
+        if st.button("Next Card →", width='stretch'):
+            st.session_state.committed = False
+            advance_to_next_card()
 
 
-def _next_card():
+def render_hardcore_mode(card, username):
+    """Hardcore mode - all features enabled"""
+    # Similar to quiz + commit mode
+    st.info("🔥 Hardcore Mode: Type your answer AND commit time!")
+    render_quiz_mode(card, username)
+
+def render_essay_mode(card, username):
+    """Essay mode: user writes response, then can reveal rubric/expected points."""
+    st.markdown(f"### {card['question']}")
+    st.caption("✍️ Write your response below. This is self-graded (rubric shown after).")
+
+    user_text = st.text_area("Your answer", key=f"essay_{id(card)}", height=180)
+
+    col1, col2 = st.columns(2)
+    with col1:
+        if st.button("I wrote an answer", width='stretch', type="primary"):
+            # Give participation points (optional). If you prefer no points, remove this.
+            handle_answer(True, username)
+
+    with col2:
+        if st.button("Show rubric", width='stretch'):
+            st.info(f"**Rubric / key ideas:** {card.get('answer', '')}")
+
+    if st.button("Next Card →", width='stretch'):
+        advance_to_next_card()
+
+
+
+# ============================================================================
+# HELPER FUNCTIONS
+# ============================================================================
+
+def handle_answer(is_correct, username):
+    """Handle answer and update score"""
+    from core.scoring import calculate_points
+    
+    # Calculate points
+    points = calculate_points(is_correct)
+    
+    # Update score
+    update_user_score(username, points, is_correct)
+    
+    # Update streak
+    if is_correct:
+        st.session_state.current_streak = st.session_state.get("current_streak", 0) + 1
+    else:
+        st.session_state.current_streak = 0
+
+
+def commit_answer(knew_it, username):
+    """Handle commit action"""
+    st.session_state.committed = True
+    handle_answer(knew_it, username)
+
+
+def advance_to_next_card():
     """Move to next card and reset state"""
-    st.session_state.index = (st.session_state.index + 1) % len(
-        st.session_state.cards)
-    st.session_state.show_answer = False
-    st.session_state.card_start_time = time.time()
-    st.session_state.committed_answer = None
-    from core.study_modes import get_mode_config, STUDY_MODES
-    mode_key = st.session_state.get("study_mode", "flashcard")
-    mode_config = get_mode_config(mode_key)
-    st.session_state.is_verification = random.random() < mode_config[
-        "verification_rate"]
+    st.session_state.current_card_index = (st.session_state.current_card_index + 1) % len(st.session_state.cards)
+    st.session_state.flipped = False
     
-    if "quiz_result" in st.session_state:
-        del st.session_state.quiz_result
+    # Clear game mode states
+    for key in ["mc_answered", "ms_answered", "tf_answered", "quiz_answered", "committed"]:
+        if key in st.session_state:
+            del st.session_state[key]
+    
     st.rerun()

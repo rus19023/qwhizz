@@ -5,7 +5,12 @@ import time
 from core.flashcard_logic import flip_card, next_card
 
 
-def flashcard_box(text):
+def flashcard_box(text, image_url=None):
+    """Display flashcard with optional image"""
+    if image_url:
+        st.image(image_url, width='stretch')
+        st.markdown("---")
+    
     st.markdown(
         f"""
         <div style="
@@ -29,18 +34,18 @@ def controls():
     col1, col2 = st.columns(2)
     with col1:
         st.button(
-                "🔄 Flip", 
-                key="flip_btn", 
-                on_click=flip_card, 
-                width='stretch'
-            )
+            "🔄 Flip", 
+            key="flip_btn", 
+            on_click=flip_card, 
+            width='stretch'
+        )
     with col2:
         st.button(
-                "➡️ Next", 
-                key="next_btn", 
-                on_click=next_card, 
-                width='stretch'
-            )
+            "➡️ Next", 
+            key="next_btn", 
+            on_click=next_card, 
+            width='stretch'
+        )
 
 
 def answer_buttons(on_correct, on_incorrect, disabled=False):
@@ -48,21 +53,21 @@ def answer_buttons(on_correct, on_incorrect, disabled=False):
     col1, col2 = st.columns(2)
     with col1:
         st.button(
-                "✓ Got it!", 
-                key="correct_btn", 
-                on_click=on_correct, 
-                width='stretch', 
-                type="primary", 
-                disabled=disabled
-            )
+            "✓ Got it!", 
+            key="correct_btn", 
+            on_click=on_correct, 
+            width='stretch', 
+            type="primary", 
+            disabled=disabled
+        )
     with col2:
         st.button(
-                "✗ Need practice", 
-                key="incorrect_btn", 
-                on_click=on_incorrect, 
-                width='stretch', 
-                disabled=disabled
-            )
+            "✗ Need practice", 
+            key="incorrect_btn", 
+            on_click=on_incorrect, 
+            width='stretch', 
+            disabled=disabled
+        )
 
 
 def commit_buttons(on_know, on_dont_know):
@@ -70,19 +75,19 @@ def commit_buttons(on_know, on_dont_know):
     col1, col2 = st.columns(2)
     with col1:
         st.button(
-                "✓ I know this", 
-                key="know_btn", 
-                on_click=on_know, 
-                width='stretch', 
-                type="primary"
-            )
+            "✓ I know this", 
+            key="know_btn", 
+            on_click=on_know, 
+            width='stretch', 
+            type="primary"
+        )
     with col2:
         st.button(
-                "✗ I don't know", 
-                key="dont_know_btn", 
-                on_click=on_dont_know, 
-                width='stretch'
-            )
+            "✗ I don't know", 
+            key="dont_know_btn", 
+            on_click=on_dont_know, 
+            width='stretch'
+        )
 
 
 def quiz_input(on_submit):
@@ -90,10 +95,10 @@ def quiz_input(on_submit):
     with st.form("quiz_answer_form", clear_on_submit=True):
         user_answer = st.text_input("Your answer:", key="quiz_input")
         submitted = st.form_submit_button(
-                "Submit Answer", 
-                width='stretch', 
-                type="primary"
-            )   
+            "Submit Answer", 
+            width='stretch', 
+            type="primary"
+        )   
         if submitted:
             on_submit(user_answer)
 
@@ -103,9 +108,7 @@ def timer_display(start_time, min_delay):
     elapsed = time.time() - start_time
     remaining = max(0, min_delay - elapsed)
     if remaining > 0:
-        st.warning(
-                f"⏳ Please wait {remaining:.1f} seconds before answering..."
-            )
+        st.warning(f"⏳ Please wait {remaining:.1f} seconds before answering...")
         return False
     else:
         st.success("✅ You can answer now")
@@ -125,14 +128,11 @@ def user_stats(user_data):
         st.metric("Accuracy", f"{accuracy:.1f}%")
     with col4:
         st.metric("Current Streak", user_data["current_streak"])
+    
     # Verification stats if available
-    verif_total = user_data.get(
-            "verification_passed", 
-            0
-        ) + user_data.get("verification_failed", 0)
+    verif_total = user_data.get("verification_passed", 0) + user_data.get("verification_failed", 0)
     if verif_total > 0:
-        verif_accuracy = (
-                user_data.get("verification_passed", 0) / verif_total * 100)
+        verif_accuracy = (user_data.get("verification_passed", 0) / verif_total * 100)
         st.caption(
             f"Verification Accuracy: {verif_accuracy:.1f}% "
             f"({user_data.get('verification_passed', 0)}/{verif_total})"
@@ -145,6 +145,7 @@ def leaderboard(users_list):
     if not users_list:
         st.info("No users yet. Be the first to study!")
         return
+    
     # Prepare data for table
     leaderboard_data = []
     for idx, user in enumerate(users_list, 1):
@@ -183,7 +184,7 @@ def mode_selector():
         "Select mode:",
         options=list(mode_options.keys()),
         format_func=lambda x: mode_options[x],
-        key="study_mode"
+        key="study_mode_selector"
     )
     
     # Show mode description
@@ -193,32 +194,142 @@ def mode_selector():
     return selected_mode
 
 
-# Add to ui/components.py
-
-def multiple_choice_buttons(options, on_answer):
-    """Display multiple choice buttons"""
+def multiple_choice_buttons(options, on_answer, correct_index=None, show_result=False):
+    """
+    Display multiple choice buttons (up to 10 options)
+    
+    Args:
+        options: List of option strings (up to 10)
+        on_answer: Callback function(selected_index)
+        correct_index: Index of correct answer (for showing results)
+        show_result: Whether to show if answer was correct/incorrect
+    """
     st.write("**Choose the correct answer:**")
     
+    # Support up to 10 options
+    num_options = min(len(options), 10)
+    
+    # Use 2 columns for clean layout
     cols = st.columns(2)
-    for idx, option in enumerate(options):
+    
+    for idx in range(num_options):
         with cols[idx % 2]:
+            button_label = f"{chr(65 + idx)}. {options[idx]}"
+            
+            # Determine button type based on result
+            button_type = "secondary"
+            if show_result and correct_index is not None:
+                if idx == correct_index:
+                    button_type = "primary"
+                    button_label += " ✓"
+            
             if st.button(
-                f"{chr(65 + idx)}. {option}", 
+                button_label,
                 key=f"mc_option_{idx}",
-                width='stretch'
+                width='stretch',
+                type=button_type,
+                disabled=show_result
             ):
                 on_answer(idx)
 
 
-def true_false_buttons(on_answer):
-    """Display true/false buttons"""
+def multi_select_checkboxes(options, on_submit, correct_indices=None, show_result=False):
+    """
+    Display multi-select checkboxes for questions with multiple correct answers
+    
+    Args:
+        options: List of option strings (up to 10)
+        on_submit: Callback function(selected_indices_list)
+        correct_indices: List of correct answer indices (for showing results)
+        show_result: Whether to show if answers were correct/incorrect
+    """
+    st.write("**Select ALL correct answers:**")
+    
+    with st.form("multi_select_form", clear_on_submit=False):
+        selected = []
+        
+        num_options = min(len(options), 10)
+        
+        for idx in range(num_options):
+            label = f"{chr(65 + idx)}. {options[idx]}"
+            
+            # Add indicators if showing results
+            if show_result and correct_indices is not None:
+                if idx in correct_indices:
+                    label += " ✓"
+            
+            if st.checkbox(label, key=f"ms_option_{idx}", disabled=show_result):
+                selected.append(idx)
+        
+        submitted = st.form_submit_button(
+            "Submit Answer",
+            width='stretch',
+            type="primary",
+            disabled=show_result
+        )
+        
+        if submitted and not show_result:
+            on_submit(selected)
+
+
+def true_false_buttons(on_answer, correct_answer=None, show_result=False):
+    """
+    Display true/false buttons
+    
+    Args:
+        on_answer: Callback function(True/False)
+        correct_answer: The correct answer (True/False) for showing results
+        show_result: Whether to show if answer was correct/incorrect
+    """
     col1, col2 = st.columns(2)
+    
     with col1:
-        if st.button("✓ TRUE", key="tf_true", width='stretch', type="primary"):
+        true_type = "primary" if show_result and correct_answer else "secondary"
+        true_label = "✓ TRUE"
+        if show_result and correct_answer:
+            true_label += " ✓"
+        
+        if st.button(
+            true_label,
+            key="tf_true",
+            width='stretch',
+            type=true_type,
+            disabled=show_result
+        ):
             on_answer(True)
+    
     with col2:
-        if st.button("✗ FALSE", key="tf_false", width='stretch'):
+        false_type = "primary" if show_result and not correct_answer else "secondary"
+        false_label = "✗ FALSE"
+        if show_result and not correct_answer:
+            false_label += " ✓"
+        
+        if st.button(
+            false_label,
+            key="tf_false",
+            width='stretch',
+            type=false_type,
+            disabled=show_result
+        ):
             on_answer(False)
+
+
+def display_question_with_image(question_text, image_url=None):
+    """
+    Display question with optional image (chart, table, diagram, etc.)
+    
+    Args:
+        question_text: The question text
+        image_url: URL or file path to image
+    """
+    if image_url:
+        try:
+            st.image(image_url, caption="Question Image", width='stretch')
+            st.markdown("---")
+        except Exception as e:
+            st.warning(f"Could not load image: {e}")
+    
+    st.markdown(f"### {question_text}")
 
 
 def points_info():
@@ -234,7 +345,8 @@ def points_info():
         - Example: 3-card streak = 10 + (3 × 5) = **25 points!**
         
         **Game Modes:**
-        - Multiple Choice: Full points
+        - Multiple Choice: Full points (single correct answer)
+        - Multi-Select: Full points (all correct answers required)
         - True/False: Full points
         - Typed answers: Full points + verification credit
         - Flashcard mode: Full points (honor system)

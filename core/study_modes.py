@@ -59,3 +59,13 @@ STUDY_MODES = {
 def get_mode_config(mode_key):
     """Get configuration for a study mode"""
     return STUDY_MODES.get(mode_key, STUDY_MODES["flashcard"])
+
+def is_game_mode(mode_key: str) -> bool:
+    """Return True if the mode is a game-style mode."""
+    return mode_key in {
+        "multiple_choice",
+        "multi_select",
+        "true_false",
+        "quiz",
+        "hardcore"
+    }

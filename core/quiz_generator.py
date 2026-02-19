@@ -3,10 +3,6 @@
 import random
 from difflib import SequenceMatcher
 
-from core.quiz_generator import create_multiple_choice_question, create_true_false_question
-
-mc_q = create_multiple_choice_question(cards[0], cards)
-tf_q = create_true_false_question(cards[0])
 
 
 def generate_fake_answers(correct_answer, all_answers, count=3):

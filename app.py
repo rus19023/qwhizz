@@ -3,8 +3,18 @@ import sys
 from pathlib import Path
 import streamlit as st
 import pymongo
+import subprocess
+token = st.secrets["GITHUB_TOKEN"]
+subprocess.run([f"pip install git+https://{token}@github.com/rus19023/theme_switcher.git"], shell=True)
 
-import streamlit as st
+
+# Page configuration MUST be first
+st.set_page_config(
+    page_title="Study Gamified",
+    page_icon="🗝🗝",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
 
 # Force sidebar to always be visible
 st.markdown("""
@@ -32,14 +42,6 @@ button[kind="header"],
 </style>
 """, unsafe_allow_html=True)
 
-# Page configuration MUST be first
-st.set_page_config(
-    page_title="Study Gamified",
-    page_icon="🗝🗝",
-    layout="wide",
-    initial_sidebar_state="expanded"
-)
-
 
 # Core functionality
 from core.state import init_state
@@ -59,14 +61,18 @@ from ui.admin_tab import render_admin_tab
 from data.deck_store import get_deck_names, get_deck
 from data.user_store import get_user, get_leaderboard
 
+
+from theme_switcher import quick_theme_setup
+
+quick_theme_setup(default_theme='retro')
+#quick_theme_setup(default_theme='dragons')
+
+
 # ----------------------------
 # Authentication
 # ----------------------------
 logged_in_user = handle_authentication()
 
-# Theme setup SECOND (so it runs every time)
-from theme_switcher import quick_theme_setup
-quick_theme_setup(default_theme='dragons')
 
 if not logged_in_user:
     #st.title("🧬 Flashcard Study Mode")
