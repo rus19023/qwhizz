@@ -3,14 +3,6 @@
 import streamlit as st
 
 STUDY_MODES = {
-    "flashcard": {
-        "name": "📇 Flashcard Mode",
-        "description": "Traditional flip cards (honor system)",
-        "requires_typing": False,
-        "requires_commit": False,
-        "min_delay": 0,
-        "verification_rate": 0.1
-    },
     "multiple_choice": {
         "name": "🎯 Multiple Choice",
         "description": "Choose the correct answer from 4 options",
@@ -28,6 +20,14 @@ STUDY_MODES = {
         "min_delay": 0,
         "verification_rate": 0,
         "is_game_mode": True
+    },
+    "flashcard": {
+        "name": "📇 Flashcard Mode",
+        "description": "Traditional flip cards (honor system)",
+        "requires_typing": False,
+        "requires_commit": False,
+        "min_delay": 0,
+        "verification_rate": 0.1
     },
     "quiz": {
         "name": "✍️ Quiz Mode",

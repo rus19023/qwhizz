@@ -168,6 +168,36 @@ def render_add_card_tab():
             if image_url and image_url.strip():
                 card_data["image_url"] = image_url.strip()
             
+
+            # Feedback section
+            with st.expander("💬 Add Feedback (Optional — shown after answering)"):
+                feedback_text = st.text_area(
+                    "Explanation / Feedback",
+                    height=100,
+                    help="Shown after the student answers. Supports markdown.",
+                    key="feedback_text"
+                )
+                
+                st.write("**Images** (one URL per line):")
+                feedback_images_raw = st.text_area(
+                    "Image URLs",
+                    height=70,
+                    help="One image URL per line",
+                    key="feedback_images"
+                )
+                
+                st.write("**Reference Links:**")
+                num_links = st.number_input("Number of links", min_value=0, max_value=5, value=0, key="feedback_num_links")
+                feedback_links = []
+                for li in range(int(num_links)):
+                    lc1, lc2 = st.columns([2, 3])
+                    with lc1:
+                        link_label = st.text_input(f"Label {li+1}", key=f"feedback_link_label_{li}")
+                    with lc2:
+                        link_url = st.text_input(f"URL {li+1}", key=f"feedback_link_url_{li}")
+                    if link_url.strip():
+                        feedback_links.append({"label": link_label.strip(), "url": link_url.strip()})
+
             # Submit button
             submitted = st.form_submit_button("➕ Add Card", type="primary", width='stretch')
             
@@ -185,6 +215,10 @@ def render_add_card_tab():
                 elif not card_data.get("answer", "").strip():
                     st.error("❌ Answer/explanation cannot be empty")
                 else:
+                    # Add feedback if present
+                    if feedback:
+                        card_data["feedback"] = feedback
+
                     # Add to deck
                     try:
                         add_card(selected_deck, card_data["question"], card_data["answer"])

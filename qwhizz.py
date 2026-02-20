@@ -2,16 +2,40 @@ import os
 import sys
 from pathlib import Path
 import streamlit as st
-import pymongo
-import subprocess
-token = st.secrets["GITHUB_TOKEN"]
-subprocess.run([f"pip install git+https://{token}@github.com/rus19023/theme_switcher.git"], shell=True)
+
+
+### TODO: THIS IS TO INSTALL THE THEME-SWITCHER/MY_MODS ###
+
+# import subprocess
+# token = st.secrets["GITHUB_TOKEN"]
+
+# subprocess.run(
+#     [
+#         sys.executable,
+#         "-m",
+#         "pip",
+#         "install",
+#         f"git+https://{st.secrets['GITHUB_TOKEN']}@github.com/rus19023/theme_switcher.git"
+#     ],
+#     check=True
+# )
+
+
+# # ----------------------------
+# # Instance config from secrets
+# # (set these per-deployment in .streamlit/secrets.toml or Streamlit Cloud secrets)
+# # ----------------------------
+# _app_config = st.secrets.get("app", {})
+# A_app_config = st.secrets["app"]  # KeyError if missing — intentional
+# APP_TITLE     = _app_config["title"]
+# APP_ICON      = _app_config["icon"]
+# DEFAULT_THEME = _app_config["theme"]
 
 
 # Page configuration MUST be first
 st.set_page_config(
-    page_title="Study Gamified",
-    page_icon="🗝🗝",
+    page_title=st.secrets["app"]["title"],
+    page_icon=st.secrets["app"]["icon"],
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -19,6 +43,9 @@ st.set_page_config(
 # Force sidebar to always be visible
 st.markdown("""
 <style>
+.block-container {
+    padding-top: 1rem;
+}
 /* Force sidebar open */
 section[data-testid="stSidebar"] {
     display: block !important;
@@ -38,6 +65,12 @@ button[kind="header"],
     display: block !important;
     opacity: 1 !important;
     z-index: 999999 !important;
+}
+/* Fix multiple choice button heights */
+div[data-testid="stButton"] button {
+    height: 80px !important;
+    white-space: normal !important;
+    overflow-y: auto !important;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -77,7 +110,7 @@ logged_in_user = handle_authentication()
 if not logged_in_user:
     #st.title("🧬 Flashcard Study Mode")
     st.info("Please login or register in the sidebar to continue.")
-    st.rerun()
+    st.stop()
 
 # Render header after login
 render_header()

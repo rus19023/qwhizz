@@ -30,11 +30,12 @@ def generate_fake_answers(correct_answer, all_answers, count=3):
 
 def _create_variation(answer):
     """Create a plausible variation of an answer"""
+    # Remove TRUE/FALSE from variations
     variations = [
-        answer + " (incorrect)",
-        "Not " + answer,
-        answer.replace("is", "is not") if "is" in answer else answer + " variation",
-        answer.split()[0] if len(answer.split()) > 1 else answer + " alternative"
+        f"Incorrect: {answer}",
+        f"Similar to {answer}",
+        f"Related: {answer.split()[0] if len(answer.split()) > 1 else answer}",
+        f"Alternative explanation"
     ]
     return random.choice(variations)
 

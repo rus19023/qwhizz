@@ -14,21 +14,68 @@ def flashcard_box(text, image_url=None):
     st.markdown(
         f"""
         <div style="
-            font-size:24px;
-            padding:20px;
+            font-size:20px;
             border-radius:10px;
             border:2px solid #ddd;
             text-align:center;
-            min-height:200px;
-            display:flex;
-            align-items:center;
-            justify-content:center;">
-            {text}
+            height:300px;
+            overflow-y:auto;">
+            <div style="
+                min-height:100%;
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                padding:20px;">
+                {text}
+            </div>
         </div>
         """,
         unsafe_allow_html=True
     )
 
+
+
+def feedback_box(feedback, is_correct):
+    """Display feedback box with text, images, and links after an answer"""
+    if not feedback:
+        return
+    
+    text = feedback.get('text', '').strip()
+    images = feedback.get('images', [])
+    links = feedback.get('links', [])
+    
+    # Nothing to show
+    if not text and not images and not links:
+        return
+    
+    border_color = '#28a745' if is_correct else '#dc3545'
+    bg_color = '#1a2e1a' if is_correct else '#2e1a1a'
+    label = '✓ Feedback' if is_correct else '✗ Feedback'
+    
+    st.markdown(f"""
+    <div style="border-left: 4px solid {border_color}; background: {bg_color};
+                padding: 12px 16px; border-radius: 6px; margin-top: 8px;">
+        <strong style="color: {border_color};">{label}</strong>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    if text:
+        st.markdown(text)
+    
+    for img_url in images:
+        if img_url.strip():
+            try:
+                st.image(img_url.strip(), width="stretch")
+            except Exception as e:
+                st.warning(f"Could not load image: {img_url}")
+    
+    if links:
+        st.markdown("**References:**")
+        for link in links:
+            url = link.get('url', '').strip()
+            label = link.get('label', url).strip() or url
+            if url:
+                st.markdown(f"- [{label}]({url})")
 
 def controls():
     col1, col2 = st.columns(2)

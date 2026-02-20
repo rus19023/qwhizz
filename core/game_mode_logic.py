@@ -27,8 +27,17 @@ def generate_multiple_choice_options(card, all_cards, num_options=4):
     correct_answer = card["answer"]
     options = [correct_answer]
     
-    # Get other answers as distractors
-    other_answers = [c["answer"] for c in all_cards if c["answer"] != correct_answer]
+    # Get other answers as distractors — only from same card type,
+    # excluding true/false and essay cards which make poor distractors
+    from data.card_format import get_card_type
+    current_type = get_card_type(card)
+    excluded_types = {"true_false", "essay"}
+    other_answers = [
+        c["answer"] for c in all_cards
+        if c["answer"] != correct_answer
+        and get_card_type(c) not in excluded_types
+        and get_card_type(c) == current_type
+    ]
     
     # Randomly select distractors
     num_distractors = min(num_options - 1, len(other_answers))

@@ -65,6 +65,61 @@ def render_manage_tab():
                 st.write(f"**Question:** {card['question']}")
                 st.write(f"**Answer:** {card['answer']}")
                 
+                # Show existing feedback if present
+                feedback = card.get("feedback", {})
+                if feedback:
+                    st.caption("💬 Feedback: " + feedback.get("text", "")[:80])
+
+                edit_key = f"editing_{card['index']}"
+                if st.button("✏️ Edit Feedback", key=f"edit_btn_{card['index']}"):
+                    st.session_state[edit_key] = not st.session_state.get(edit_key, False)
+                    st.rerun()
+
+                if st.session_state.get(edit_key, False):
+                    with st.form(key=f"feedback_form_{card['index']}"):
+                        st.markdown("**Edit Feedback**")
+                        existing_text = feedback.get("text", "")
+                        existing_images = "\n".join(feedback.get("images", []))
+                        existing_links = feedback.get("links", [])
+
+                        new_text = st.text_area("Explanation / Feedback", value=existing_text, height=100, key=f"fb_text_{card['index']}")
+                        new_images_raw = st.text_area("Image URLs (one per line)", value=existing_images, height=70, key=f"fb_images_{card['index']}")
+
+                        st.write("**Reference Links** (up to 3):")
+                        new_links = []
+                        for li in range(3):
+                            ex_label = existing_links[li]["label"] if li < len(existing_links) else ""
+                            ex_url = existing_links[li]["url"] if li < len(existing_links) else ""
+                            lc1, lc2 = st.columns([2, 3])
+                            with lc1:
+                                ll = st.text_input(f"Label {li+1}", value=ex_label, key=f"fb_ll_{card['index']}_{li}")
+                            with lc2:
+                                lu = st.text_input(f"URL {li+1}", value=ex_url, key=f"fb_lu_{card['index']}_{li}")
+                            if lu.strip():
+                                new_links.append({"label": ll.strip(), "url": lu.strip()})
+
+                        save_btn = st.form_submit_button("💾 Save Feedback", type="primary", width="stretch")
+                        if save_btn:
+                            from data.db import get_database
+                            new_feedback = {}
+                            if new_text.strip():
+                                new_feedback["text"] = new_text.strip()
+                            imgs = [u.strip() for u in new_images_raw.splitlines() if u.strip()]
+                            if imgs:
+                                new_feedback["images"] = imgs
+                            if new_links:
+                                new_feedback["links"] = new_links
+
+                            db = get_database()
+                            deck_doc = db.decks.find_one({"_id": manage_deck})
+                            if deck_doc:
+                                cards_list = deck_doc["cards"]
+                                cards_list[card['index']]["feedback"] = new_feedback
+                                db.decks.update_one({"_id": manage_deck}, {"$set": {"cards": cards_list}})
+                                st.session_state[edit_key] = False
+                                st.success("✅ Feedback saved!")
+                                st.rerun()
+
                 # Deletion with confirmation
                 if f"confirm_delete_{card['index']}" not in st.session_state:
                     st.session_state[f"confirm_delete_{card['index']}"] = False
@@ -81,7 +136,6 @@ def render_manage_tab():
                             if delete_card(manage_deck, card['index']):
                                 st.session_state[f"confirm_delete_{card['index']}"] = False
                                 st.success("Card deleted!")
-                                # Clear deck state to reload
                                 if "cards" in st.session_state:
                                     del st.session_state["cards"]
                                 st.rerun()
@@ -92,4 +146,4 @@ def render_manage_tab():
                             st.session_state[f"confirm_delete_{card['index']}"] = False
                             st.rerun()
     else:
-        st.info("No cards in this deck")
+        st.info("No cards in this deck")nfg

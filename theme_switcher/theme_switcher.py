@@ -173,42 +173,42 @@ class ThemeSwitcher:
         theme_state_key = f'{self.key_prefix}_current_theme'
         
         with container:
-            st.markdown(f"### {title}")
-            
-            # Create options list with theme names
-            theme_options = {key: data['name'] for key, data in self.available_themes.items()}
-            theme_keys = list(theme_options.keys())
-            theme_labels = list(theme_options.values())
-            
-            # Find current theme index
-            try:
-                current_index = theme_keys.index(st.session_state[theme_state_key])
-            except (ValueError, KeyError):
-                current_index = 0
-                st.session_state[theme_state_key] = theme_keys[0]
-            
-            # Dropdown selector with unique key
-            loc = location or "main"
-            selected_label = st.selectbox(
-                "Choose a theme:",
-                options=theme_labels,
-                index=current_index,
-                key=f"{self.key_prefix}_{loc}_selector_dropdown"
-            )
-            
-            # Get the theme key from the selected label
-            selected_theme = theme_keys[theme_labels.index(selected_label)]
-            
-            # Update session state if changed
-            if st.session_state[theme_state_key] != selected_theme:
-                st.session_state[theme_state_key] = selected_theme
-                st.rerun()
-            
-            # Show description if requested
-            if show_description:
-                theme_data = self.available_themes[st.session_state[theme_state_key]]
-                st.caption(f"_{theme_data['description']}_")
-                st.caption(f"Source: {theme_data['source']}")
+            if st.secrets["app"]["show_theme_switcher"]:
+                st.markdown(f"### {title}")                
+                # Create options list with theme names
+                theme_options = {key: data['name'] for key, data in self.available_themes.items()}
+                theme_keys = list(theme_options.keys())
+                theme_labels = list(theme_options.values())
+                
+                # Find current theme index
+                try:
+                    current_index = theme_keys.index(st.session_state[theme_state_key])
+                except (ValueError, KeyError):
+                    current_index = 0
+                    st.session_state[theme_state_key] = theme_keys[0]
+                
+                # Dropdown selector with unique key
+                loc = location or "main"
+                selected_label = st.selectbox(
+                    "Choose a theme:",
+                    options=theme_labels,
+                    index=current_index,
+                    key=f"{self.key_prefix}_{loc}_selector_dropdown"
+                )
+                
+                # Get the theme key from the selected label
+                selected_theme = theme_keys[theme_labels.index(selected_label)]
+                
+                # Update session state if changed
+                if st.session_state[theme_state_key] != selected_theme:
+                    st.session_state[theme_state_key] = selected_theme
+                    st.rerun()
+                
+                # Show description if requested
+                if show_description:
+                    theme_data = self.available_themes[st.session_state[theme_state_key]]
+                    st.caption(f"_{theme_data['description']}_")
+                    st.caption(f"Source: {theme_data['source']}")
     
     def apply_theme(self):
         """

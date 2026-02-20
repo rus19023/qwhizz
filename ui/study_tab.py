@@ -12,6 +12,7 @@ from core.game_mode_logic import (
     check_typed_answer
 )
 from ui.components import (
+    feedback_box,
     flashcard_box,
     controls,
     answer_buttons,
@@ -125,6 +126,10 @@ def render_flashcard_mode(card, username):
             on_correct=lambda: handle_answer(True, username),
             on_incorrect=lambda: handle_answer(False, username)
         )
+        
+        # Feedback box (show after answered)
+        if st.session_state.get("last_answer_correct") is not None:
+            feedback_box(card.get("feedback"), st.session_state.last_answer_correct)
     else:
         # Control buttons
         controls()
@@ -173,7 +178,9 @@ def render_multiple_choice_mode(card, all_cards, username):
         else:
             st.error(f"✗ Incorrect. The correct answer was: {st.session_state.mc_options[st.session_state.mc_correct_index]}")
         
-        st.info(f"**Full answer:** {card['answer']}")
+        st.caption("Full answer:")
+        flashcard_box(card['answer'])
+        feedback_box(card.get("feedback"), st.session_state.get("last_answer_correct"))
         
         if st.button("Next Card →", key="mc_next", width='stretch', type="primary"):
             advance_to_next_card()
@@ -233,7 +240,9 @@ def render_multi_select_mode(card, all_cards, username):
             correct_options = [st.session_state.ms_options[i] for i in st.session_state.ms_correct_indices]
             st.write(f"**Correct answers were:** {', '.join(correct_options)}")
         
-        st.info(f"**Explanation:** {card['answer']}")
+        st.caption("Explanation:")
+        flashcard_box(card['answer'])
+        feedback_box(card.get("feedback"), st.session_state.get("last_answer_correct"))
         
         if st.button("Next Card →", key="ms_next", width='stretch', type="primary"):
             advance_to_next_card()
@@ -291,7 +300,9 @@ def render_true_false_mode(card, username):
                 f"{'TRUE' if st.session_state.tf_correct else 'FALSE'}"
             )
 
-        st.info(f"**Explanation:** {card['answer']}")
+        st.caption("Explanation:")
+        flashcard_box(card['answer'])
+        feedback_box(card.get("feedback"), st.session_state.get("last_answer_correct"))
 
         if st.button("Next Card →", key="tf_next", type="primary", width='stretch'):
             advance_to_next_card()
@@ -327,6 +338,8 @@ def render_quiz_mode(card, username):
             st.success("✓ Correct!")
         else:
             st.error("✗ Not quite right")
+        
+        feedback_box(card.get("feedback"), st.session_state.get("last_answer_correct"))
         
         if st.button("Next Card →", width='stretch', type="primary"):
             st.session_state.quiz_answered = False
@@ -394,6 +407,9 @@ def handle_answer(is_correct, username):
     # Update score
     update_user_score(username, points, is_correct)
     
+    # Store for feedback display
+    st.session_state.last_answer_correct = is_correct
+    
     # Update streak
     if is_correct:
         st.session_state.current_streak = st.session_state.get("current_streak", 0) + 1
@@ -413,7 +429,7 @@ def advance_to_next_card():
     st.session_state.flipped = False
     
     # Clear game mode states
-    for key in ["mc_answered", "ms_answered", "tf_answered", "quiz_answered", "committed"]:
+    for key in ["mc_answered", "ms_answered", "tf_answered", "quiz_answered", "committed", "last_answer_correct"]:
         if key in st.session_state:
             del st.session_state[key]
     
