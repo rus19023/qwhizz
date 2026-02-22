@@ -12,7 +12,6 @@ from core.game_mode_logic import (
     check_typed_answer
 )
 from ui.components import (
-    feedback_box,
     flashcard_box,
     controls,
     answer_buttons,
@@ -27,6 +26,7 @@ from ui.components import (
 )
 from data.card_format import get_card_type
 from data.user_store import update_user_score
+from data.ponder_store import submit_ponder_response, get_user_response_for_card
 from core.quiz_generator import generate_true_false_statement
 
 
@@ -77,6 +77,10 @@ def render_study_tab(cards, deck_name, username, study_mode, init_state):
 
     # === ROUTE TO APPROPRIATE STUDY MODE ===
     
+    if card_type == "ponder":
+        render_ponder_mode(current_card, current_idx, deck_name, username)
+        return
+
     if study_mode == "flashcard":
         render_flashcard_mode(current_card, username)
     
@@ -126,10 +130,6 @@ def render_flashcard_mode(card, username):
             on_correct=lambda: handle_answer(True, username),
             on_incorrect=lambda: handle_answer(False, username)
         )
-        
-        # Feedback box (show after answered)
-        if st.session_state.get("last_answer_correct") is not None:
-            feedback_box(card.get("feedback"), st.session_state.last_answer_correct)
     else:
         # Control buttons
         controls()
@@ -178,9 +178,7 @@ def render_multiple_choice_mode(card, all_cards, username):
         else:
             st.error(f"✗ Incorrect. The correct answer was: {st.session_state.mc_options[st.session_state.mc_correct_index]}")
         
-        st.caption("Full answer:")
-        flashcard_box(card['answer'])
-        feedback_box(card.get("feedback"), st.session_state.get("last_answer_correct"))
+        st.info(f"**Full answer:** {card['answer']}")
         
         if st.button("Next Card →", key="mc_next", width='stretch', type="primary"):
             advance_to_next_card()
@@ -240,9 +238,7 @@ def render_multi_select_mode(card, all_cards, username):
             correct_options = [st.session_state.ms_options[i] for i in st.session_state.ms_correct_indices]
             st.write(f"**Correct answers were:** {', '.join(correct_options)}")
         
-        st.caption("Explanation:")
-        flashcard_box(card['answer'])
-        feedback_box(card.get("feedback"), st.session_state.get("last_answer_correct"))
+        st.info(f"**Explanation:** {card['answer']}")
         
         if st.button("Next Card →", key="ms_next", width='stretch', type="primary"):
             advance_to_next_card()
@@ -300,9 +296,7 @@ def render_true_false_mode(card, username):
                 f"{'TRUE' if st.session_state.tf_correct else 'FALSE'}"
             )
 
-        st.caption("Explanation:")
-        flashcard_box(card['answer'])
-        feedback_box(card.get("feedback"), st.session_state.get("last_answer_correct"))
+        st.info(f"**Explanation:** {card['answer']}")
 
         if st.button("Next Card →", key="tf_next", type="primary", width='stretch'):
             advance_to_next_card()
@@ -338,8 +332,6 @@ def render_quiz_mode(card, username):
             st.success("✓ Correct!")
         else:
             st.error("✗ Not quite right")
-        
-        feedback_box(card.get("feedback"), st.session_state.get("last_answer_correct"))
         
         if st.button("Next Card →", width='stretch', type="primary"):
             st.session_state.quiz_answered = False
@@ -393,6 +385,62 @@ def render_essay_mode(card, username):
 
 
 
+
+def render_ponder_mode(card, card_index, deck_name, username):
+    """Ponder mode — reflection with optional sharing."""
+    question = card.get("question", "")
+    seed_thought = card.get("seed_thought", card.get("answer", ""))
+
+    st.markdown(f"### {question}")
+
+    if seed_thought:
+        st.markdown(
+            f'''<div style="border-left:3px solid #2e6da4; padding:8px 14px;
+            background:#f0f4ff; border-radius:4px; margin-bottom:12px; color:#333;">
+            <em>{seed_thought}</em></div>''',
+            unsafe_allow_html=True
+        )
+
+    # Check if user already responded
+    existing = get_user_response_for_card(deck_name, card_index, username)
+
+    if existing:
+        st.success("✅ You have already reflected on this question.")
+        st.markdown(f"**Your response:** {existing['response_text']}")
+        st.caption(f"Shared: {'Yes (anonymous)' if existing['anonymous'] else 'Yes' if not existing['anonymous'] else 'Privately'}")
+        if st.button("Next Card →", key="ponder_next", type="primary", use_container_width=True):
+            advance_to_next_card()
+        return
+
+    with st.form(key=f"ponder_study_form_{card_index}"):
+        response_text = st.text_area(
+            "Your reflection:",
+            height=150,
+            placeholder="Write your thoughts here…"
+        )
+        col1, col2 = st.columns([2, 1])
+        with col1:
+            share = st.checkbox("Share with the group")
+        with col2:
+            anon = st.checkbox("Post anonymously", disabled=not share)
+
+        submitted = st.form_submit_button("Submit & Continue", type="primary", use_container_width=True)
+
+        if submitted:
+            if response_text.strip():
+                submit_ponder_response(
+                    deck_name=deck_name,
+                    card_index=card_index,
+                    question=question,
+                    response_text=response_text,
+                    username=username,
+                    anonymous=anon if share else True,
+                )
+                advance_to_next_card()
+            else:
+                st.warning("Please write a reflection before continuing.")
+
+
 # ============================================================================
 # HELPER FUNCTIONS
 # ============================================================================
@@ -406,9 +454,6 @@ def handle_answer(is_correct, username):
     
     # Update score
     update_user_score(username, points, is_correct)
-    
-    # Store for feedback display
-    st.session_state.last_answer_correct = is_correct
     
     # Update streak
     if is_correct:
@@ -429,7 +474,7 @@ def advance_to_next_card():
     st.session_state.flipped = False
     
     # Clear game mode states
-    for key in ["mc_answered", "ms_answered", "tf_answered", "quiz_answered", "committed", "last_answer_correct"]:
+    for key in ["mc_answered", "ms_answered", "tf_answered", "quiz_answered", "committed"]:
         if key in st.session_state:
             del st.session_state[key]
     

@@ -2,10 +2,7 @@ import os
 import sys
 from pathlib import Path
 import streamlit as st
-
-
-
-
+    
 # # ----------------------------
 # # Instance config from secrets
 # # (set these per-deployment in .streamlit/secrets.toml or Streamlit Cloud secrets)
@@ -82,7 +79,7 @@ from data.user_store import get_user, get_leaderboard
 
 from theme_switcher import quick_theme_setup
 
-quick_theme_setup(default_theme=st.secrets["app"]["theme"])
+quick_theme_setup(default_theme='retro')
 #quick_theme_setup(default_theme='dragons')
 
 

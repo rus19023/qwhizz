@@ -146,4 +146,4 @@ def render_manage_tab():
                             st.session_state[f"confirm_delete_{card['index']}"] = False
                             st.rerun()
     else:
-        st.info("No cards in this deck")nfg
+        st.info("No cards in this deck")

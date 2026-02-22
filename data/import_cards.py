@@ -112,27 +112,33 @@ def import_from_json(json_file, deck_name):
         
         for i, card in enumerate(data, start=1):
             question = card.get('question', '').strip()
+            card_type = card.get('type', 'flashcard')
+            # ponder cards don't need an answer
             answer = card.get('answer', '').strip()
             
-            if question and answer:
-                # Validate the card
-                is_valid, error_msg = validate_card(question, answer, deck_name)
-                
-                if is_valid:
-                    try:
-                        # Sanitize before adding
-                        clean_q, clean_a = sanitize_card(question, answer)
-                        add_card(
-                            deck_name=deck_name,
-                            question=clean_q,
-                            answer=clean_a
-                        )
-                        imported_count += 1
-                    except Exception as e:
-                        errors.append(f"Card {i}: Database error - {str(e)}")
-                        skipped_count += 1
-                else:
-                    errors.append(f"Card {i}: {error_msg}")
+            has_required_fields = bool(question) and (bool(answer) or card_type == 'ponder')
+
+            if has_required_fields:
+                try:
+                    from data.db import get_database
+                    db = get_database()
+                    deck_doc = db.decks.find_one({"_id": deck_name})
+                    if not deck_doc:
+                        db.decks.insert_one({"_id": deck_name, "cards": []})
+
+                    # Build full card preserving all fields
+                    full_card = {k: v for k, v in card.items()}
+                    full_card['question'] = question
+                    if answer:
+                        full_card['answer'] = answer
+
+                    db.decks.update_one(
+                        {"_id": deck_name},
+                        {"$push": {"cards": full_card}}
+                    )
+                    imported_count += 1
+                except Exception as e:
+                    errors.append(f"Card {i}: Database error - {str(e)}")
                     skipped_count += 1
             else:
                 skipped_count += 1
