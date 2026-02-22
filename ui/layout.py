@@ -3,7 +3,7 @@ import streamlit as st
 
 
 def render_header():
-    st.title("🗝 Study Gamified")
-    st.write("Built to grow with you 📈")
+    st.title(st.secrets['app']['title'])
+    st.write(st.secrets['app']['subtitle'])
 
     

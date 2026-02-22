@@ -3,7 +3,6 @@
 import streamlit as st
 from data.user_store import get_user, create_user
 
-# Theme setup (package handles its own paths automatically)
 from theme_switcher import quick_theme_setup
 
 
@@ -24,7 +23,7 @@ def handle_authentication():
     # quick_theme_setup(default_theme='retro')
 
     
-    st.sidebar.title("🗝 Study Gamified")
+    st.title("🗝 Study Gamified")
     
     # Login/Register toggle
     auth_mode = st.sidebar.radio("Select Action", ["Login", "Register"], key="auth_mode")
