@@ -23,7 +23,9 @@ def handle_authentication():
     # quick_theme_setup(default_theme='retro')
 
     
-    st.title("🗝 Study Gamified")
+    st.header(st.secrets['app']['title'])
+    st.subheader(st.secrets['app']['subtitle'])
+    st.write(st.secrets['app']['subheader'])
     
     # Login/Register toggle
     auth_mode = st.sidebar.radio("Select Action", ["Login", "Register"], key="auth_mode")

@@ -26,6 +26,13 @@ st.set_page_config(
 # Force sidebar to always be visible
 st.markdown("""
 <style>
+
+/* === HIDE STREAMLIT BRANDING === */
+MainMenu {visibility: hidden;}
+footer {visibility: hidden;}
+header {visibility: hidden;}
+.stDeployButton {display: none;}
+
 .block-container {
     padding-top: 1rem;
 }
