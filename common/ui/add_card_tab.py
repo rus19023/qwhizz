@@ -206,7 +206,7 @@ def render_add_card_tab():
             if submitted:
                 card_data["question"] = question
 
-                is_valid, error_msg = validate_card(card_data)
+                is_valid, error_msg = validate_card(card_data, card_data.get("answer", ""))
 
                 if not is_valid:
                     st.error(f"❌ Invalid card: {error_msg}")
