@@ -2,9 +2,18 @@
 
 import streamlit as st
 from data.deck_store import add_card, get_deck_names
-#from data.card_format import validate_card
+from data.card_format import validate_card
 from data.import_cards import render_import_ui
 from data.db import get_database
+
+
+# Map display names to internal keys
+CARD_TYPE_DISPLAY = {
+    "📇 Standard Flashcard": "flashcard",
+    "🎯 Multiple Choice (single answer)": "multiple_choice",
+    "☑️ Multi-Select (multiple answers)": "multi_select",
+    "✓✗ True/False": "true_false"
+}
 
 
 def render_add_card_tab():
@@ -22,18 +31,13 @@ def render_add_card_tab():
         
         selected_deck = st.selectbox("Select deck", deck_names, key="add_card_deck")
         
-        # Card type selector
-        card_type = st.selectbox(
+        # Card type selector - store display name as string to match browser cache
+        selected_display = st.selectbox(
             "Card Type",
-            options=["flashcard", "multiple_choice", "multi_select", "true_false"],
-            format_func=lambda x: {
-                "flashcard": "📇 Standard Flashcard",
-                "multiple_choice": "🎯 Multiple Choice (single answer)",
-                "multi_select": "☑️ Multi-Select (multiple answers)",
-                "true_false": "✓✗ True/False"
-            }[x],
+            options=list(CARD_TYPE_DISPLAY.keys()),
             key="card_type_selector"
         )
+        card_type = CARD_TYPE_DISPLAY.get(selected_display, "flashcard")
         
         # Create form based on card type
         with st.form("add_card_form", clear_on_submit=True):
@@ -50,7 +54,7 @@ def render_add_card_tab():
                 )
                 if image_url:
                     try:
-                        st.image(image_url, caption="Preview", width='stretch')
+                        st.image(image_url, caption="Preview")
                     except:
                         st.warning("Could not load image preview")
             
@@ -80,10 +84,11 @@ def render_add_card_tab():
                     )
                     options.append(opt)
                 
+                # Index-based to avoid format_func state bug
                 correct_index = st.selectbox(
                     "Correct answer",
-                    options=list(range(num_options)),
-                    format_func=lambda x: f"{chr(65+x)}. {options[x]}" if options[x] else f"Option {chr(65+x)}",
+                    options=range(num_options),
+                    format_func=lambda i: f"{chr(65+i)}. {options[i]}" if options[i] else f"Option {chr(65+i)}",
                     key="mc_correct"
                 )
                 
@@ -147,12 +152,14 @@ def render_add_card_tab():
             elif card_type == "true_false":
                 st.subheader("True/False")
                 
-                correct_answer = st.radio(
+                # Index-based to avoid format_func state bug
+                tf_index = st.selectbox(
                     "Correct answer",
-                    options=[True, False],
-                    format_func=lambda x: "✓ TRUE" if x else "✗ FALSE",
+                    options=[0, 1],
+                    format_func=lambda i: "✓ TRUE" if i == 0 else "✗ FALSE",
                     key="tf_correct"
                 )
+                correct_answer = (tf_index == 0)
                 
                 answer = st.text_area(
                     "Explanation",
@@ -167,7 +174,6 @@ def render_add_card_tab():
             # Add image if provided
             if image_url and image_url.strip():
                 card_data["image_url"] = image_url.strip()
-            
 
             # Feedback section
             with st.expander("💬 Add Feedback (Optional — shown after answering)"):
@@ -199,7 +205,7 @@ def render_add_card_tab():
                         feedback_links.append({"label": link_label.strip(), "url": link_url.strip()})
 
             # Submit button
-            submitted = st.form_submit_button("➕ Add Card", type="primary", width='stretch')
+            submitted = st.form_submit_button("➕ Add Card", type="primary")
             
             if submitted:
                 # Build complete card
@@ -215,7 +221,15 @@ def render_add_card_tab():
                 elif not card_data.get("answer", "").strip():
                     st.error("❌ Answer/explanation cannot be empty")
                 else:
-                    # Add feedback if present
+                    # Build feedback from form fields
+                    feedback = {}
+                    if feedback_text.strip():
+                        feedback["text"] = feedback_text.strip()
+                    imgs = [u.strip() for u in feedback_images_raw.splitlines() if u.strip()]
+                    if imgs:
+                        feedback["images"] = imgs
+                    if feedback_links:
+                        feedback["links"] = feedback_links
                     if feedback:
                         card_data["feedback"] = feedback
 
@@ -225,17 +239,12 @@ def render_add_card_tab():
                         
                         # If it's a game mode card, update with extra fields
                         if card_type != "flashcard":
-                            from data.deck_store import get_deck
-                            
                             db = get_database()
                             deck = db.decks.find_one({"_id": selected_deck})
                             
                             if deck:
-                                # Find the card we just added (last one)
                                 cards = deck["cards"]
                                 cards[-1].update(card_data)
-                                
-                                # Update in database
                                 db.decks.update_one(
                                     {"_id": selected_deck},
                                     {"$set": {"cards": cards}}
@@ -243,7 +252,6 @@ def render_add_card_tab():
                         
                         st.success(f"✅ Card added to '{selected_deck}'!")
                         
-                        # Show preview
                         with st.expander("Preview added card"):
                             st.json(card_data)
                     
@@ -251,7 +259,6 @@ def render_add_card_tab():
                         st.error(f"❌ Error adding card: {e}")
                         
     with tab2:
-        # Deck selection for import
         st.subheader("Import Cards from File")
         
         deck_option_import = st.radio(
@@ -275,35 +282,9 @@ def render_add_card_tab():
         if deck_option_import == "Create new deck":
             import_deck = st.text_input("New deck name:", key="import_new_deck_name")
         
-        # Only show import UI if deck is selected/named
         if (deck_option_import == "Add to existing deck" and existing_decks) or \
            (deck_option_import == "Create new deck" and import_deck.strip()):
             deck_name = import_deck.strip() if deck_option_import == "Create new deck" else import_deck
             render_import_ui(deck_name)
         elif deck_option_import == "Create new deck":
-            st.info("👆 Enter a deck name above to continue")                   
-
-    
-# Quick tips
-# with st.expander("💡 Tips for Creating Good Questions"):
-#         st.markdown("""
-#         **Multiple Choice:**
-#         - Make distractors plausible but clearly wrong
-#         - Keep options similar in length
-#         - Use 4-6 options for best results
-        
-#         **Multi-Select:**
-#         - Clearly indicate that multiple answers are needed
-#         - Use 4-8 total options with 2-4 correct
-#         - Make incorrect options clearly distinguishable
-        
-#         **True/False:**
-#         - Avoid absolute words like "always" and "never"
-#         - Make statements clear and unambiguous
-#         - Provide detailed explanations
-        
-#         **Images:**
-#         - Use clear, high-quality diagrams
-#         - Ensure images are publicly accessible URLs
-#         - Test image URLs before adding
-#         """)
+            st.info("Enter a deck name above to continue")

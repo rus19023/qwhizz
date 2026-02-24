@@ -79,7 +79,7 @@ def render_ponder_tab(deck_name, username):
                 if st.button("🗑️ Delete my response", key=f"del_ponder_{card_index}"):
                     delete_ponder_response(deck_name, card_index, username)
                     st.success("Response deleted.")
-                    st.rerun()
+                   #st.rerun()
             else:
                 _render_submit_form(deck_name, card_index, question, username)
 
@@ -126,7 +126,7 @@ def _render_submit_form(deck_name, card_index, question, username):
                     st.success("✅ Response saved and shared!")
                 else:
                     st.success("✅ Response saved privately.")
-                st.rerun()
+               #st.rerun()
 
 
 def _render_response_card(resp):

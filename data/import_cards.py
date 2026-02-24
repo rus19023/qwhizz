@@ -205,7 +205,7 @@ def render_import_ui(deck_name):
     
     # Process upload
     if uploaded_file is not None:
-        if st.button("Import Cards", type="primary", width='stretch'):
+        if st.button("Import Cards", type="primary"):
             with st.spinner(f"Importing cards from {uploaded_file.name}..."):
                 # Import based on format
                 if file_format == "CSV":
@@ -233,7 +233,7 @@ def render_import_ui(deck_name):
                     # Rerun to refresh the card list
                     if result['imported'] > 0:
                         st.balloons()
-                        st.rerun()
+                       #st.rerun()
                 else:
                     st.error(result['message'])
                     if result['errors']:

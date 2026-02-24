@@ -1,19 +1,7 @@
-import os
-import sys
-from pathlib import Path
+#qwhizz.py
+
+import traceback
 import streamlit as st
-
-
-# # ----------------------------
-# # Instance config from secrets
-# # (set these per-deployment in .streamlit/secrets.toml or Streamlit Cloud secrets)
-# # ----------------------------
-# _app_config = st.secrets.get("app", {})
-# A_app_config = st.secrets["app"]  # KeyError if missing — intentional
-# APP_TITLE     = _app_config["title"]
-# APP_ICON      = _app_config["icon"]
-# DEFAULT_THEME = _app_config["theme"]
-
 
 # Page configuration MUST be first
 st.set_page_config(
@@ -23,171 +11,89 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Force sidebar to always be visible
-st.markdown("""
-<style>
-
-/* === HIDE STREAMLIT BRANDING === */
-MainMenu {visibility: hidden;}
-footer {visibility: hidden;}
-header {visibility: hidden;}
-.stDeployButton {display: none;}
-
-.block-container {
-    padding-top: 1rem;
-}
-/* Force sidebar open */
-section[data-testid="stSidebar"] {
-    display: block !important;
-    visibility: visible !important;
-    transform: translateX(0) !important;
-    margin-left: 0 !important;
-}
-
-/* Make toggle button visible */
-button[kind="header"],
-[data-testid="collapsedControl"] {
-    background: #ffffff !important;
-    color: #000000 !important;
-    border: 2px solid #000000 !important;
-    padding: 8px !important;
-    visibility: visible !important;
-    display: block !important;
-    opacity: 1 !important;
-    z-index: 999999 !important;
-}
-/* Fix multiple choice button heights */
-div[data-testid="stButton"] button {
-    height: 80px !important;
-    white-space: normal !important;
-    overflow-y: auto !important;
-}
-</style>
-""", unsafe_allow_html=True)
-
-
-# Core functionality
-from core.state import init_state
-from core.scoring import calculate_points
-
-# UI components
+from theme_switcher import quick_theme_setup
+from ui.styles import apply_global_css
 from ui.layout import render_header
 from ui.auth import handle_authentication, show_user_sidebar
 from ui.components import leaderboard, mode_selector
 from ui.study_tab import render_study_tab
 from ui.stats_tab import render_stats_tab
-from ui.add_card_tab import render_add_card_tab
-from ui.manage_tab import render_manage_tab
 from ui.admin_tab import render_admin_tab
+from ui.manage_tab import render_manage_tab
+from ui.add_card_tab import render_add_card_tab
+from ui.router import TabSpec, render_tabs
 
-# Data stores
-from data.deck_store import get_deck_names, get_deck
+from core.state import init_state, reset_study_state_on_mode_change
+from data.deck_store import get_deck_names, get_deck, create_deck
 from data.user_store import get_user, get_leaderboard
 
 
-from theme_switcher import quick_theme_setup
-
-quick_theme_setup(default_theme=st.secrets["app"]["theme"])
-#quick_theme_setup(default_theme='dragons')
-
-
-# ----------------------------
-# Authentication
-# ----------------------------
-logged_in_user = handle_authentication()
+def require_login() -> str:
+    user = handle_authentication()
+    if not user:
+        st.info("Please login or register in the sidebar to continue.")
+        st.stop()
+    return user
 
 
-if not logged_in_user:
-    #st.title("🧬 Flashcard Study Mode")
-    st.info("Please login or register in the sidebar to continue.")
-    st.stop()
+def require_deck_selection() -> str:
+    deck_names = get_deck_names()
 
-# Render header after login
-render_header()
+    if not deck_names:
+        st.sidebar.warning("No decks found yet. Create your first deck:")
+        new_deck = st.sidebar.text_input("New deck name", key="new_deck_name")
 
-# Show user info in sidebar
-show_user_sidebar(logged_in_user)
+        if st.sidebar.button("Create deck", type="primary"):
+            try:
+                create_deck(new_deck)
+                st.success(f"Created deck: {new_deck.strip()}")
+                st.rerun()
+            except Exception as e:
+                st.sidebar.error(str(e))
 
-# Study mode selector
-# Line ~50 - after study_mode = mode_selector()
-study_mode = mode_selector()
+        st.stop()
 
-# Reset card state when mode changes
-if 'last_study_mode' not in st.session_state:
-    st.session_state.last_study_mode = study_mode
+    return st.sidebar.selectbox("Choose a deck", options=deck_names)
 
-if st.session_state.last_study_mode != study_mode:
-    # Mode changed - reset card state
-    st.session_state.last_study_mode = study_mode
-    if 'current_card_index' in st.session_state:
-        st.session_state.current_card_index = 0
-    if 'show_answer' in st.session_state:
-        st.session_state.show_answer = False
-    st.rerun()
+
+def main() -> None:
+    apply_global_css()
+    quick_theme_setup(default_theme=st.secrets["app"]["theme"])
+
+    logged_in_user = require_login()
+
+    render_header()
+    show_user_sidebar(logged_in_user)
+
+    study_mode = mode_selector()
+    reset_study_state_on_mode_change(study_mode)
+
+    deck_name = require_deck_selection()
+
+    st.header(study_mode)
+
+    current_user = get_user(logged_in_user)
+    if not current_user:
+        st.error("User not found")
+        st.stop()
+
     
-# Deck selection
-deck_names = get_deck_names()
+    is_admin = bool(current_user.get("is_admin", False))
 
-if not deck_names:
-    st.sidebar.warning("No decks found yet. Create your first deck:")
-    new_deck = st.sidebar.text_input("New deck name", key="new_deck_name")
-    if st.sidebar.button("Create deck", type="primary"):
-        from data.db import get_database
-        db = get_database()
-        db.decks.update_one({"_id": new_deck.strip()}, {"$set": {"cards": []}}, upsert=True)
-        st.rerun()
-    st.stop()
+    tabs = [
+        TabSpec(
+            "📚 Study",
+            lambda: render_study_tab(get_deck(deck_name), deck_name, logged_in_user, study_mode, init_state)
+        ),
+        TabSpec("📊 Stats", lambda: render_stats_tab(current_user)),
+        TabSpec("🏆 Leaderboard", lambda: leaderboard(get_leaderboard(limit=10))),
+        TabSpec("🛡️ Admin", lambda: render_admin_tab(), admin_only=True),
+        TabSpec("🗂️ Manage Decks", lambda: render_manage_tab(), admin_only=True),
+        TabSpec("➕ Add Card", lambda: render_add_card_tab(), admin_only=True),
+    ]
 
-deck_name = st.sidebar.selectbox("Choose a deck", options=deck_names)
+    render_tabs(tabs, is_admin=is_admin)
 
 
-# ----------------------------
-# Main Page
-# ----------------------------
-st.header(study_mode)
-
-current_user = get_user(logged_in_user)
-
-if not current_user:
-    st.error("User not found")
-    st.rerun()
-
-cards = get_deck(deck_name)
-
-# ----------------------------
-# Tabs
-# ----------------------------
-# ----------------------------
-# Tabs
-# ----------------------------
-tabs = ["📚 Study", "📊 Stats", "🏆 Leaderboard"]
-
-is_admin = current_user.get("is_admin", False)
-if is_admin:
-    tabs += ["🛡️ Admin", "🗂️ Manage Decks", "➕ Add Card"]
-
-tab_objects = st.tabs(tabs)
-
-# Tab 1: Study
-with tab_objects[0]:
-    render_study_tab(cards, deck_name, logged_in_user, study_mode, init_state)
-
-# Tab 2: Stats
-with tab_objects[1]:
-    render_stats_tab(current_user)
-
-# Tab 3: Leaderboard
-with tab_objects[2]:
-    top_users = get_leaderboard(limit=10)
-    leaderboard(top_users)
-
-# Admin-only tabs
-if is_admin:
-    with tab_objects[3]:
-        render_admin_tab()
-
-    with tab_objects[4]:
-        render_manage_tab()
-
-    with tab_objects[5]:
-        render_add_card_tab()
+if __name__ == "__main__":
+    main()

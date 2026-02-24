@@ -1,1 +1,3 @@
-import qwhizz
+# dnaapp.py
+
+

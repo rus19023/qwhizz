@@ -33,16 +33,16 @@ def render_admin_tab():
                     if st.button("🚩 Flag User", key=f"flag_{item['username']}"):
                         flag_user(item['username'])
                         st.success("User flagged!")
-                        st.rerun()
+                       #st.rerun()
                 with col2:
                     if st.button("✓ Clear Flag", key=f"unflag_{item['username']}"):
                         unflag_user(item['username'])
                         st.success("Flag cleared!")
-                        st.rerun()
+                       #st.rerun()
                 with col3:
                     if st.button("🔄 Reset Score", key=f"reset_{item['username']}"):
                         reset_user_score(item['username'])
                         st.success("Score reset!")
-                        st.rerun()
+                       #st.rerun()
     else:
         st.success("No suspicious activity detected!")

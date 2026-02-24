@@ -1,0 +1,1916 @@
+2026-02-24 03:37:08.936 No ASGI app assignments found in /Volumes/SSKDrive/streamlit/quizz/dnaapp.py
+2026-02-24 03:37:09.167 Filtered 232 packages down to 15 candidates for component scanning
+2026-02-24 03:37:09.167 Scanning 15 candidate packages for component manifests using 12 worker threads
+2026-02-24 03:37:09.183 Found 0 component manifests total
+2026-02-24 03:37:09.183 No asset roots to watch
+2026-02-24 03:37:09.183 File watching not started
+2026-02-24 03:37:09.183 Starting new event loop for server
+2026-02-24 03:37:09.184 Starting server...
+2026-02-24 03:37:09.184 Serving static content from /Users/drushlopez/.pyenv/versions/3.11.10/lib/python3.11/site-packages/streamlit/static
+2026-02-24 03:37:09.610 Server started on port 8501
+2026-02-24 03:37:09.610 Runtime state: RuntimeState.INITIAL -> RuntimeState.NO_SESSIONS_CONNECTED
+
+  You can now view your Streamlit app in your browser.
+
+  Local URL: http://localhost:8501
+  Network URL: http://192.168.8.168:8501
+  External URL: http://174.167.27.216:8501
+
+2026-02-24 03:37:09.787 Setting up signal handler
+2026-02-24 03:37:10.721 No singleton. Registering one.
+2026-02-24 03:37:10.725 Watcher created for /Volumes/SSKDrive/streamlit/quizz/dnaapp.py
+2026-02-24 03:37:10.725 AppSession initialized (id=239556f5-8b6e-4549-ba75-3e15602f8b0f)
+2026-02-24 03:37:10.725 Created new session for client 4496976336. Session ID: 239556f5-8b6e-4549-ba75-3e15602f8b0f
+2026-02-24 03:37:10.725 Runtime state: RuntimeState.NO_SESSIONS_CONNECTED -> RuntimeState.ONE_OR_MORE_SESSIONS_CONNECTED
+2026-02-24 03:37:10.841 Watcher created for /Volumes/SSKDrive/streamlit/quizz/dnaapp.py
+2026-02-24 03:37:10.841 AppSession initialized (id=849229b3-f39d-4903-bfe6-111aac61e280)
+2026-02-24 03:37:10.841 Created new session for client 4497309008. Session ID: 849229b3-f39d-4903-bfe6-111aac61e280
+2026-02-24 03:37:10.841 Runtime state: RuntimeState.ONE_OR_MORE_SESSIONS_CONNECTED -> RuntimeState.ONE_OR_MORE_SESSIONS_CONNECTED
+2026-02-24 03:37:15.124 Watcher created for /Volumes/SSKDrive/streamlit/quizz/dnaapp.py
+2026-02-24 03:37:15.124 AppSession initialized (id=5617cb4d-8c7f-4987-bb12-4b0b4d87de63)
+2026-02-24 03:37:15.124 Created new session for client 4497347920. Session ID: 5617cb4d-8c7f-4987-bb12-4b0b4d87de63
+2026-02-24 03:37:15.124 Runtime state: RuntimeState.ONE_OR_MORE_SESSIONS_CONNECTED -> RuntimeState.ONE_OR_MORE_SESSIONS_CONNECTED
+2026-02-24 03:37:15.254 Watcher created for /Volumes/SSKDrive/streamlit/quizz/dnaapp.py
+2026-02-24 03:37:15.254 AppSession initialized (id=01bd629b-64bb-4c86-bcc1-1065d6a7e31f)
+2026-02-24 03:37:15.254 Created new session for client 4497349136. Session ID: 01bd629b-64bb-4c86-bcc1-1065d6a7e31f
+2026-02-24 03:37:15.254 Runtime state: RuntimeState.ONE_OR_MORE_SESSIONS_CONNECTED -> RuntimeState.ONE_OR_MORE_SESSIONS_CONNECTED
+2026-02-24 03:37:15.257 Received the following back message:
+rerun_script {
+  widget_states {
+  }
+  context_info {
+    timezone: "America/New_York"
+    timezone_offset: 300
+    locale: "en-US"
+    url: "http://localhost:8501/"
+    is_embedded: false
+    color_scheme: "dark"
+  }
+}
+
+2026-02-24 03:37:15.257 Beginning script thread
+2026-02-24 03:37:15.257 Running script RerunData(widget_states=, context_info=timezone: "America/New_York"
+timezone_offset: 300
+locale: "en-US"
+url: "http://localhost:8501/"
+is_embedded: false
+color_scheme: "dark"
+)
+2026-02-24 03:37:15.258 Disconnecting files for session with ID 01bd629b-64bb-4c86-bcc1-1065d6a7e31f
+2026-02-24 03:37:15.258 Sessions still active: dict_keys([])
+2026-02-24 03:37:15.258 Files: 0; Sessions with files: 0
+2026-02-24 03:37:15.603 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/ui/__pycache__/._auth.cpython-311.pyc.4580217520.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>)}
+2026-02-24 03:37:15.603 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/ui/__pycache__/auth.cpython-311.pyc.4580217520.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>)}
+2026-02-24 03:37:15.603 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/ui/__pycache__.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>)}
+2026-02-24 03:37:15.603 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/ui/__pycache__/auth.cpython-311.pyc.4580217520.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>)}
+2026-02-24 03:37:15.603 Move event: src /Volumes/SSKDrive/streamlit/quizz/ui/__pycache__/auth.cpython-311.pyc.4580217520; dest /Volumes/SSKDrive/streamlit/quizz/ui/__pycache__/auth.cpython-311.pyc
+2026-02-24 03:37:15.603 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/ui/__pycache__/auth.cpython-311.pyc.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>)}
+2026-02-24 03:37:15.603 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/ui/__pycache__.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>)}
+2026-02-24 03:37:15.603 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/ui/__pycache__.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>)}
+2026-02-24 03:37:15.739 Creating new ResourceCache (key=1f0db152e00bda4a538f3a3d284a4abc)
+2026-02-24 03:37:15.739 Cache key: d41d8cd98f00b204e9800998ecf8427e
+2026-02-24 03:37:16.215 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/data/__pycache__/._import_cards.cpython-311.pyc.4907676080.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>)}
+2026-02-24 03:37:16.216 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/data/__pycache__/import_cards.cpython-311.pyc.4907676080.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>)}
+2026-02-24 03:37:16.216 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/data/__pycache__.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>)}
+2026-02-24 03:37:16.216 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/data/__pycache__/import_cards.cpython-311.pyc.4907676080.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>)}
+2026-02-24 03:37:16.216 Move event: src /Volumes/SSKDrive/streamlit/quizz/data/__pycache__/import_cards.cpython-311.pyc.4907676080; dest /Volumes/SSKDrive/streamlit/quizz/data/__pycache__/import_cards.cpython-311.pyc
+2026-02-24 03:37:16.216 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/data/__pycache__/import_cards.cpython-311.pyc.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>)}
+2026-02-24 03:37:16.216 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/data/__pycache__.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>)}
+2026-02-24 03:37:16.216 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/data/__pycache__.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>)}
+2026-02-24 03:37:16.217 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/ui/__pycache__/._manage_tab.cpython-311.pyc.4907677360.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>)}
+2026-02-24 03:37:16.217 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/ui/__pycache__/manage_tab.cpython-311.pyc.4907677360.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>)}
+2026-02-24 03:37:16.217 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/ui/__pycache__.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>)}
+2026-02-24 03:37:16.219 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/ui/__pycache__/manage_tab.cpython-311.pyc.4907677360.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>)}
+2026-02-24 03:37:16.224 Removing orphaned files...
+2026-02-24 03:37:16.224 Removing orphaned deferred callables...
+2026-02-24 03:37:16.248 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/ui/__pycache__/manage_tab.cpython-311.pyc.4907677360.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>)}
+2026-02-24 03:37:16.248 Move event: src /Volumes/SSKDrive/streamlit/quizz/ui/__pycache__/manage_tab.cpython-311.pyc.4907677360; dest /Volumes/SSKDrive/streamlit/quizz/ui/__pycache__/manage_tab.cpython-311.pyc
+2026-02-24 03:37:16.248 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/ui/__pycache__/manage_tab.cpython-311.pyc.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>)}
+2026-02-24 03:37:16.248 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/ui/__pycache__.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>)}
+2026-02-24 03:37:16.249 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/ui/__pycache__.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>)}
+2026-02-24 03:37:16.249 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/ui/__pycache__/._admin_tab.cpython-311.pyc.4907677360.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>)}
+2026-02-24 03:37:16.249 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/ui/__pycache__/admin_tab.cpython-311.pyc.4907677360.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>)}
+2026-02-24 03:37:16.250 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/ui/__pycache__.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>)}
+2026-02-24 03:37:16.250 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/ui/__pycache__/admin_tab.cpython-311.pyc.4907677360.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>)}
+2026-02-24 03:37:16.250 Move event: src /Volumes/SSKDrive/streamlit/quizz/ui/__pycache__/admin_tab.cpython-311.pyc.4907677360; dest /Volumes/SSKDrive/streamlit/quizz/ui/__pycache__/admin_tab.cpython-311.pyc
+2026-02-24 03:37:16.250 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/ui/__pycache__/admin_tab.cpython-311.pyc.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>)}
+2026-02-24 03:37:16.250 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/ui/__pycache__.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>)}
+2026-02-24 03:37:16.250 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/ui/__pycache__.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>)}
+2026-02-24 03:37:16.343 Watcher created for /Volumes/SSKDrive/streamlit/quizz/core/__init__.py
+2026-02-24 03:37:16.344 Watcher created for /Volumes/SSKDrive/streamlit/quizz/core/state.py
+2026-02-24 03:37:16.344 Watcher created for /Volumes/SSKDrive/streamlit/quizz/core/scoring.py
+2026-02-24 03:37:16.345 Watcher created for /Volumes/SSKDrive/streamlit/quizz/ui/__init__.py
+2026-02-24 03:37:16.346 Watcher created for /Volumes/SSKDrive/streamlit/quizz/ui/layout.py
+2026-02-24 03:37:16.347 Watcher created for /Volumes/SSKDrive/streamlit/quizz/data/__init__.py
+2026-02-24 03:37:16.347 Watcher created for /Volumes/SSKDrive/streamlit/quizz/data/db.py
+2026-02-24 03:37:16.347 Watcher created for /Volumes/SSKDrive/streamlit/quizz/data/user_store.py
+2026-02-24 03:37:16.347 Watcher created for /Volumes/SSKDrive/streamlit/quizz/ui/auth.py
+2026-02-24 03:37:16.348 Watcher created for /Volumes/SSKDrive/streamlit/quizz/core/flashcard_logic.py
+2026-02-24 03:37:16.348 Watcher created for /Volumes/SSKDrive/streamlit/quizz/ui/components.py
+2026-02-24 03:37:16.349 Watcher created for /Volumes/SSKDrive/streamlit/quizz/core/study_modes.py
+2026-02-24 03:37:16.349 Watcher created for /Volumes/SSKDrive/streamlit/quizz/core/game_mode_logic.py
+2026-02-24 03:37:16.350 Watcher created for /Volumes/SSKDrive/streamlit/quizz/data/deck_store.py
+2026-02-24 03:37:16.350 Watcher created for /Volumes/SSKDrive/streamlit/quizz/data/card_format.py
+2026-02-24 03:37:16.351 Watcher created for /Volumes/SSKDrive/streamlit/quizz/data/ponder_store.py
+2026-02-24 03:37:16.351 Watcher created for /Volumes/SSKDrive/streamlit/quizz/core/quiz_generator.py
+2026-02-24 03:37:16.351 Watcher created for /Volumes/SSKDrive/streamlit/quizz/ui/study_tab.py
+2026-02-24 03:37:16.352 Watcher created for /Volumes/SSKDrive/streamlit/quizz/ui/stats_tab.py
+2026-02-24 03:37:16.352 Watcher created for /Volumes/SSKDrive/streamlit/quizz/data/import_cards.py
+2026-02-24 03:37:16.352 Watcher created for /Volumes/SSKDrive/streamlit/quizz/ui/add_card_tab.py
+2026-02-24 03:37:16.352 Watcher created for /Volumes/SSKDrive/streamlit/quizz/ui/manage_tab.py
+2026-02-24 03:37:16.352 Watcher created for /Volumes/SSKDrive/streamlit/quizz/ui/admin_tab.py
+2026-02-24 03:37:20.953 Received the following back message:
+rerun_script {
+  widget_states {
+    widgets {
+      id: "$$ID-3f23aafdcaba65d2338c93afc33cf313-theme_switcher_selector_dropdown"
+      string_value: "🕹️ Retro Gaming"
+    }
+    widgets {
+      id: "$$ID-0dd51dc8e6cdfdde516c6e159d247ff4-auth_mode"
+      string_value: "Login"
+    }
+    widgets {
+      id: "$$ID-dc796c1297c848625a3afe0e88e8a4ac-login_username"
+      string_value: "fff"
+    }
+    widgets {
+      id: "$$ID-0eb8e6ca036ec89553bbb737bd2196dc-login_password"
+      string_value: ""
+    }
+  }
+  page_script_hash: "f4afea316577723b2d5a3a215cffc02a"
+  cached_message_hashes: "de924503e2d0ca9fa712acb8194f4363"
+  context_info {
+    timezone: "America/New_York"
+    timezone_offset: 300
+    locale: "en-US"
+    url: "http://localhost:8501/"
+    is_embedded: false
+    color_scheme: "dark"
+  }
+}
+
+2026-02-24 03:37:20.956 Beginning script thread
+2026-02-24 03:37:20.956 Running script RerunData(widget_states=widgets {
+  id: "$$ID-3f23aafdcaba65d2338c93afc33cf313-theme_switcher_selector_dropdown"
+  string_value: "🕹️ Retro Gaming"
+}
+widgets {
+  id: "$$ID-0dd51dc8e6cdfdde516c6e159d247ff4-auth_mode"
+  string_value: "Login"
+}
+widgets {
+  id: "$$ID-dc796c1297c848625a3afe0e88e8a4ac-login_username"
+  string_value: "fff"
+}
+widgets {
+  id: "$$ID-0eb8e6ca036ec89553bbb737bd2196dc-login_password"
+  string_value: ""
+}
+, page_script_hash='f4afea316577723b2d5a3a215cffc02a', cached_message_hashes={'de924503e2d0ca9fa712acb8194f4363'}, context_info=timezone: "America/New_York"
+timezone_offset: 300
+locale: "en-US"
+url: "http://localhost:8501/"
+is_embedded: false
+color_scheme: "dark"
+)
+2026-02-24 03:37:20.957 Disconnecting files for session with ID 01bd629b-64bb-4c86-bcc1-1065d6a7e31f
+2026-02-24 03:37:20.957 Sessions still active: dict_keys([])
+2026-02-24 03:37:20.957 Files: 0; Sessions with files: 0
+2026-02-24 03:37:20.963 Sending cached message ref (hash=de924503e2d0ca9fa712acb8194f4363)
+2026-02-24 03:37:20.965 Removing orphaned files...
+2026-02-24 03:37:20.965 Removing orphaned deferred callables...
+2026-02-24 03:37:24.286 Received the following back message:
+rerun_script {
+  widget_states {
+    widgets {
+      id: "$$ID-3f23aafdcaba65d2338c93afc33cf313-theme_switcher_selector_dropdown"
+      string_value: "🕹️ Retro Gaming"
+    }
+    widgets {
+      id: "$$ID-0dd51dc8e6cdfdde516c6e159d247ff4-auth_mode"
+      string_value: "Login"
+    }
+    widgets {
+      id: "$$ID-dc796c1297c848625a3afe0e88e8a4ac-login_username"
+      string_value: "fff"
+    }
+    widgets {
+      id: "$$ID-0eb8e6ca036ec89553bbb737bd2196dc-login_password"
+      string_value: "dragon"
+    }
+  }
+  page_script_hash: "f4afea316577723b2d5a3a215cffc02a"
+  cached_message_hashes: "de924503e2d0ca9fa712acb8194f4363"
+  context_info {
+    timezone: "America/New_York"
+    timezone_offset: 300
+    locale: "en-US"
+    url: "http://localhost:8501/"
+    is_embedded: false
+    color_scheme: "dark"
+  }
+}
+
+2026-02-24 03:37:24.287 Beginning script thread
+2026-02-24 03:37:24.287 Running script RerunData(widget_states=widgets {
+  id: "$$ID-3f23aafdcaba65d2338c93afc33cf313-theme_switcher_selector_dropdown"
+  string_value: "🕹️ Retro Gaming"
+}
+widgets {
+  id: "$$ID-0dd51dc8e6cdfdde516c6e159d247ff4-auth_mode"
+  string_value: "Login"
+}
+widgets {
+  id: "$$ID-dc796c1297c848625a3afe0e88e8a4ac-login_username"
+  string_value: "fff"
+}
+widgets {
+  id: "$$ID-0eb8e6ca036ec89553bbb737bd2196dc-login_password"
+  string_value: "dragon"
+}
+, page_script_hash='f4afea316577723b2d5a3a215cffc02a', cached_message_hashes={'de924503e2d0ca9fa712acb8194f4363'}, context_info=timezone: "America/New_York"
+timezone_offset: 300
+locale: "en-US"
+url: "http://localhost:8501/"
+is_embedded: false
+color_scheme: "dark"
+)
+2026-02-24 03:37:24.287 Disconnecting files for session with ID 01bd629b-64bb-4c86-bcc1-1065d6a7e31f
+2026-02-24 03:37:24.287 Sessions still active: dict_keys([])
+2026-02-24 03:37:24.287 Files: 0; Sessions with files: 0
+2026-02-24 03:37:24.293 Sending cached message ref (hash=de924503e2d0ca9fa712acb8194f4363)
+2026-02-24 03:37:24.295 Removing orphaned files...
+2026-02-24 03:37:24.295 Removing orphaned deferred callables...
+2026-02-24 03:37:24.397 Received the following back message:
+rerun_script {
+  widget_states {
+    widgets {
+      id: "$$ID-3f23aafdcaba65d2338c93afc33cf313-theme_switcher_selector_dropdown"
+      string_value: "🕹️ Retro Gaming"
+    }
+    widgets {
+      id: "$$ID-0dd51dc8e6cdfdde516c6e159d247ff4-auth_mode"
+      string_value: "Login"
+    }
+    widgets {
+      id: "$$ID-dc796c1297c848625a3afe0e88e8a4ac-login_username"
+      string_value: "fff"
+    }
+    widgets {
+      id: "$$ID-0eb8e6ca036ec89553bbb737bd2196dc-login_password"
+      string_value: "dragon"
+    }
+    widgets {
+      id: "$$ID-2f51b977630218083113b3162206ec1b-None"
+      trigger_value: true
+    }
+  }
+  page_script_hash: "f4afea316577723b2d5a3a215cffc02a"
+  cached_message_hashes: "de924503e2d0ca9fa712acb8194f4363"
+  context_info {
+    timezone: "America/New_York"
+    timezone_offset: 300
+    locale: "en-US"
+    url: "http://localhost:8501/"
+    is_embedded: false
+    color_scheme: "dark"
+  }
+}
+
+2026-02-24 03:37:24.397 Beginning script thread
+2026-02-24 03:37:24.397 Running script RerunData(widget_states=widgets {
+  id: "$$ID-3f23aafdcaba65d2338c93afc33cf313-theme_switcher_selector_dropdown"
+  string_value: "🕹️ Retro Gaming"
+}
+widgets {
+  id: "$$ID-0dd51dc8e6cdfdde516c6e159d247ff4-auth_mode"
+  string_value: "Login"
+}
+widgets {
+  id: "$$ID-dc796c1297c848625a3afe0e88e8a4ac-login_username"
+  string_value: "fff"
+}
+widgets {
+  id: "$$ID-0eb8e6ca036ec89553bbb737bd2196dc-login_password"
+  string_value: "dragon"
+}
+widgets {
+  id: "$$ID-2f51b977630218083113b3162206ec1b-None"
+  trigger_value: true
+}
+, page_script_hash='f4afea316577723b2d5a3a215cffc02a', cached_message_hashes={'de924503e2d0ca9fa712acb8194f4363'}, context_info=timezone: "America/New_York"
+timezone_offset: 300
+locale: "en-US"
+url: "http://localhost:8501/"
+is_embedded: false
+color_scheme: "dark"
+)
+2026-02-24 03:37:24.397 Disconnecting files for session with ID 01bd629b-64bb-4c86-bcc1-1065d6a7e31f
+2026-02-24 03:37:24.397 Sessions still active: dict_keys([])
+2026-02-24 03:37:24.397 Files: 0; Sessions with files: 0
+2026-02-24 03:37:24.400 Sending cached message ref (hash=de924503e2d0ca9fa712acb8194f4363)
+2026-02-24 03:37:24.618 Removing orphaned files...
+2026-02-24 03:37:24.618 Removing orphaned deferred callables...
+2026-02-24 03:37:28.544 Received the following back message:
+rerun_script {
+  widget_states {
+    widgets {
+      id: "$$ID-3f23aafdcaba65d2338c93afc33cf313-theme_switcher_selector_dropdown"
+      string_value: "🕹️ Retro Gaming"
+    }
+    widgets {
+      id: "$$ID-0dd51dc8e6cdfdde516c6e159d247ff4-auth_mode"
+      string_value: "Login"
+    }
+    widgets {
+      id: "$$ID-dc796c1297c848625a3afe0e88e8a4ac-login_username"
+      string_value: "fff"
+    }
+    widgets {
+      id: "$$ID-0eb8e6ca036ec89553bbb737bd2196dc-login_password"
+      string_value: "dragon"
+    }
+    widgets {
+      id: "$$ID-2f51b977630218083113b3162206ec1b-None"
+      trigger_value: true
+    }
+  }
+  page_script_hash: "f4afea316577723b2d5a3a215cffc02a"
+  cached_message_hashes: "de924503e2d0ca9fa712acb8194f4363"
+  context_info {
+    timezone: "America/New_York"
+    timezone_offset: 300
+    locale: "en-US"
+    url: "http://localhost:8501/"
+    is_embedded: false
+    color_scheme: "dark"
+  }
+}
+
+2026-02-24 03:37:28.544 Beginning script thread
+2026-02-24 03:37:28.544 Running script RerunData(widget_states=widgets {
+  id: "$$ID-3f23aafdcaba65d2338c93afc33cf313-theme_switcher_selector_dropdown"
+  string_value: "🕹️ Retro Gaming"
+}
+widgets {
+  id: "$$ID-0dd51dc8e6cdfdde516c6e159d247ff4-auth_mode"
+  string_value: "Login"
+}
+widgets {
+  id: "$$ID-dc796c1297c848625a3afe0e88e8a4ac-login_username"
+  string_value: "fff"
+}
+widgets {
+  id: "$$ID-0eb8e6ca036ec89553bbb737bd2196dc-login_password"
+  string_value: "dragon"
+}
+widgets {
+  id: "$$ID-2f51b977630218083113b3162206ec1b-None"
+  trigger_value: true
+}
+, page_script_hash='f4afea316577723b2d5a3a215cffc02a', cached_message_hashes={'de924503e2d0ca9fa712acb8194f4363'}, context_info=timezone: "America/New_York"
+timezone_offset: 300
+locale: "en-US"
+url: "http://localhost:8501/"
+is_embedded: false
+color_scheme: "dark"
+)
+2026-02-24 03:37:28.544 Disconnecting files for session with ID 01bd629b-64bb-4c86-bcc1-1065d6a7e31f
+2026-02-24 03:37:28.545 Sessions still active: dict_keys([])
+2026-02-24 03:37:28.545 Files: 0; Sessions with files: 0
+2026-02-24 03:37:28.550 Sending cached message ref (hash=de924503e2d0ca9fa712acb8194f4363)
+2026-02-24 03:37:29.378 Removing orphaned files...
+2026-02-24 03:37:29.378 Removing orphaned deferred callables...
+2026-02-24 03:37:29.540 Watcher created for /Volumes/SSKDrive/streamlit/quizz/qwhizz.py
+2026-02-24 03:37:32.394 Received the following back message:
+rerun_script {
+  widget_states {
+    widgets {
+      id: "$$ID-3f23aafdcaba65d2338c93afc33cf313-theme_switcher_selector_dropdown"
+      string_value: "🕹️ Retro Gaming"
+    }
+    widgets {
+      id: "$$ID-d681de3391eb6663ae9798dd9ba7ce93-study_mode_selector"
+      string_value: "🎯 Multiple Choice"
+    }
+    widgets {
+      id: "$$ID-70c5099e038df1d8294d88e5512f4a80-None"
+      string_value: "Week 1 - Identity: Chromosomal Inheritance"
+    }
+    widgets {
+      id: "$$ID-4122a41e8b8aa39e1fb43950597a5ab6-manage_deck_select"
+      string_value: "Exam 1 Study"
+    }
+    widgets {
+      id: "$$ID-fa20abce568131b0ca87a978c584f86c-add_card_deck"
+      string_value: "Exam 1 Study"
+    }
+    widgets {
+      id: "$$ID-7169e7dedde1a63bea0928cf0b8b6366-card_type_selector"
+      string_value: "📇 Standard Flashcard"
+    }
+    widgets {
+      id: "$$ID-856dd79a2668f75f2ba151bdbc67863d-new_image_url"
+      string_value: ""
+    }
+    widgets {
+      id: "$$ID-458ff14e06bd027580f557900eaedf72-import_deck_option"
+      string_value: "Add to existing deck"
+    }
+    widgets {
+      id: "$$ID-a274c4bd09abfc0ee1f924d019cb36cc-import_deck_select"
+      string_value: "Exam 1 Study"
+    }
+    widgets {
+      id: "$$ID-299860aa3fdb8e85437086440fec68c0-import_format"
+      string_value: "CSV"
+    }
+    widgets {
+      id: "$$ID-27767faff0f2a154b13e79dcd04fbc33-new_question"
+      string_value: ""
+    }
+    widgets {
+      id: "$$ID-6837bc46906592205296f83d9a1e8144-new_answer"
+      string_value: ""
+    }
+    widgets {
+      id: "$$ID-9f82553423953ba8d36273b6ecf12e58-feedback_text"
+      string_value: ""
+    }
+    widgets {
+      id: "$$ID-b3b04ae488abc6f1edb8808a1c86bcfd-feedback_images"
+      string_value: ""
+    }
+    widgets {
+      id: "$$ID-1dc90bd707c2d6af26269db86056165e-feedback_num_links"
+      int_value: 0
+    }
+    widgets {
+      id: "$$ID-0261c465c60bdbac73c454f398b9ae3f-csv_uploader"
+      file_uploader_state_value {
+      }
+    }
+  }
+  page_script_hash: "f4afea316577723b2d5a3a215cffc02a"
+  cached_message_hashes: "de924503e2d0ca9fa712acb8194f4363"
+  context_info {
+    timezone: "America/New_York"
+    timezone_offset: 300
+    locale: "en-US"
+    url: "http://localhost:8501/"
+    is_embedded: false
+    color_scheme: "dark"
+  }
+}
+
+2026-02-24 03:37:32.395 Beginning script thread
+2026-02-24 03:37:32.395 Running script RerunData(widget_states=widgets {
+  id: "$$ID-3f23aafdcaba65d2338c93afc33cf313-theme_switcher_selector_dropdown"
+  string_value: "🕹️ Retro Gaming"
+}
+widgets {
+  id: "$$ID-d681de3391eb6663ae9798dd9ba7ce93-study_mode_selector"
+  string_value: "🎯 Multiple Choice"
+}
+widgets {
+  id: "$$ID-70c5099e038df1d8294d88e5512f4a80-None"
+  string_value: "Week 1 - Identity: Chromosomal Inheritance"
+}
+widgets {
+  id: "$$ID-4122a41e8b8aa39e1fb43950597a5ab6-manage_deck_select"
+  string_value: "Exam 1 Study"
+}
+widgets {
+  id: "$$ID-fa20abce568131b0ca87a978c584f86c-add_card_deck"
+  string_value: "Exam 1 Study"
+}
+widgets {
+  id: "$$ID-7169e7dedde1a63bea0928cf0b8b6366-card_type_selector"
+  string_value: "📇 Standard Flashcard"
+}
+widgets {
+  id: "$$ID-856dd79a2668f75f2ba151bdbc67863d-new_image_url"
+  string_value: ""
+}
+widgets {
+  id: "$$ID-458ff14e06bd027580f557900eaedf72-import_deck_option"
+  string_value: "Add to existing deck"
+}
+widgets {
+  id: "$$ID-a274c4bd09abfc0ee1f924d019cb36cc-import_deck_select"
+  string_value: "Exam 1 Study"
+}
+widgets {
+  id: "$$ID-299860aa3fdb8e85437086440fec68c0-import_format"
+  string_value: "CSV"
+}
+widgets {
+  id: "$$ID-27767faff0f2a154b13e79dcd04fbc33-new_question"
+  string_value: ""
+}
+widgets {
+  id: "$$ID-6837bc46906592205296f83d9a1e8144-new_answer"
+  string_value: ""
+}
+widgets {
+  id: "$$ID-9f82553423953ba8d36273b6ecf12e58-feedback_text"
+  string_value: ""
+}
+widgets {
+  id: "$$ID-b3b04ae488abc6f1edb8808a1c86bcfd-feedback_images"
+  string_value: ""
+}
+widgets {
+  id: "$$ID-1dc90bd707c2d6af26269db86056165e-feedback_num_links"
+  int_value: 0
+}
+widgets {
+  id: "$$ID-0261c465c60bdbac73c454f398b9ae3f-csv_uploader"
+  file_uploader_state_value {
+  }
+}
+, page_script_hash='f4afea316577723b2d5a3a215cffc02a', cached_message_hashes={'de924503e2d0ca9fa712acb8194f4363'}, context_info=timezone: "America/New_York"
+timezone_offset: 300
+locale: "en-US"
+url: "http://localhost:8501/"
+is_embedded: false
+color_scheme: "dark"
+)
+2026-02-24 03:37:32.396 Disconnecting files for session with ID 01bd629b-64bb-4c86-bcc1-1065d6a7e31f
+2026-02-24 03:37:32.396 Sessions still active: dict_keys([])
+2026-02-24 03:37:32.396 Files: 0; Sessions with files: 0
+2026-02-24 03:37:32.397 Removing orphaned files...
+2026-02-24 03:37:32.397 Removing orphaned deferred callables...
+2026-02-24 03:37:34.908 Watcher created for /Volumes/SSKDrive/streamlit/quizz/dnaapp.py
+2026-02-24 03:37:34.908 AppSession initialized (id=577b347f-1f68-45b9-8f9b-b9f15ffe0d4b)
+2026-02-24 03:37:34.908 Created new session for client 4908551312. Session ID: 577b347f-1f68-45b9-8f9b-b9f15ffe0d4b
+2026-02-24 03:37:34.908 Runtime state: RuntimeState.ONE_OR_MORE_SESSIONS_CONNECTED -> RuntimeState.ONE_OR_MORE_SESSIONS_CONNECTED
+2026-02-24 03:37:34.910 Received the following back message:
+rerun_script {
+  widget_states {
+  }
+  context_info {
+    timezone: "America/New_York"
+    timezone_offset: 300
+    locale: "en-US"
+    url: "http://localhost:8501/"
+    is_embedded: false
+    color_scheme: "dark"
+  }
+}
+
+2026-02-24 03:37:34.911 Beginning script thread
+2026-02-24 03:37:34.911 Running script RerunData(widget_states=, context_info=timezone: "America/New_York"
+timezone_offset: 300
+locale: "en-US"
+url: "http://localhost:8501/"
+is_embedded: false
+color_scheme: "dark"
+)
+2026-02-24 03:37:34.911 Disconnecting files for session with ID 577b347f-1f68-45b9-8f9b-b9f15ffe0d4b
+2026-02-24 03:37:34.911 Sessions still active: dict_keys([])
+2026-02-24 03:37:34.911 Files: 0; Sessions with files: 0
+2026-02-24 03:37:34.911 Removing orphaned files...
+2026-02-24 03:37:34.912 Removing orphaned deferred callables...
+2026-02-24 03:37:35.070 Watcher created for /Volumes/SSKDrive/streamlit/quizz/core/__init__.py
+2026-02-24 03:37:35.070 Watcher created for /Volumes/SSKDrive/streamlit/quizz/core/state.py
+2026-02-24 03:37:35.070 Watcher created for /Volumes/SSKDrive/streamlit/quizz/core/scoring.py
+2026-02-24 03:37:35.072 Watcher created for /Volumes/SSKDrive/streamlit/quizz/ui/__init__.py
+2026-02-24 03:37:35.072 Watcher created for /Volumes/SSKDrive/streamlit/quizz/ui/layout.py
+2026-02-24 03:37:35.073 Watcher created for /Volumes/SSKDrive/streamlit/quizz/data/__init__.py
+2026-02-24 03:37:35.073 Watcher created for /Volumes/SSKDrive/streamlit/quizz/data/db.py
+2026-02-24 03:37:35.074 Watcher created for /Volumes/SSKDrive/streamlit/quizz/data/user_store.py
+2026-02-24 03:37:35.074 Watcher created for /Volumes/SSKDrive/streamlit/quizz/ui/auth.py
+2026-02-24 03:37:35.074 Watcher created for /Volumes/SSKDrive/streamlit/quizz/core/flashcard_logic.py
+2026-02-24 03:37:35.075 Watcher created for /Volumes/SSKDrive/streamlit/quizz/ui/components.py
+2026-02-24 03:37:35.075 Watcher created for /Volumes/SSKDrive/streamlit/quizz/core/study_modes.py
+2026-02-24 03:37:35.076 Watcher created for /Volumes/SSKDrive/streamlit/quizz/core/game_mode_logic.py
+2026-02-24 03:37:35.076 Watcher created for /Volumes/SSKDrive/streamlit/quizz/data/deck_store.py
+2026-02-24 03:37:35.076 Watcher created for /Volumes/SSKDrive/streamlit/quizz/data/card_format.py
+2026-02-24 03:37:35.077 Watcher created for /Volumes/SSKDrive/streamlit/quizz/data/ponder_store.py
+2026-02-24 03:37:35.077 Watcher created for /Volumes/SSKDrive/streamlit/quizz/core/quiz_generator.py
+2026-02-24 03:37:35.078 Watcher created for /Volumes/SSKDrive/streamlit/quizz/ui/study_tab.py
+2026-02-24 03:37:35.078 Watcher created for /Volumes/SSKDrive/streamlit/quizz/ui/stats_tab.py
+2026-02-24 03:37:35.078 Watcher created for /Volumes/SSKDrive/streamlit/quizz/data/import_cards.py
+2026-02-24 03:37:35.079 Watcher created for /Volumes/SSKDrive/streamlit/quizz/ui/add_card_tab.py
+2026-02-24 03:37:35.079 Watcher created for /Volumes/SSKDrive/streamlit/quizz/ui/manage_tab.py
+2026-02-24 03:37:35.080 Watcher created for /Volumes/SSKDrive/streamlit/quizz/ui/admin_tab.py
+2026-02-24 03:37:35.080 Watcher created for /Volumes/SSKDrive/streamlit/quizz/qwhizz.py
+2026-02-24 03:38:14.049 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/.git/index.lock.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>), '/Volumes/SSKDrive/streamlit/quizz/qwhizz.py': WatchedPath(md5='1c64515558630a01ee1f564cfa12af43', modification_time=1771921905.03, on_changed=<blinker.base.Signal object at 0x127dee290>)}
+2026-02-24 03:38:14.050 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/.git.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>), '/Volumes/SSKDrive/streamlit/quizz/qwhizz.py': WatchedPath(md5='1c64515558630a01ee1f564cfa12af43', modification_time=1771921905.03, on_changed=<blinker.base.Signal object at 0x127dee290>)}
+2026-02-24 03:38:14.050 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/.git/index.lock.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>), '/Volumes/SSKDrive/streamlit/quizz/qwhizz.py': WatchedPath(md5='1c64515558630a01ee1f564cfa12af43', modification_time=1771921905.03, on_changed=<blinker.base.Signal object at 0x127dee290>)}
+2026-02-24 03:38:14.050 Move event: src /Volumes/SSKDrive/streamlit/quizz/.git/index.lock; dest /Volumes/SSKDrive/streamlit/quizz/.git/index
+2026-02-24 03:38:14.050 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/.git/index.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>), '/Volumes/SSKDrive/streamlit/quizz/qwhizz.py': WatchedPath(md5='1c64515558630a01ee1f564cfa12af43', modification_time=1771921905.03, on_changed=<blinker.base.Signal object at 0x127dee290>)}
+2026-02-24 03:38:14.050 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/.git.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>), '/Volumes/SSKDrive/streamlit/quizz/qwhizz.py': WatchedPath(md5='1c64515558630a01ee1f564cfa12af43', modification_time=1771921905.03, on_changed=<blinker.base.Signal object at 0x127dee290>)}
+2026-02-24 03:38:14.050 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/.git.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>), '/Volumes/SSKDrive/streamlit/quizz/qwhizz.py': WatchedPath(md5='1c64515558630a01ee1f564cfa12af43', modification_time=1771921905.03, on_changed=<blinker.base.Signal object at 0x127dee290>)}
+2026-02-24 03:38:14.050 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/.git/index.lock.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>), '/Volumes/SSKDrive/streamlit/quizz/qwhizz.py': WatchedPath(md5='1c64515558630a01ee1f564cfa12af43', modification_time=1771921905.03, on_changed=<blinker.base.Signal object at 0x127dee290>)}
+2026-02-24 03:38:14.050 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/.git.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>), '/Volumes/SSKDrive/streamlit/quizz/qwhizz.py': WatchedPath(md5='1c64515558630a01ee1f564cfa12af43', modification_time=1771921905.03, on_changed=<blinker.base.Signal object at 0x127dee290>)}
+2026-02-24 03:38:14.051 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/.git.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>), '/Volumes/SSKDrive/streamlit/quizz/qwhizz.py': WatchedPath(md5='1c64515558630a01ee1f564cfa12af43', modification_time=1771921905.03, on_changed=<blinker.base.Signal object at 0x127dee290>)}
+2026-02-24 03:38:54.050 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/.git/FETCH_HEAD.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>), '/Volumes/SSKDrive/streamlit/quizz/qwhizz.py': WatchedPath(md5='1c64515558630a01ee1f564cfa12af43', modification_time=1771921905.03, on_changed=<blinker.base.Signal object at 0x127dee290>)}
+2026-02-24 03:38:54.317 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/.git/FETCH_HEAD.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>), '/Volumes/SSKDrive/streamlit/quizz/qwhizz.py': WatchedPath(md5='1c64515558630a01ee1f564cfa12af43', modification_time=1771921905.03, on_changed=<blinker.base.Signal object at 0x127dee290>)}
+2026-02-24 03:38:54.332 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/.git/objects/maintenance.lock.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>), '/Volumes/SSKDrive/streamlit/quizz/qwhizz.py': WatchedPath(md5='1c64515558630a01ee1f564cfa12af43', modification_time=1771921905.03, on_changed=<blinker.base.Signal object at 0x127dee290>)}
+2026-02-24 03:38:54.333 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/.git/objects.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>), '/Volumes/SSKDrive/streamlit/quizz/qwhizz.py': WatchedPath(md5='1c64515558630a01ee1f564cfa12af43', modification_time=1771921905.03, on_changed=<blinker.base.Signal object at 0x127dee290>)}
+2026-02-24 03:38:54.333 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/.git/objects.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>), '/Volumes/SSKDrive/streamlit/quizz/qwhizz.py': WatchedPath(md5='1c64515558630a01ee1f564cfa12af43', modification_time=1771921905.03, on_changed=<blinker.base.Signal object at 0x127dee290>)}
+2026-02-24 03:40:12.137 File/dir MD5 changed: /Volumes/SSKDrive/streamlit/quizz/qwhizz.py
+2026-02-24 03:40:12.137 Path changed: /Volumes/SSKDrive/streamlit/quizz/qwhizz.py
+2026-02-24 03:40:21.737 File/dir MD5 changed: /Volumes/SSKDrive/streamlit/quizz/qwhizz.py
+2026-02-24 03:40:21.737 Path changed: /Volumes/SSKDrive/streamlit/quizz/qwhizz.py
+2026-02-24 03:40:23.345 File/dir MD5 changed: /Volumes/SSKDrive/streamlit/quizz/qwhizz.py
+2026-02-24 03:40:23.346 Path changed: /Volumes/SSKDrive/streamlit/quizz/qwhizz.py
+2026-02-24 03:40:28.885 File/dir MD5 changed: /Volumes/SSKDrive/streamlit/quizz/qwhizz.py
+2026-02-24 03:40:28.886 Path changed: /Volumes/SSKDrive/streamlit/quizz/qwhizz.py
+2026-02-24 03:40:40.310 File/dir MD5 changed: /Volumes/SSKDrive/streamlit/quizz/qwhizz.py
+2026-02-24 03:40:40.310 Path changed: /Volumes/SSKDrive/streamlit/quizz/qwhizz.py
+2026-02-24 03:40:40.311 File/dir timestamp did not change: /Volumes/SSKDrive/streamlit/quizz/qwhizz.py
+2026-02-24 03:40:46.218 Shutting down (id=01bd629b-64bb-4c86-bcc1-1065d6a7e31f)
+2026-02-24 03:40:46.219 Disconnecting files for session with ID 01bd629b-64bb-4c86-bcc1-1065d6a7e31f
+2026-02-24 03:40:46.219 Sessions still active: dict_keys([])
+2026-02-24 03:40:46.219 Files: 0; Sessions with files: 0
+2026-02-24 03:40:46.219 Removing orphaned files...
+2026-02-24 03:40:46.219 Removing orphaned deferred callables...
+2026-02-24 03:40:46.219 Shutting down (id=5617cb4d-8c7f-4987-bb12-4b0b4d87de63)
+2026-02-24 03:40:46.220 Disconnecting files for session with ID 5617cb4d-8c7f-4987-bb12-4b0b4d87de63
+2026-02-24 03:40:46.220 Sessions still active: dict_keys([])
+2026-02-24 03:40:46.220 Files: 0; Sessions with files: 0
+2026-02-24 03:40:46.220 Removing orphaned files...
+2026-02-24 03:40:46.220 Removing orphaned deferred callables...
+2026-02-24 03:40:46.220 Shutting down (id=849229b3-f39d-4903-bfe6-111aac61e280)
+2026-02-24 03:40:46.220 Disconnecting files for session with ID 849229b3-f39d-4903-bfe6-111aac61e280
+2026-02-24 03:40:46.220 Sessions still active: dict_keys([])
+2026-02-24 03:40:46.220 Files: 0; Sessions with files: 0
+2026-02-24 03:40:46.220 Removing orphaned files...
+2026-02-24 03:40:46.220 Removing orphaned deferred callables...
+2026-02-24 03:40:46.256 Watcher created for /Volumes/SSKDrive/streamlit/quizz/dnaapp.py
+2026-02-24 03:40:46.256 Runtime state: RuntimeState.ONE_OR_MORE_SESSIONS_CONNECTED -> RuntimeState.ONE_OR_MORE_SESSIONS_CONNECTED
+2026-02-24 03:40:46.366 Watcher created for /Volumes/SSKDrive/streamlit/quizz/dnaapp.py
+2026-02-24 03:40:46.366 AppSession initialized (id=fa503baf-1d3d-4e5d-acde-d8c2e660c7ce)
+2026-02-24 03:40:46.366 Created new session for client 4907985488. Session ID: fa503baf-1d3d-4e5d-acde-d8c2e660c7ce
+2026-02-24 03:40:46.366 Runtime state: RuntimeState.ONE_OR_MORE_SESSIONS_CONNECTED -> RuntimeState.ONE_OR_MORE_SESSIONS_CONNECTED
+2026-02-24 03:40:46.367 Received the following back message:
+rerun_script {
+  widget_states {
+  }
+  context_info {
+    timezone: "America/New_York"
+    timezone_offset: 300
+    locale: "en-US"
+    url: "http://localhost:8501/"
+    is_embedded: false
+    color_scheme: "dark"
+  }
+}
+
+2026-02-24 03:40:46.368 Beginning script thread
+2026-02-24 03:40:46.368 Running script RerunData(widget_states=, context_info=timezone: "America/New_York"
+timezone_offset: 300
+locale: "en-US"
+url: "http://localhost:8501/"
+is_embedded: false
+color_scheme: "dark"
+)
+2026-02-24 03:40:46.368 Disconnecting files for session with ID fa503baf-1d3d-4e5d-acde-d8c2e660c7ce
+2026-02-24 03:40:46.368 Sessions still active: dict_keys([])
+2026-02-24 03:40:46.368 Files: 0; Sessions with files: 0
+2026-02-24 03:40:46.393 Cache key: d41d8cd98f00b204e9800998ecf8427e
+2026-02-24 03:40:46.393 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/__pycache__/._qwhizz.cpython-311.pyc.4908492080.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>)}
+2026-02-24 03:40:46.393 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/__pycache__/qwhizz.cpython-311.pyc.4908492080.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>)}
+2026-02-24 03:40:46.393 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/__pycache__.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>)}
+2026-02-24 03:40:46.393 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/__pycache__/qwhizz.cpython-311.pyc.4908492080.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>)}
+2026-02-24 03:40:46.393 Move event: src /Volumes/SSKDrive/streamlit/quizz/__pycache__/qwhizz.cpython-311.pyc.4908492080; dest /Volumes/SSKDrive/streamlit/quizz/__pycache__/qwhizz.cpython-311.pyc
+2026-02-24 03:40:46.393 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/__pycache__/qwhizz.cpython-311.pyc.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>)}
+2026-02-24 03:40:46.394 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/__pycache__.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>)}
+2026-02-24 03:40:46.394 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/__pycache__.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>)}
+2026-02-24 03:40:46.412 Removing orphaned files...
+2026-02-24 03:40:46.412 Removing orphaned deferred callables...
+2026-02-24 03:40:46.592 Watcher created for /Volumes/SSKDrive/streamlit/quizz/core/__init__.py
+2026-02-24 03:40:46.592 Watcher created for /Volumes/SSKDrive/streamlit/quizz/core/state.py
+2026-02-24 03:40:46.593 Watcher created for /Volumes/SSKDrive/streamlit/quizz/core/scoring.py
+2026-02-24 03:40:46.594 Watcher created for /Volumes/SSKDrive/streamlit/quizz/ui/__init__.py
+2026-02-24 03:40:46.594 Watcher created for /Volumes/SSKDrive/streamlit/quizz/ui/layout.py
+2026-02-24 03:40:46.596 Watcher created for /Volumes/SSKDrive/streamlit/quizz/data/__init__.py
+2026-02-24 03:40:46.597 Watcher created for /Volumes/SSKDrive/streamlit/quizz/data/db.py
+2026-02-24 03:40:46.597 Watcher created for /Volumes/SSKDrive/streamlit/quizz/data/user_store.py
+2026-02-24 03:40:46.597 Watcher created for /Volumes/SSKDrive/streamlit/quizz/ui/auth.py
+2026-02-24 03:40:46.598 Watcher created for /Volumes/SSKDrive/streamlit/quizz/core/flashcard_logic.py
+2026-02-24 03:40:46.598 Watcher created for /Volumes/SSKDrive/streamlit/quizz/ui/components.py
+2026-02-24 03:40:46.598 Watcher created for /Volumes/SSKDrive/streamlit/quizz/core/study_modes.py
+2026-02-24 03:40:46.598 Watcher created for /Volumes/SSKDrive/streamlit/quizz/core/game_mode_logic.py
+2026-02-24 03:40:46.599 Watcher created for /Volumes/SSKDrive/streamlit/quizz/data/deck_store.py
+2026-02-24 03:40:46.599 Watcher created for /Volumes/SSKDrive/streamlit/quizz/data/card_format.py
+2026-02-24 03:40:46.599 Watcher created for /Volumes/SSKDrive/streamlit/quizz/data/ponder_store.py
+2026-02-24 03:40:46.600 Watcher created for /Volumes/SSKDrive/streamlit/quizz/core/quiz_generator.py
+2026-02-24 03:40:46.600 Watcher created for /Volumes/SSKDrive/streamlit/quizz/ui/study_tab.py
+2026-02-24 03:40:46.600 Watcher created for /Volumes/SSKDrive/streamlit/quizz/ui/stats_tab.py
+2026-02-24 03:40:46.600 Watcher created for /Volumes/SSKDrive/streamlit/quizz/data/import_cards.py
+2026-02-24 03:40:46.600 Watcher created for /Volumes/SSKDrive/streamlit/quizz/ui/add_card_tab.py
+2026-02-24 03:40:46.600 Watcher created for /Volumes/SSKDrive/streamlit/quizz/ui/manage_tab.py
+2026-02-24 03:40:46.601 Watcher created for /Volumes/SSKDrive/streamlit/quizz/ui/admin_tab.py
+2026-02-24 03:40:51.470 Received the following back message:
+rerun_script {
+  widget_states {
+    widgets {
+      id: "$$ID-3f23aafdcaba65d2338c93afc33cf313-theme_switcher_selector_dropdown"
+      string_value: "🕹️ Retro Gaming"
+    }
+    widgets {
+      id: "$$ID-0dd51dc8e6cdfdde516c6e159d247ff4-auth_mode"
+      string_value: "Login"
+    }
+    widgets {
+      id: "$$ID-dc796c1297c848625a3afe0e88e8a4ac-login_username"
+      string_value: ""
+    }
+    widgets {
+      id: "$$ID-0eb8e6ca036ec89553bbb737bd2196dc-login_password"
+      string_value: ""
+    }
+  }
+  page_script_hash: "f4afea316577723b2d5a3a215cffc02a"
+  cached_message_hashes: "de924503e2d0ca9fa712acb8194f4363"
+  context_info {
+    timezone: "America/New_York"
+    timezone_offset: 300
+    locale: "en-US"
+    url: "http://localhost:8501/"
+    is_embedded: false
+    color_scheme: "dark"
+  }
+}
+
+2026-02-24 03:40:51.471 Beginning script thread
+2026-02-24 03:40:51.471 Running script RerunData(widget_states=widgets {
+  id: "$$ID-3f23aafdcaba65d2338c93afc33cf313-theme_switcher_selector_dropdown"
+  string_value: "🕹️ Retro Gaming"
+}
+widgets {
+  id: "$$ID-0dd51dc8e6cdfdde516c6e159d247ff4-auth_mode"
+  string_value: "Login"
+}
+widgets {
+  id: "$$ID-dc796c1297c848625a3afe0e88e8a4ac-login_username"
+  string_value: ""
+}
+widgets {
+  id: "$$ID-0eb8e6ca036ec89553bbb737bd2196dc-login_password"
+  string_value: ""
+}
+, page_script_hash='f4afea316577723b2d5a3a215cffc02a', cached_message_hashes={'de924503e2d0ca9fa712acb8194f4363'}, context_info=timezone: "America/New_York"
+timezone_offset: 300
+locale: "en-US"
+url: "http://localhost:8501/"
+is_embedded: false
+color_scheme: "dark"
+)
+2026-02-24 03:40:51.471 Disconnecting files for session with ID fa503baf-1d3d-4e5d-acde-d8c2e660c7ce
+2026-02-24 03:40:51.471 Sessions still active: dict_keys([])
+2026-02-24 03:40:51.471 Files: 0; Sessions with files: 0
+2026-02-24 03:40:51.474 Sending cached message ref (hash=de924503e2d0ca9fa712acb8194f4363)
+2026-02-24 03:40:51.476 Removing orphaned files...
+2026-02-24 03:40:51.476 Removing orphaned deferred callables...
+2026-02-24 03:40:54.431 Received the following back message:
+rerun_script {
+  widget_states {
+    widgets {
+      id: "$$ID-3f23aafdcaba65d2338c93afc33cf313-theme_switcher_selector_dropdown"
+      string_value: "🕹️ Retro Gaming"
+    }
+    widgets {
+      id: "$$ID-0dd51dc8e6cdfdde516c6e159d247ff4-auth_mode"
+      string_value: "Login"
+    }
+    widgets {
+      id: "$$ID-dc796c1297c848625a3afe0e88e8a4ac-login_username"
+      string_value: "fff"
+    }
+    widgets {
+      id: "$$ID-0eb8e6ca036ec89553bbb737bd2196dc-login_password"
+      string_value: ""
+    }
+  }
+  page_script_hash: "f4afea316577723b2d5a3a215cffc02a"
+  cached_message_hashes: "de924503e2d0ca9fa712acb8194f4363"
+  context_info {
+    timezone: "America/New_York"
+    timezone_offset: 300
+    locale: "en-US"
+    url: "http://localhost:8501/"
+    is_embedded: false
+    color_scheme: "dark"
+  }
+}
+
+2026-02-24 03:40:54.432 Beginning script thread
+2026-02-24 03:40:54.433 Running script RerunData(widget_states=widgets {
+  id: "$$ID-3f23aafdcaba65d2338c93afc33cf313-theme_switcher_selector_dropdown"
+  string_value: "🕹️ Retro Gaming"
+}
+widgets {
+  id: "$$ID-0dd51dc8e6cdfdde516c6e159d247ff4-auth_mode"
+  string_value: "Login"
+}
+widgets {
+  id: "$$ID-dc796c1297c848625a3afe0e88e8a4ac-login_username"
+  string_value: "fff"
+}
+widgets {
+  id: "$$ID-0eb8e6ca036ec89553bbb737bd2196dc-login_password"
+  string_value: ""
+}
+, page_script_hash='f4afea316577723b2d5a3a215cffc02a', cached_message_hashes={'de924503e2d0ca9fa712acb8194f4363'}, context_info=timezone: "America/New_York"
+timezone_offset: 300
+locale: "en-US"
+url: "http://localhost:8501/"
+is_embedded: false
+color_scheme: "dark"
+)
+2026-02-24 03:40:54.433 Disconnecting files for session with ID fa503baf-1d3d-4e5d-acde-d8c2e660c7ce
+2026-02-24 03:40:54.433 Sessions still active: dict_keys([])
+2026-02-24 03:40:54.433 Files: 0; Sessions with files: 0
+2026-02-24 03:40:54.436 Sending cached message ref (hash=de924503e2d0ca9fa712acb8194f4363)
+2026-02-24 03:40:54.438 Removing orphaned files...
+2026-02-24 03:40:54.438 Removing orphaned deferred callables...
+2026-02-24 03:40:59.013 Received the following back message:
+rerun_script {
+  widget_states {
+    widgets {
+      id: "$$ID-3f23aafdcaba65d2338c93afc33cf313-theme_switcher_selector_dropdown"
+      string_value: "🕹️ Retro Gaming"
+    }
+    widgets {
+      id: "$$ID-0dd51dc8e6cdfdde516c6e159d247ff4-auth_mode"
+      string_value: "Login"
+    }
+    widgets {
+      id: "$$ID-dc796c1297c848625a3afe0e88e8a4ac-login_username"
+      string_value: "fff"
+    }
+    widgets {
+      id: "$$ID-0eb8e6ca036ec89553bbb737bd2196dc-login_password"
+      string_value: "dragpm"
+    }
+  }
+  page_script_hash: "f4afea316577723b2d5a3a215cffc02a"
+  cached_message_hashes: "de924503e2d0ca9fa712acb8194f4363"
+  context_info {
+    timezone: "America/New_York"
+    timezone_offset: 300
+    locale: "en-US"
+    url: "http://localhost:8501/"
+    is_embedded: false
+    color_scheme: "dark"
+  }
+}
+
+2026-02-24 03:40:59.014 Beginning script thread
+2026-02-24 03:40:59.014 Running script RerunData(widget_states=widgets {
+  id: "$$ID-3f23aafdcaba65d2338c93afc33cf313-theme_switcher_selector_dropdown"
+  string_value: "🕹️ Retro Gaming"
+}
+widgets {
+  id: "$$ID-0dd51dc8e6cdfdde516c6e159d247ff4-auth_mode"
+  string_value: "Login"
+}
+widgets {
+  id: "$$ID-dc796c1297c848625a3afe0e88e8a4ac-login_username"
+  string_value: "fff"
+}
+widgets {
+  id: "$$ID-0eb8e6ca036ec89553bbb737bd2196dc-login_password"
+  string_value: "dragpm"
+}
+, page_script_hash='f4afea316577723b2d5a3a215cffc02a', cached_message_hashes={'de924503e2d0ca9fa712acb8194f4363'}, context_info=timezone: "America/New_York"
+timezone_offset: 300
+locale: "en-US"
+url: "http://localhost:8501/"
+is_embedded: false
+color_scheme: "dark"
+)
+2026-02-24 03:40:59.014 Disconnecting files for session with ID fa503baf-1d3d-4e5d-acde-d8c2e660c7ce
+2026-02-24 03:40:59.014 Sessions still active: dict_keys([])
+2026-02-24 03:40:59.014 Files: 0; Sessions with files: 0
+2026-02-24 03:40:59.021 Sending cached message ref (hash=de924503e2d0ca9fa712acb8194f4363)
+2026-02-24 03:40:59.023 Removing orphaned files...
+2026-02-24 03:40:59.024 Removing orphaned deferred callables...
+2026-02-24 03:40:59.170 Received the following back message:
+rerun_script {
+  widget_states {
+    widgets {
+      id: "$$ID-3f23aafdcaba65d2338c93afc33cf313-theme_switcher_selector_dropdown"
+      string_value: "🕹️ Retro Gaming"
+    }
+    widgets {
+      id: "$$ID-0dd51dc8e6cdfdde516c6e159d247ff4-auth_mode"
+      string_value: "Login"
+    }
+    widgets {
+      id: "$$ID-dc796c1297c848625a3afe0e88e8a4ac-login_username"
+      string_value: "fff"
+    }
+    widgets {
+      id: "$$ID-0eb8e6ca036ec89553bbb737bd2196dc-login_password"
+      string_value: "dragpm"
+    }
+    widgets {
+      id: "$$ID-2f51b977630218083113b3162206ec1b-None"
+      trigger_value: true
+    }
+  }
+  page_script_hash: "f4afea316577723b2d5a3a215cffc02a"
+  cached_message_hashes: "de924503e2d0ca9fa712acb8194f4363"
+  context_info {
+    timezone: "America/New_York"
+    timezone_offset: 300
+    locale: "en-US"
+    url: "http://localhost:8501/"
+    is_embedded: false
+    color_scheme: "dark"
+  }
+}
+
+2026-02-24 03:40:59.171 Beginning script thread
+2026-02-24 03:40:59.171 Running script RerunData(widget_states=widgets {
+  id: "$$ID-3f23aafdcaba65d2338c93afc33cf313-theme_switcher_selector_dropdown"
+  string_value: "🕹️ Retro Gaming"
+}
+widgets {
+  id: "$$ID-0dd51dc8e6cdfdde516c6e159d247ff4-auth_mode"
+  string_value: "Login"
+}
+widgets {
+  id: "$$ID-dc796c1297c848625a3afe0e88e8a4ac-login_username"
+  string_value: "fff"
+}
+widgets {
+  id: "$$ID-0eb8e6ca036ec89553bbb737bd2196dc-login_password"
+  string_value: "dragpm"
+}
+widgets {
+  id: "$$ID-2f51b977630218083113b3162206ec1b-None"
+  trigger_value: true
+}
+, page_script_hash='f4afea316577723b2d5a3a215cffc02a', cached_message_hashes={'de924503e2d0ca9fa712acb8194f4363'}, context_info=timezone: "America/New_York"
+timezone_offset: 300
+locale: "en-US"
+url: "http://localhost:8501/"
+is_embedded: false
+color_scheme: "dark"
+)
+2026-02-24 03:40:59.171 Disconnecting files for session with ID fa503baf-1d3d-4e5d-acde-d8c2e660c7ce
+2026-02-24 03:40:59.171 Sessions still active: dict_keys([])
+2026-02-24 03:40:59.171 Files: 0; Sessions with files: 0
+2026-02-24 03:40:59.175 Sending cached message ref (hash=de924503e2d0ca9fa712acb8194f4363)
+2026-02-24 03:40:59.213 Removing orphaned files...
+2026-02-24 03:40:59.213 Removing orphaned deferred callables...
+2026-02-24 03:41:01.642 Received the following back message:
+rerun_script {
+  widget_states {
+    widgets {
+      id: "$$ID-3f23aafdcaba65d2338c93afc33cf313-theme_switcher_selector_dropdown"
+      string_value: "🕹️ Retro Gaming"
+    }
+    widgets {
+      id: "$$ID-0dd51dc8e6cdfdde516c6e159d247ff4-auth_mode"
+      string_value: "Login"
+    }
+    widgets {
+      id: "$$ID-dc796c1297c848625a3afe0e88e8a4ac-login_username"
+      string_value: "fff"
+    }
+    widgets {
+      id: "$$ID-0eb8e6ca036ec89553bbb737bd2196dc-login_password"
+      string_value: "dragpm"
+    }
+    widgets {
+      id: "$$ID-2f51b977630218083113b3162206ec1b-None"
+      trigger_value: true
+    }
+  }
+  page_script_hash: "f4afea316577723b2d5a3a215cffc02a"
+  cached_message_hashes: "de924503e2d0ca9fa712acb8194f4363"
+  context_info {
+    timezone: "America/New_York"
+    timezone_offset: 300
+    locale: "en-US"
+    url: "http://localhost:8501/"
+    is_embedded: false
+    color_scheme: "dark"
+  }
+}
+
+2026-02-24 03:41:01.643 Beginning script thread
+2026-02-24 03:41:01.644 Running script RerunData(widget_states=widgets {
+  id: "$$ID-3f23aafdcaba65d2338c93afc33cf313-theme_switcher_selector_dropdown"
+  string_value: "🕹️ Retro Gaming"
+}
+widgets {
+  id: "$$ID-0dd51dc8e6cdfdde516c6e159d247ff4-auth_mode"
+  string_value: "Login"
+}
+widgets {
+  id: "$$ID-dc796c1297c848625a3afe0e88e8a4ac-login_username"
+  string_value: "fff"
+}
+widgets {
+  id: "$$ID-0eb8e6ca036ec89553bbb737bd2196dc-login_password"
+  string_value: "dragpm"
+}
+widgets {
+  id: "$$ID-2f51b977630218083113b3162206ec1b-None"
+  trigger_value: true
+}
+, page_script_hash='f4afea316577723b2d5a3a215cffc02a', cached_message_hashes={'de924503e2d0ca9fa712acb8194f4363'}, context_info=timezone: "America/New_York"
+timezone_offset: 300
+locale: "en-US"
+url: "http://localhost:8501/"
+is_embedded: false
+color_scheme: "dark"
+)
+2026-02-24 03:41:01.644 Disconnecting files for session with ID fa503baf-1d3d-4e5d-acde-d8c2e660c7ce
+2026-02-24 03:41:01.644 Sessions still active: dict_keys([])
+2026-02-24 03:41:01.644 Files: 0; Sessions with files: 0
+2026-02-24 03:41:01.651 Sending cached message ref (hash=de924503e2d0ca9fa712acb8194f4363)
+2026-02-24 03:41:01.682 Removing orphaned files...
+2026-02-24 03:41:01.683 Removing orphaned deferred callables...
+2026-02-24 03:41:07.102 Received the following back message:
+rerun_script {
+  widget_states {
+    widgets {
+      id: "$$ID-3f23aafdcaba65d2338c93afc33cf313-theme_switcher_selector_dropdown"
+      string_value: "🕹️ Retro Gaming"
+    }
+    widgets {
+      id: "$$ID-0dd51dc8e6cdfdde516c6e159d247ff4-auth_mode"
+      string_value: "Login"
+    }
+    widgets {
+      id: "$$ID-dc796c1297c848625a3afe0e88e8a4ac-login_username"
+      string_value: "fff"
+    }
+    widgets {
+      id: "$$ID-0eb8e6ca036ec89553bbb737bd2196dc-login_password"
+      string_value: "dragon"
+    }
+  }
+  page_script_hash: "f4afea316577723b2d5a3a215cffc02a"
+  cached_message_hashes: "de924503e2d0ca9fa712acb8194f4363"
+  context_info {
+    timezone: "America/New_York"
+    timezone_offset: 300
+    locale: "en-US"
+    url: "http://localhost:8501/"
+    is_embedded: false
+    color_scheme: "dark"
+  }
+}
+
+2026-02-24 03:41:07.102 Beginning script thread
+2026-02-24 03:41:07.102 Running script RerunData(widget_states=widgets {
+  id: "$$ID-3f23aafdcaba65d2338c93afc33cf313-theme_switcher_selector_dropdown"
+  string_value: "🕹️ Retro Gaming"
+}
+widgets {
+  id: "$$ID-0dd51dc8e6cdfdde516c6e159d247ff4-auth_mode"
+  string_value: "Login"
+}
+widgets {
+  id: "$$ID-dc796c1297c848625a3afe0e88e8a4ac-login_username"
+  string_value: "fff"
+}
+widgets {
+  id: "$$ID-0eb8e6ca036ec89553bbb737bd2196dc-login_password"
+  string_value: "dragon"
+}
+, page_script_hash='f4afea316577723b2d5a3a215cffc02a', cached_message_hashes={'de924503e2d0ca9fa712acb8194f4363'}, context_info=timezone: "America/New_York"
+timezone_offset: 300
+locale: "en-US"
+url: "http://localhost:8501/"
+is_embedded: false
+color_scheme: "dark"
+)
+2026-02-24 03:41:07.103 Disconnecting files for session with ID fa503baf-1d3d-4e5d-acde-d8c2e660c7ce
+2026-02-24 03:41:07.103 Sessions still active: dict_keys([])
+2026-02-24 03:41:07.103 Files: 0; Sessions with files: 0
+2026-02-24 03:41:07.108 Sending cached message ref (hash=de924503e2d0ca9fa712acb8194f4363)
+2026-02-24 03:41:07.112 Removing orphaned files...
+2026-02-24 03:41:07.112 Removing orphaned deferred callables...
+2026-02-24 03:41:09.437 Received the following back message:
+rerun_script {
+  widget_states {
+    widgets {
+      id: "$$ID-3f23aafdcaba65d2338c93afc33cf313-theme_switcher_selector_dropdown"
+      string_value: "🕹️ Retro Gaming"
+    }
+    widgets {
+      id: "$$ID-0dd51dc8e6cdfdde516c6e159d247ff4-auth_mode"
+      string_value: "Login"
+    }
+    widgets {
+      id: "$$ID-dc796c1297c848625a3afe0e88e8a4ac-login_username"
+      string_value: "fff"
+    }
+    widgets {
+      id: "$$ID-0eb8e6ca036ec89553bbb737bd2196dc-login_password"
+      string_value: "dragon"
+    }
+    widgets {
+      id: "$$ID-2f51b977630218083113b3162206ec1b-None"
+      trigger_value: true
+    }
+  }
+  page_script_hash: "f4afea316577723b2d5a3a215cffc02a"
+  cached_message_hashes: "de924503e2d0ca9fa712acb8194f4363"
+  context_info {
+    timezone: "America/New_York"
+    timezone_offset: 300
+    locale: "en-US"
+    url: "http://localhost:8501/"
+    is_embedded: false
+    color_scheme: "dark"
+  }
+}
+
+2026-02-24 03:41:09.438 Beginning script thread
+2026-02-24 03:41:09.438 Running script RerunData(widget_states=widgets {
+  id: "$$ID-3f23aafdcaba65d2338c93afc33cf313-theme_switcher_selector_dropdown"
+  string_value: "🕹️ Retro Gaming"
+}
+widgets {
+  id: "$$ID-0dd51dc8e6cdfdde516c6e159d247ff4-auth_mode"
+  string_value: "Login"
+}
+widgets {
+  id: "$$ID-dc796c1297c848625a3afe0e88e8a4ac-login_username"
+  string_value: "fff"
+}
+widgets {
+  id: "$$ID-0eb8e6ca036ec89553bbb737bd2196dc-login_password"
+  string_value: "dragon"
+}
+widgets {
+  id: "$$ID-2f51b977630218083113b3162206ec1b-None"
+  trigger_value: true
+}
+, page_script_hash='f4afea316577723b2d5a3a215cffc02a', cached_message_hashes={'de924503e2d0ca9fa712acb8194f4363'}, context_info=timezone: "America/New_York"
+timezone_offset: 300
+locale: "en-US"
+url: "http://localhost:8501/"
+is_embedded: false
+color_scheme: "dark"
+)
+2026-02-24 03:41:09.438 Disconnecting files for session with ID fa503baf-1d3d-4e5d-acde-d8c2e660c7ce
+2026-02-24 03:41:09.439 Sessions still active: dict_keys([])
+2026-02-24 03:41:09.439 Files: 0; Sessions with files: 0
+2026-02-24 03:41:09.446 Sending cached message ref (hash=de924503e2d0ca9fa712acb8194f4363)
+2026-02-24 03:41:09.481 Removing orphaned files...
+2026-02-24 03:41:09.481 Removing orphaned deferred callables...
+2026-02-24 03:41:11.749 Received the following back message:
+rerun_script {
+  widget_states {
+    widgets {
+      id: "$$ID-3f23aafdcaba65d2338c93afc33cf313-theme_switcher_selector_dropdown"
+      string_value: "🕹️ Retro Gaming"
+    }
+    widgets {
+      id: "$$ID-0dd51dc8e6cdfdde516c6e159d247ff4-auth_mode"
+      string_value: "Login"
+    }
+    widgets {
+      id: "$$ID-dc796c1297c848625a3afe0e88e8a4ac-login_username"
+      string_value: "fff"
+    }
+    widgets {
+      id: "$$ID-0eb8e6ca036ec89553bbb737bd2196dc-login_password"
+      string_value: "dragon"
+    }
+    widgets {
+      id: "$$ID-2f51b977630218083113b3162206ec1b-None"
+      trigger_value: true
+    }
+  }
+  page_script_hash: "f4afea316577723b2d5a3a215cffc02a"
+  cached_message_hashes: "de924503e2d0ca9fa712acb8194f4363"
+  context_info {
+    timezone: "America/New_York"
+    timezone_offset: 300
+    locale: "en-US"
+    url: "http://localhost:8501/"
+    is_embedded: false
+    color_scheme: "dark"
+  }
+}
+
+2026-02-24 03:41:11.750 Beginning script thread
+2026-02-24 03:41:11.751 Running script RerunData(widget_states=widgets {
+  id: "$$ID-3f23aafdcaba65d2338c93afc33cf313-theme_switcher_selector_dropdown"
+  string_value: "🕹️ Retro Gaming"
+}
+widgets {
+  id: "$$ID-0dd51dc8e6cdfdde516c6e159d247ff4-auth_mode"
+  string_value: "Login"
+}
+widgets {
+  id: "$$ID-dc796c1297c848625a3afe0e88e8a4ac-login_username"
+  string_value: "fff"
+}
+widgets {
+  id: "$$ID-0eb8e6ca036ec89553bbb737bd2196dc-login_password"
+  string_value: "dragon"
+}
+widgets {
+  id: "$$ID-2f51b977630218083113b3162206ec1b-None"
+  trigger_value: true
+}
+, page_script_hash='f4afea316577723b2d5a3a215cffc02a', cached_message_hashes={'de924503e2d0ca9fa712acb8194f4363'}, context_info=timezone: "America/New_York"
+timezone_offset: 300
+locale: "en-US"
+url: "http://localhost:8501/"
+is_embedded: false
+color_scheme: "dark"
+)
+2026-02-24 03:41:11.751 Disconnecting files for session with ID fa503baf-1d3d-4e5d-acde-d8c2e660c7ce
+2026-02-24 03:41:11.751 Sessions still active: dict_keys([])
+2026-02-24 03:41:11.751 Files: 0; Sessions with files: 0
+2026-02-24 03:41:11.759 Sending cached message ref (hash=de924503e2d0ca9fa712acb8194f4363)
+2026-02-24 03:41:12.162 Removing orphaned files...
+2026-02-24 03:41:12.162 Removing orphaned deferred callables...
+2026-02-24 03:41:12.309 Watcher created for /Volumes/SSKDrive/streamlit/quizz/qwhizz.py
+2026-02-24 03:41:17.832 Received the following back message:
+rerun_script {
+  widget_states {
+    widgets {
+      id: "$$ID-3f23aafdcaba65d2338c93afc33cf313-theme_switcher_selector_dropdown"
+      string_value: "🕹️ Retro Gaming"
+    }
+    widgets {
+      id: "$$ID-d681de3391eb6663ae9798dd9ba7ce93-study_mode_selector"
+      string_value: "🎯 Multiple Choice"
+    }
+    widgets {
+      id: "$$ID-70c5099e038df1d8294d88e5512f4a80-None"
+      string_value: "Week 1 - Identity: Chromosomal Inheritance"
+    }
+    widgets {
+      id: "$$ID-4122a41e8b8aa39e1fb43950597a5ab6-manage_deck_select"
+      string_value: "Exam 1 Study"
+    }
+    widgets {
+      id: "$$ID-fa20abce568131b0ca87a978c584f86c-add_card_deck"
+      string_value: "Exam 1 Study"
+    }
+    widgets {
+      id: "$$ID-7169e7dedde1a63bea0928cf0b8b6366-card_type_selector"
+      string_value: "📇 Standard Flashcard"
+    }
+    widgets {
+      id: "$$ID-856dd79a2668f75f2ba151bdbc67863d-new_image_url"
+      string_value: ""
+    }
+    widgets {
+      id: "$$ID-458ff14e06bd027580f557900eaedf72-import_deck_option"
+      string_value: "Add to existing deck"
+    }
+    widgets {
+      id: "$$ID-27767faff0f2a154b13e79dcd04fbc33-new_question"
+      string_value: ""
+    }
+    widgets {
+      id: "$$ID-6837bc46906592205296f83d9a1e8144-new_answer"
+      string_value: ""
+    }
+    widgets {
+      id: "$$ID-9f82553423953ba8d36273b6ecf12e58-feedback_text"
+      string_value: ""
+    }
+    widgets {
+      id: "$$ID-b3b04ae488abc6f1edb8808a1c86bcfd-feedback_images"
+      string_value: ""
+    }
+    widgets {
+      id: "$$ID-1dc90bd707c2d6af26269db86056165e-feedback_num_links"
+      int_value: 0
+    }
+    widgets {
+      id: "$$ID-a274c4bd09abfc0ee1f924d019cb36cc-import_deck_select"
+      string_value: "Exam 1 Study"
+    }
+    widgets {
+      id: "$$ID-299860aa3fdb8e85437086440fec68c0-import_format"
+      string_value: "CSV"
+    }
+    widgets {
+      id: "$$ID-0261c465c60bdbac73c454f398b9ae3f-csv_uploader"
+      file_uploader_state_value {
+      }
+    }
+  }
+  page_script_hash: "f4afea316577723b2d5a3a215cffc02a"
+  cached_message_hashes: "de924503e2d0ca9fa712acb8194f4363"
+  context_info {
+    timezone: "America/New_York"
+    timezone_offset: 300
+    locale: "en-US"
+    url: "http://localhost:8501/"
+    is_embedded: false
+    color_scheme: "dark"
+  }
+}
+
+2026-02-24 03:41:17.851 Beginning script thread
+2026-02-24 03:41:17.851 Running script RerunData(widget_states=widgets {
+  id: "$$ID-3f23aafdcaba65d2338c93afc33cf313-theme_switcher_selector_dropdown"
+  string_value: "🕹️ Retro Gaming"
+}
+widgets {
+  id: "$$ID-d681de3391eb6663ae9798dd9ba7ce93-study_mode_selector"
+  string_value: "🎯 Multiple Choice"
+}
+widgets {
+  id: "$$ID-70c5099e038df1d8294d88e5512f4a80-None"
+  string_value: "Week 1 - Identity: Chromosomal Inheritance"
+}
+widgets {
+  id: "$$ID-4122a41e8b8aa39e1fb43950597a5ab6-manage_deck_select"
+  string_value: "Exam 1 Study"
+}
+widgets {
+  id: "$$ID-fa20abce568131b0ca87a978c584f86c-add_card_deck"
+  string_value: "Exam 1 Study"
+}
+widgets {
+  id: "$$ID-7169e7dedde1a63bea0928cf0b8b6366-card_type_selector"
+  string_value: "📇 Standard Flashcard"
+}
+widgets {
+  id: "$$ID-856dd79a2668f75f2ba151bdbc67863d-new_image_url"
+  string_value: ""
+}
+widgets {
+  id: "$$ID-458ff14e06bd027580f557900eaedf72-import_deck_option"
+  string_value: "Add to existing deck"
+}
+widgets {
+  id: "$$ID-27767faff0f2a154b13e79dcd04fbc33-new_question"
+  string_value: ""
+}
+widgets {
+  id: "$$ID-6837bc46906592205296f83d9a1e8144-new_answer"
+  string_value: ""
+}
+widgets {
+  id: "$$ID-9f82553423953ba8d36273b6ecf12e58-feedback_text"
+  string_value: ""
+}
+widgets {
+  id: "$$ID-b3b04ae488abc6f1edb8808a1c86bcfd-feedback_images"
+  string_value: ""
+}
+widgets {
+  id: "$$ID-1dc90bd707c2d6af26269db86056165e-feedback_num_links"
+  int_value: 0
+}
+widgets {
+  id: "$$ID-a274c4bd09abfc0ee1f924d019cb36cc-import_deck_select"
+  string_value: "Exam 1 Study"
+}
+widgets {
+  id: "$$ID-299860aa3fdb8e85437086440fec68c0-import_format"
+  string_value: "CSV"
+}
+widgets {
+  id: "$$ID-0261c465c60bdbac73c454f398b9ae3f-csv_uploader"
+  file_uploader_state_value {
+  }
+}
+, page_script_hash='f4afea316577723b2d5a3a215cffc02a', cached_message_hashes={'de924503e2d0ca9fa712acb8194f4363'}, context_info=timezone: "America/New_York"
+timezone_offset: 300
+locale: "en-US"
+url: "http://localhost:8501/"
+is_embedded: false
+color_scheme: "dark"
+)
+2026-02-24 03:41:17.852 Disconnecting files for session with ID fa503baf-1d3d-4e5d-acde-d8c2e660c7ce
+2026-02-24 03:41:17.852 Sessions still active: dict_keys([])
+2026-02-24 03:41:17.852 Files: 0; Sessions with files: 0
+2026-02-24 03:41:17.853 Removing orphaned files...
+2026-02-24 03:41:17.853 Removing orphaned deferred callables...
+2026-02-24 03:42:08.328 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/.git/FETCH_HEAD.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>), '/Volumes/SSKDrive/streamlit/quizz/qwhizz.py': WatchedPath(md5='048acadaf506a814c689ccf23ce6fadb', modification_time=1771922440.29, on_changed=<blinker.base.Signal object at 0x110f8d310>)}
+2026-02-24 03:42:08.658 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/.git/FETCH_HEAD.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>), '/Volumes/SSKDrive/streamlit/quizz/qwhizz.py': WatchedPath(md5='048acadaf506a814c689ccf23ce6fadb', modification_time=1771922440.29, on_changed=<blinker.base.Signal object at 0x110f8d310>)}
+2026-02-24 03:42:08.658 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/.git/objects/maintenance.lock.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>), '/Volumes/SSKDrive/streamlit/quizz/qwhizz.py': WatchedPath(md5='048acadaf506a814c689ccf23ce6fadb', modification_time=1771922440.29, on_changed=<blinker.base.Signal object at 0x110f8d310>)}
+2026-02-24 03:42:08.658 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/.git/objects.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>), '/Volumes/SSKDrive/streamlit/quizz/qwhizz.py': WatchedPath(md5='048acadaf506a814c689ccf23ce6fadb', modification_time=1771922440.29, on_changed=<blinker.base.Signal object at 0x110f8d310>)}
+2026-02-24 03:42:08.666 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/.git/objects.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>), '/Volumes/SSKDrive/streamlit/quizz/qwhizz.py': WatchedPath(md5='048acadaf506a814c689ccf23ce6fadb', modification_time=1771922440.29, on_changed=<blinker.base.Signal object at 0x110f8d310>)}
+2026-02-24 03:42:32.007 File/dir MD5 changed: /Volumes/SSKDrive/streamlit/quizz/qwhizz.py
+2026-02-24 03:42:32.007 Path changed: /Volumes/SSKDrive/streamlit/quizz/qwhizz.py
+2026-02-24 03:42:37.949 Watcher created for /Volumes/SSKDrive/streamlit/quizz/dnaapp.py
+2026-02-24 03:42:37.949 Runtime state: RuntimeState.ONE_OR_MORE_SESSIONS_CONNECTED -> RuntimeState.ONE_OR_MORE_SESSIONS_CONNECTED
+2026-02-24 03:42:38.084 Watcher created for /Volumes/SSKDrive/streamlit/quizz/dnaapp.py
+2026-02-24 03:42:38.084 AppSession initialized (id=f9e3741b-ec63-4258-90fa-340b280b599d)
+2026-02-24 03:42:38.084 Created new session for client 4907857808. Session ID: f9e3741b-ec63-4258-90fa-340b280b599d
+2026-02-24 03:42:38.084 Runtime state: RuntimeState.ONE_OR_MORE_SESSIONS_CONNECTED -> RuntimeState.ONE_OR_MORE_SESSIONS_CONNECTED
+2026-02-24 03:42:38.101 Received the following back message:
+rerun_script {
+  widget_states {
+  }
+  context_info {
+    timezone: "America/New_York"
+    timezone_offset: 300
+    locale: "en-US"
+    url: "http://localhost:8501/"
+    is_embedded: false
+    color_scheme: "dark"
+  }
+}
+
+2026-02-24 03:42:38.102 Beginning script thread
+2026-02-24 03:42:38.102 Running script RerunData(widget_states=, context_info=timezone: "America/New_York"
+timezone_offset: 300
+locale: "en-US"
+url: "http://localhost:8501/"
+is_embedded: false
+color_scheme: "dark"
+)
+2026-02-24 03:42:38.103 Disconnecting files for session with ID f9e3741b-ec63-4258-90fa-340b280b599d
+2026-02-24 03:42:38.103 Sessions still active: dict_keys([])
+2026-02-24 03:42:38.103 Files: 0; Sessions with files: 0
+2026-02-24 03:42:38.133 Cache key: d41d8cd98f00b204e9800998ecf8427e
+2026-02-24 03:42:38.136 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/__pycache__/._qwhizz.cpython-311.pyc.4907672880.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>)}
+2026-02-24 03:42:38.137 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/__pycache__/qwhizz.cpython-311.pyc.4907672880.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>)}
+2026-02-24 03:42:38.137 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/__pycache__.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>)}
+2026-02-24 03:42:38.138 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/__pycache__/qwhizz.cpython-311.pyc.4907672880.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>)}
+2026-02-24 03:42:38.138 Move event: src /Volumes/SSKDrive/streamlit/quizz/__pycache__/qwhizz.cpython-311.pyc.4907672880; dest /Volumes/SSKDrive/streamlit/quizz/__pycache__/qwhizz.cpython-311.pyc
+2026-02-24 03:42:38.138 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/__pycache__/qwhizz.cpython-311.pyc.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>)}
+2026-02-24 03:42:38.138 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/__pycache__.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>)}
+2026-02-24 03:42:38.138 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/__pycache__.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>)}
+2026-02-24 03:42:38.155 Removing orphaned files...
+2026-02-24 03:42:38.155 Removing orphaned deferred callables...
+2026-02-24 03:42:38.346 Watcher created for /Volumes/SSKDrive/streamlit/quizz/core/__init__.py
+2026-02-24 03:42:38.346 Watcher created for /Volumes/SSKDrive/streamlit/quizz/core/state.py
+2026-02-24 03:42:38.347 Watcher created for /Volumes/SSKDrive/streamlit/quizz/core/scoring.py
+2026-02-24 03:42:38.348 Watcher created for /Volumes/SSKDrive/streamlit/quizz/ui/__init__.py
+2026-02-24 03:42:38.349 Watcher created for /Volumes/SSKDrive/streamlit/quizz/ui/layout.py
+2026-02-24 03:42:38.350 Watcher created for /Volumes/SSKDrive/streamlit/quizz/data/__init__.py
+2026-02-24 03:42:38.351 Watcher created for /Volumes/SSKDrive/streamlit/quizz/data/db.py
+2026-02-24 03:42:38.351 Watcher created for /Volumes/SSKDrive/streamlit/quizz/data/user_store.py
+2026-02-24 03:42:38.351 Watcher created for /Volumes/SSKDrive/streamlit/quizz/ui/auth.py
+2026-02-24 03:42:38.351 Watcher created for /Volumes/SSKDrive/streamlit/quizz/core/flashcard_logic.py
+2026-02-24 03:42:38.352 Watcher created for /Volumes/SSKDrive/streamlit/quizz/ui/components.py
+2026-02-24 03:42:38.352 Watcher created for /Volumes/SSKDrive/streamlit/quizz/core/study_modes.py
+2026-02-24 03:42:38.352 Watcher created for /Volumes/SSKDrive/streamlit/quizz/core/game_mode_logic.py
+2026-02-24 03:42:38.352 Watcher created for /Volumes/SSKDrive/streamlit/quizz/data/deck_store.py
+2026-02-24 03:42:38.353 Watcher created for /Volumes/SSKDrive/streamlit/quizz/data/card_format.py
+2026-02-24 03:42:38.353 Watcher created for /Volumes/SSKDrive/streamlit/quizz/data/ponder_store.py
+2026-02-24 03:42:38.354 Watcher created for /Volumes/SSKDrive/streamlit/quizz/core/quiz_generator.py
+2026-02-24 03:42:38.354 Watcher created for /Volumes/SSKDrive/streamlit/quizz/ui/study_tab.py
+2026-02-24 03:42:38.354 Watcher created for /Volumes/SSKDrive/streamlit/quizz/ui/stats_tab.py
+2026-02-24 03:42:38.354 Watcher created for /Volumes/SSKDrive/streamlit/quizz/data/import_cards.py
+2026-02-24 03:42:38.355 Watcher created for /Volumes/SSKDrive/streamlit/quizz/ui/add_card_tab.py
+2026-02-24 03:42:38.355 Watcher created for /Volumes/SSKDrive/streamlit/quizz/ui/manage_tab.py
+2026-02-24 03:42:38.355 Watcher created for /Volumes/SSKDrive/streamlit/quizz/ui/admin_tab.py
+2026-02-24 03:42:41.541 Received the following back message:
+rerun_script {
+  widget_states {
+    widgets {
+      id: "$$ID-3f23aafdcaba65d2338c93afc33cf313-theme_switcher_selector_dropdown"
+      string_value: "🕹️ Retro Gaming"
+    }
+    widgets {
+      id: "$$ID-0dd51dc8e6cdfdde516c6e159d247ff4-auth_mode"
+      string_value: "Login"
+    }
+    widgets {
+      id: "$$ID-dc796c1297c848625a3afe0e88e8a4ac-login_username"
+      string_value: "fff"
+    }
+    widgets {
+      id: "$$ID-0eb8e6ca036ec89553bbb737bd2196dc-login_password"
+      string_value: ""
+    }
+  }
+  page_script_hash: "f4afea316577723b2d5a3a215cffc02a"
+  cached_message_hashes: "de924503e2d0ca9fa712acb8194f4363"
+  context_info {
+    timezone: "America/New_York"
+    timezone_offset: 300
+    locale: "en-US"
+    url: "http://localhost:8501/"
+    is_embedded: false
+    color_scheme: "dark"
+  }
+}
+
+2026-02-24 03:42:41.543 Beginning script thread
+2026-02-24 03:42:41.543 Running script RerunData(widget_states=widgets {
+  id: "$$ID-3f23aafdcaba65d2338c93afc33cf313-theme_switcher_selector_dropdown"
+  string_value: "🕹️ Retro Gaming"
+}
+widgets {
+  id: "$$ID-0dd51dc8e6cdfdde516c6e159d247ff4-auth_mode"
+  string_value: "Login"
+}
+widgets {
+  id: "$$ID-dc796c1297c848625a3afe0e88e8a4ac-login_username"
+  string_value: "fff"
+}
+widgets {
+  id: "$$ID-0eb8e6ca036ec89553bbb737bd2196dc-login_password"
+  string_value: ""
+}
+, page_script_hash='f4afea316577723b2d5a3a215cffc02a', cached_message_hashes={'de924503e2d0ca9fa712acb8194f4363'}, context_info=timezone: "America/New_York"
+timezone_offset: 300
+locale: "en-US"
+url: "http://localhost:8501/"
+is_embedded: false
+color_scheme: "dark"
+)
+2026-02-24 03:42:41.544 Disconnecting files for session with ID f9e3741b-ec63-4258-90fa-340b280b599d
+2026-02-24 03:42:41.544 Sessions still active: dict_keys([])
+2026-02-24 03:42:41.544 Files: 0; Sessions with files: 0
+2026-02-24 03:42:41.549 Sending cached message ref (hash=de924503e2d0ca9fa712acb8194f4363)
+2026-02-24 03:42:41.553 Removing orphaned files...
+2026-02-24 03:42:41.553 Removing orphaned deferred callables...
+2026-02-24 03:42:45.811 Received the following back message:
+rerun_script {
+  widget_states {
+    widgets {
+      id: "$$ID-3f23aafdcaba65d2338c93afc33cf313-theme_switcher_selector_dropdown"
+      string_value: "🕹️ Retro Gaming"
+    }
+    widgets {
+      id: "$$ID-0dd51dc8e6cdfdde516c6e159d247ff4-auth_mode"
+      string_value: "Login"
+    }
+    widgets {
+      id: "$$ID-dc796c1297c848625a3afe0e88e8a4ac-login_username"
+      string_value: "fff"
+    }
+    widgets {
+      id: "$$ID-0eb8e6ca036ec89553bbb737bd2196dc-login_password"
+      string_value: "dragon"
+    }
+  }
+  page_script_hash: "f4afea316577723b2d5a3a215cffc02a"
+  cached_message_hashes: "de924503e2d0ca9fa712acb8194f4363"
+  context_info {
+    timezone: "America/New_York"
+    timezone_offset: 300
+    locale: "en-US"
+    url: "http://localhost:8501/"
+    is_embedded: false
+    color_scheme: "dark"
+  }
+}
+
+2026-02-24 03:42:45.813 Beginning script thread
+2026-02-24 03:42:45.813 Running script RerunData(widget_states=widgets {
+  id: "$$ID-3f23aafdcaba65d2338c93afc33cf313-theme_switcher_selector_dropdown"
+  string_value: "🕹️ Retro Gaming"
+}
+widgets {
+  id: "$$ID-0dd51dc8e6cdfdde516c6e159d247ff4-auth_mode"
+  string_value: "Login"
+}
+widgets {
+  id: "$$ID-dc796c1297c848625a3afe0e88e8a4ac-login_username"
+  string_value: "fff"
+}
+widgets {
+  id: "$$ID-0eb8e6ca036ec89553bbb737bd2196dc-login_password"
+  string_value: "dragon"
+}
+, page_script_hash='f4afea316577723b2d5a3a215cffc02a', cached_message_hashes={'de924503e2d0ca9fa712acb8194f4363'}, context_info=timezone: "America/New_York"
+timezone_offset: 300
+locale: "en-US"
+url: "http://localhost:8501/"
+is_embedded: false
+color_scheme: "dark"
+)
+2026-02-24 03:42:45.813 Disconnecting files for session with ID f9e3741b-ec63-4258-90fa-340b280b599d
+2026-02-24 03:42:45.813 Sessions still active: dict_keys([])
+2026-02-24 03:42:45.813 Files: 0; Sessions with files: 0
+2026-02-24 03:42:45.819 Sending cached message ref (hash=de924503e2d0ca9fa712acb8194f4363)
+2026-02-24 03:42:45.823 Removing orphaned files...
+2026-02-24 03:42:45.823 Removing orphaned deferred callables...
+2026-02-24 03:42:46.008 Received the following back message:
+rerun_script {
+  widget_states {
+    widgets {
+      id: "$$ID-3f23aafdcaba65d2338c93afc33cf313-theme_switcher_selector_dropdown"
+      string_value: "🕹️ Retro Gaming"
+    }
+    widgets {
+      id: "$$ID-0dd51dc8e6cdfdde516c6e159d247ff4-auth_mode"
+      string_value: "Login"
+    }
+    widgets {
+      id: "$$ID-dc796c1297c848625a3afe0e88e8a4ac-login_username"
+      string_value: "fff"
+    }
+    widgets {
+      id: "$$ID-0eb8e6ca036ec89553bbb737bd2196dc-login_password"
+      string_value: "dragon"
+    }
+    widgets {
+      id: "$$ID-2f51b977630218083113b3162206ec1b-None"
+      trigger_value: true
+    }
+  }
+  page_script_hash: "f4afea316577723b2d5a3a215cffc02a"
+  cached_message_hashes: "de924503e2d0ca9fa712acb8194f4363"
+  context_info {
+    timezone: "America/New_York"
+    timezone_offset: 300
+    locale: "en-US"
+    url: "http://localhost:8501/"
+    is_embedded: false
+    color_scheme: "dark"
+  }
+}
+
+2026-02-24 03:42:46.009 Beginning script thread
+2026-02-24 03:42:46.009 Running script RerunData(widget_states=widgets {
+  id: "$$ID-3f23aafdcaba65d2338c93afc33cf313-theme_switcher_selector_dropdown"
+  string_value: "🕹️ Retro Gaming"
+}
+widgets {
+  id: "$$ID-0dd51dc8e6cdfdde516c6e159d247ff4-auth_mode"
+  string_value: "Login"
+}
+widgets {
+  id: "$$ID-dc796c1297c848625a3afe0e88e8a4ac-login_username"
+  string_value: "fff"
+}
+widgets {
+  id: "$$ID-0eb8e6ca036ec89553bbb737bd2196dc-login_password"
+  string_value: "dragon"
+}
+widgets {
+  id: "$$ID-2f51b977630218083113b3162206ec1b-None"
+  trigger_value: true
+}
+, page_script_hash='f4afea316577723b2d5a3a215cffc02a', cached_message_hashes={'de924503e2d0ca9fa712acb8194f4363'}, context_info=timezone: "America/New_York"
+timezone_offset: 300
+locale: "en-US"
+url: "http://localhost:8501/"
+is_embedded: false
+color_scheme: "dark"
+)
+2026-02-24 03:42:46.009 Disconnecting files for session with ID f9e3741b-ec63-4258-90fa-340b280b599d
+2026-02-24 03:42:46.009 Sessions still active: dict_keys([])
+2026-02-24 03:42:46.009 Files: 0; Sessions with files: 0
+2026-02-24 03:42:46.012 Sending cached message ref (hash=de924503e2d0ca9fa712acb8194f4363)
+2026-02-24 03:42:46.045 Removing orphaned files...
+2026-02-24 03:42:46.045 Removing orphaned deferred callables...
+2026-02-24 03:42:52.408 Received the following back message:
+rerun_script {
+  widget_states {
+    widgets {
+      id: "$$ID-3f23aafdcaba65d2338c93afc33cf313-theme_switcher_selector_dropdown"
+      string_value: "🕹️ Retro Gaming"
+    }
+    widgets {
+      id: "$$ID-0dd51dc8e6cdfdde516c6e159d247ff4-auth_mode"
+      string_value: "Login"
+    }
+    widgets {
+      id: "$$ID-dc796c1297c848625a3afe0e88e8a4ac-login_username"
+      string_value: "fff"
+    }
+    widgets {
+      id: "$$ID-0eb8e6ca036ec89553bbb737bd2196dc-login_password"
+      string_value: "dragon"
+    }
+    widgets {
+      id: "$$ID-2f51b977630218083113b3162206ec1b-None"
+      trigger_value: true
+    }
+  }
+  page_script_hash: "f4afea316577723b2d5a3a215cffc02a"
+  cached_message_hashes: "de924503e2d0ca9fa712acb8194f4363"
+  context_info {
+    timezone: "America/New_York"
+    timezone_offset: 300
+    locale: "en-US"
+    url: "http://localhost:8501/"
+    is_embedded: false
+    color_scheme: "dark"
+  }
+}
+
+2026-02-24 03:42:52.409 Beginning script thread
+2026-02-24 03:42:52.409 Running script RerunData(widget_states=widgets {
+  id: "$$ID-3f23aafdcaba65d2338c93afc33cf313-theme_switcher_selector_dropdown"
+  string_value: "🕹️ Retro Gaming"
+}
+widgets {
+  id: "$$ID-0dd51dc8e6cdfdde516c6e159d247ff4-auth_mode"
+  string_value: "Login"
+}
+widgets {
+  id: "$$ID-dc796c1297c848625a3afe0e88e8a4ac-login_username"
+  string_value: "fff"
+}
+widgets {
+  id: "$$ID-0eb8e6ca036ec89553bbb737bd2196dc-login_password"
+  string_value: "dragon"
+}
+widgets {
+  id: "$$ID-2f51b977630218083113b3162206ec1b-None"
+  trigger_value: true
+}
+, page_script_hash='f4afea316577723b2d5a3a215cffc02a', cached_message_hashes={'de924503e2d0ca9fa712acb8194f4363'}, context_info=timezone: "America/New_York"
+timezone_offset: 300
+locale: "en-US"
+url: "http://localhost:8501/"
+is_embedded: false
+color_scheme: "dark"
+)
+2026-02-24 03:42:52.409 Disconnecting files for session with ID f9e3741b-ec63-4258-90fa-340b280b599d
+2026-02-24 03:42:52.409 Sessions still active: dict_keys([])
+2026-02-24 03:42:52.409 Files: 0; Sessions with files: 0
+2026-02-24 03:42:52.414 Sending cached message ref (hash=de924503e2d0ca9fa712acb8194f4363)
+2026-02-24 03:42:52.415 Removing orphaned files...
+2026-02-24 03:42:52.415 Removing orphaned deferred callables...
+2026-02-24 03:42:52.570 Watcher created for /Volumes/SSKDrive/streamlit/quizz/qwhizz.py
+2026-02-24 03:43:00.472 Received the following back message:
+rerun_script {
+  widget_states {
+    widgets {
+      id: "$$ID-3f23aafdcaba65d2338c93afc33cf313-theme_switcher_selector_dropdown"
+      string_value: "🕹️ Retro Gaming"
+    }
+    widgets {
+      id: "$$ID-d681de3391eb6663ae9798dd9ba7ce93-study_mode_selector"
+      string_value: "🎯 Multiple Choice"
+    }
+  }
+  page_script_hash: "f4afea316577723b2d5a3a215cffc02a"
+  cached_message_hashes: "de924503e2d0ca9fa712acb8194f4363"
+  context_info {
+    timezone: "America/New_York"
+    timezone_offset: 300
+    locale: "en-US"
+    url: "http://localhost:8501/"
+    is_embedded: false
+    color_scheme: "dark"
+  }
+}
+
+2026-02-24 03:43:00.474 Beginning script thread
+2026-02-24 03:43:00.474 Running script RerunData(widget_states=widgets {
+  id: "$$ID-3f23aafdcaba65d2338c93afc33cf313-theme_switcher_selector_dropdown"
+  string_value: "🕹️ Retro Gaming"
+}
+widgets {
+  id: "$$ID-d681de3391eb6663ae9798dd9ba7ce93-study_mode_selector"
+  string_value: "🎯 Multiple Choice"
+}
+, page_script_hash='f4afea316577723b2d5a3a215cffc02a', cached_message_hashes={'de924503e2d0ca9fa712acb8194f4363'}, context_info=timezone: "America/New_York"
+timezone_offset: 300
+locale: "en-US"
+url: "http://localhost:8501/"
+is_embedded: false
+color_scheme: "dark"
+)
+2026-02-24 03:43:00.474 Disconnecting files for session with ID f9e3741b-ec63-4258-90fa-340b280b599d
+2026-02-24 03:43:00.474 Sessions still active: dict_keys([])
+2026-02-24 03:43:00.474 Files: 0; Sessions with files: 0
+2026-02-24 03:43:00.475 Removing orphaned files...
+2026-02-24 03:43:00.475 Removing orphaned deferred callables...
+2026-02-24 03:43:27.135 File/dir MD5 changed: /Volumes/SSKDrive/streamlit/quizz/qwhizz.py
+2026-02-24 03:43:27.135 Path changed: /Volumes/SSKDrive/streamlit/quizz/qwhizz.py
+2026-02-24 03:45:08.752 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/.git/FETCH_HEAD.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>), '/Volumes/SSKDrive/streamlit/quizz/qwhizz.py': WatchedPath(md5='048acadaf506a814c689ccf23ce6fadb', modification_time=1771922607.11, on_changed=<blinker.base.Signal object at 0x127dee410>)}
+2026-02-24 03:45:09.018 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/.git/FETCH_HEAD.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>), '/Volumes/SSKDrive/streamlit/quizz/qwhizz.py': WatchedPath(md5='048acadaf506a814c689ccf23ce6fadb', modification_time=1771922607.11, on_changed=<blinker.base.Signal object at 0x127dee410>)}
+2026-02-24 03:45:09.038 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/.git/objects/maintenance.lock.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>), '/Volumes/SSKDrive/streamlit/quizz/qwhizz.py': WatchedPath(md5='048acadaf506a814c689ccf23ce6fadb', modification_time=1771922607.11, on_changed=<blinker.base.Signal object at 0x127dee410>)}
+2026-02-24 03:45:09.038 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/.git/objects.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>), '/Volumes/SSKDrive/streamlit/quizz/qwhizz.py': WatchedPath(md5='048acadaf506a814c689ccf23ce6fadb', modification_time=1771922607.11, on_changed=<blinker.base.Signal object at 0x127dee410>)}
+2026-02-24 03:45:09.038 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/.git/objects.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='eba3639797ee21d18b6708d6700a1fa2', modification_time=1771736216.08, on_changed=<blinker.base.Signal object at 0x10c0f65d0>), '/Volumes/SSKDrive/streamlit/quizz/qwhizz.py': WatchedPath(md5='048acadaf506a814c689ccf23ce6fadb', modification_time=1771922607.11, on_changed=<blinker.base.Signal object at 0x127dee410>)}
+2026-02-24 03:45:40.861 File/dir MD5 changed: /Volumes/SSKDrive/streamlit/quizz/dnaapp.py
+2026-02-24 03:45:40.862 Path changed: /Volumes/SSKDrive/streamlit/quizz/dnaapp.py
+2026-02-24 03:45:40.863 Path changed: /Volumes/SSKDrive/streamlit/quizz/dnaapp.py
+2026-02-24 03:45:46.890 File/dir MD5 changed: /Volumes/SSKDrive/streamlit/quizz/dnaapp.py
+2026-02-24 03:45:46.891 Path changed: /Volumes/SSKDrive/streamlit/quizz/dnaapp.py
+2026-02-24 03:45:46.891 Path changed: /Volumes/SSKDrive/streamlit/quizz/dnaapp.py
+2026-02-24 03:45:46.891 File/dir timestamp did not change: /Volumes/SSKDrive/streamlit/quizz/dnaapp.py
+2026-02-24 03:48:09.155 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/.git/FETCH_HEAD.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='45acb1d05070ca5acc5f979ee752f5e0', modification_time=1771922746.88, on_changed=<blinker.base.Signal object at 0x10c0f65d0>), '/Volumes/SSKDrive/streamlit/quizz/qwhizz.py': WatchedPath(md5='048acadaf506a814c689ccf23ce6fadb', modification_time=1771922607.11, on_changed=<blinker.base.Signal object at 0x127dee410>)}
+2026-02-24 03:48:09.501 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/.git/FETCH_HEAD.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='45acb1d05070ca5acc5f979ee752f5e0', modification_time=1771922746.88, on_changed=<blinker.base.Signal object at 0x10c0f65d0>), '/Volumes/SSKDrive/streamlit/quizz/qwhizz.py': WatchedPath(md5='048acadaf506a814c689ccf23ce6fadb', modification_time=1771922607.11, on_changed=<blinker.base.Signal object at 0x127dee410>)}
+2026-02-24 03:48:09.501 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/.git/objects/maintenance.lock.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='45acb1d05070ca5acc5f979ee752f5e0', modification_time=1771922746.88, on_changed=<blinker.base.Signal object at 0x10c0f65d0>), '/Volumes/SSKDrive/streamlit/quizz/qwhizz.py': WatchedPath(md5='048acadaf506a814c689ccf23ce6fadb', modification_time=1771922607.11, on_changed=<blinker.base.Signal object at 0x127dee410>)}
+2026-02-24 03:48:09.501 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/.git/objects.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='45acb1d05070ca5acc5f979ee752f5e0', modification_time=1771922746.88, on_changed=<blinker.base.Signal object at 0x10c0f65d0>), '/Volumes/SSKDrive/streamlit/quizz/qwhizz.py': WatchedPath(md5='048acadaf506a814c689ccf23ce6fadb', modification_time=1771922607.11, on_changed=<blinker.base.Signal object at 0x127dee410>)}
+2026-02-24 03:48:09.513 Ignoring changed path /Volumes/SSKDrive/streamlit/quizz/.git/objects.
+Watched_paths: {'/Volumes/SSKDrive/streamlit/quizz/dnaapp.py': WatchedPath(md5='45acb1d05070ca5acc5f979ee752f5e0', modification_time=1771922746.88, on_changed=<blinker.base.Signal object at 0x10c0f65d0>), '/Volumes/SSKDrive/streamlit/quizz/qwhizz.py': WatchedPath(md5='048acadaf506a814c689ccf23ce6fadb', modification_time=1771922607.11, on_changed=<blinker.base.Signal object at 0x127dee410>)}
+2026-02-24 03:48:30.790 File/dir MD5 changed: /Volumes/SSKDrive/streamlit/quizz/dnaapp.py
+2026-02-24 03:48:30.791 Path changed: /Volumes/SSKDrive/streamlit/quizz/dnaapp.py
+2026-02-24 03:48:30.791 Path changed: /Volumes/SSKDrive/streamlit/quizz/dnaapp.py
+2026-02-24 03:48:44.234 Shutting down (id=fa503baf-1d3d-4e5d-acde-d8c2e660c7ce)
+2026-02-24 03:48:44.234 Disconnecting files for session with ID fa503baf-1d3d-4e5d-acde-d8c2e660c7ce
+2026-02-24 03:48:44.235 Sessions still active: dict_keys([])
+2026-02-24 03:48:44.235 Files: 0; Sessions with files: 0
+2026-02-24 03:48:44.235 Removing orphaned files...
+2026-02-24 03:48:44.235 Removing orphaned deferred callables...
+2026-02-24 03:48:44.235 Shutting down (id=577b347f-1f68-45b9-8f9b-b9f15ffe0d4b)
+2026-02-24 03:48:44.235 Disconnecting files for session with ID 577b347f-1f68-45b9-8f9b-b9f15ffe0d4b
+2026-02-24 03:48:44.235 Sessions still active: dict_keys([])
+2026-02-24 03:48:44.235 Files: 0; Sessions with files: 0
+2026-02-24 03:48:44.235 Removing orphaned files...
+2026-02-24 03:48:44.235 Removing orphaned deferred callables...
+2026-02-24 03:48:44.397 Watcher created for /Volumes/SSKDrive/streamlit/quizz/dnaapp.py
+2026-02-24 03:48:44.397 AppSession initialized (id=c72b01f1-c29c-4c7a-bd3c-141a553e4ae4)
+2026-02-24 03:48:44.397 Created new session for client 4963831696. Session ID: c72b01f1-c29c-4c7a-bd3c-141a553e4ae4
+2026-02-24 03:48:44.397 Runtime state: RuntimeState.ONE_OR_MORE_SESSIONS_CONNECTED -> RuntimeState.ONE_OR_MORE_SESSIONS_CONNECTED
+2026-02-24 03:48:44.406 Received the following back message:
+rerun_script {
+  widget_states {
+  }
+  context_info {
+    timezone: "America/New_York"
+    timezone_offset: 300
+    locale: "en-US"
+    url: "http://localhost:8501/"
+    is_embedded: false
+    color_scheme: "dark"
+  }
+}
+
+2026-02-24 03:48:44.406 Beginning script thread
+2026-02-24 03:48:44.407 Running script RerunData(widget_states=, context_info=timezone: "America/New_York"
+timezone_offset: 300
+locale: "en-US"
+url: "http://localhost:8501/"
+is_embedded: false
+color_scheme: "dark"
+)
+2026-02-24 03:48:44.407 Disconnecting files for session with ID c72b01f1-c29c-4c7a-bd3c-141a553e4ae4
+2026-02-24 03:48:44.407 Sessions still active: dict_keys([])
+2026-02-24 03:48:44.407 Files: 0; Sessions with files: 0
+2026-02-24 03:48:44.410 Removing orphaned files...
+2026-02-24 03:48:44.411 Removing orphaned deferred callables...

@@ -47,19 +47,16 @@ def render_study_tab(cards, deck_name, username, study_mode, init_state):
         return
     
     # Initialize state
-    init_state(cards)
-    
-    # Before trying to access it, check if it exists:
-    if 'current_card_index' not in st.session_state:
-        st.session_state.current_card_index = 0
+    init_state(cards, deck_name=deck_name)
 
-    current_idx = st.session_state.current_card_index
-    
-    # Get current card
-    current_idx = st.session_state.current_card_index
-    current_card = cards[current_idx]
+    # Canonical card list + index
+    session_cards = st.session_state.cards
+    current_idx = st.session_state.get("current_card_index", 0) % len(session_cards)
+    st.session_state.current_card_index = current_idx
+    current_card = session_cards[current_idx]
 
     card_type = get_card_type(current_card)
+    
     if card_type == "essay":
         render_essay_mode(current_card, username)
         return
@@ -67,13 +64,14 @@ def render_study_tab(cards, deck_name, username, study_mode, init_state):
     
     # Get mode configuration
     mode_config = get_mode_config(study_mode)
+    st.caption(mode_config.get("description", ""))
     
     # Display points info
     points_info()
     
     # Progress bar
-    st.progress((current_idx + 1) / len(cards))
-    st.caption(f"Card {current_idx + 1} of {len(cards)}")
+    st.progress((current_idx + 1) / len(session_cards))
+    st.caption(f"Card {current_idx + 1} of {len(session_cards)}")
 
     # === ROUTE TO APPROPRIATE STUDY MODE ===
     
@@ -85,10 +83,10 @@ def render_study_tab(cards, deck_name, username, study_mode, init_state):
         render_flashcard_mode(current_card, username)
     
     elif study_mode == "multiple_choice":
-        render_multiple_choice_mode(current_card, cards, username)
+        render_multiple_choice_mode(current_card, session_cards, username)
     
     elif study_mode == "multi_select":
-        render_multi_select_mode(current_card, cards, username)
+        render_multi_select_mode(current_card, session_cards, username)
     
     elif study_mode == "true_false":
         render_true_false_mode(current_card, username)
@@ -121,7 +119,7 @@ def render_flashcard_mode(card, username):
         flashcard_box(card["question"])
     
     # Show answer if flipped
-    if st.session_state.get("flipped", False):
+    if st.session_state.get("show_answer", False):
         st.success("**Answer:**")
         flashcard_box(card["answer"])
         
@@ -180,7 +178,7 @@ def render_multiple_choice_mode(card, all_cards, username):
         
         st.info(f"**Full answer:** {card['answer']}")
         
-        if st.button("Next Card →", key="mc_next", width='stretch', type="primary"):
+        if st.button("Next Card →", key="mc_next", type="primary"):
             advance_to_next_card()
 
 
@@ -240,7 +238,7 @@ def render_multi_select_mode(card, all_cards, username):
         
         st.info(f"**Explanation:** {card['answer']}")
         
-        if st.button("Next Card →", key="ms_next", width='stretch', type="primary"):
+        if st.button("Next Card →", key="ms_next", type="primary"):
             advance_to_next_card()
 
 
@@ -298,7 +296,7 @@ def render_true_false_mode(card, username):
 
         st.info(f"**Explanation:** {card['answer']}")
 
-        if st.button("Next Card →", key="tf_next", type="primary", width='stretch'):
+        if st.button("Next Card →", key="tf_next", type="primary"):
             advance_to_next_card()
 
 
@@ -333,7 +331,7 @@ def render_quiz_mode(card, username):
         else:
             st.error("✗ Not quite right")
         
-        if st.button("Next Card →", width='stretch', type="primary"):
+        if st.button("Next Card →", '', type="primary"):
             st.session_state.quiz_answered = False
             advance_to_next_card()
 
@@ -352,7 +350,7 @@ def render_commit_mode(card, username):
         st.success("**Answer:**")
         flashcard_box(card["answer"])
         
-        if st.button("Next Card →", width='stretch'):
+        if st.button("Next Card →", ''):
             st.session_state.committed = False
             advance_to_next_card()
 
@@ -372,15 +370,15 @@ def render_essay_mode(card, username):
 
     col1, col2 = st.columns(2)
     with col1:
-        if st.button("I wrote an answer", width='stretch', type="primary"):
+        if st.button("I wrote an answer", '', type="primary"):
             # Give participation points (optional). If you prefer no points, remove this.
             handle_answer(True, username)
 
     with col2:
-        if st.button("Show rubric", width='stretch'):
+        if st.button("Show rubric", ''):
             st.info(f"**Rubric / key ideas:** {card.get('answer', '')}")
 
-    if st.button("Next Card →", width='stretch'):
+    if st.button("Next Card →", ''):
         advance_to_next_card()
 
 
@@ -470,12 +468,20 @@ def commit_answer(knew_it, username):
 
 def advance_to_next_card():
     """Move to next card and reset state"""
-    st.session_state.current_card_index = (st.session_state.current_card_index + 1) % len(st.session_state.cards)
-    st.session_state.flipped = False
-    
-    # Clear game mode states
-    for key in ["mc_answered", "ms_answered", "tf_answered", "quiz_answered", "committed"]:
+    cards = st.session_state.get("cards", [])
+    if not cards:
+        return
+
+    st.session_state.current_card_index = (st.session_state.get("current_card_index", 0) + 1) % len(cards)
+    st.session_state.show_answer = False
+
+    # Clear per-mode state so next card doesn't inherit old answers
+    for key in [
+        "mc_options", "mc_correct_index", "mc_card_id", "mc_answered", "mc_user_answer",
+        "ms_options", "ms_correct_indices", "ms_card_id", "ms_answered", "ms_user_answer",
+        "tf_generated", "tf_card_id", "tf_answered", "tf_user_answer", "tf_correct",
+        "quiz_answered", "quiz_user_answer", "quiz_similarity",
+        "committed",
+    ]:
         if key in st.session_state:
             del st.session_state[key]
-    
-    st.rerun()

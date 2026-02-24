@@ -1,83 +1,65 @@
-# ui/auth.py
-
 import streamlit as st
 from data.user_store import get_user, create_user
-
-from theme_switcher import quick_theme_setup
 
 
 def handle_authentication():
     """
     Handle login/register in sidebar and return logged-in username or None
     """
-    # Check query params for auto-login
-    if "user" in st.query_params:
-        username = st.query_params["user"]
-        if get_user(username):
-            return username
 
-    # # Right after line 11 (after quick_theme_setup)
-    # st.sidebar.write("🔍 DEBUG: Sidebar is rendering!")
-    # st.sidebar.write(f"Session state keys: {list(st.session_state.keys())}")
+    if "user" not in st.session_state:
+        st.session_state.user = None
 
-    # quick_theme_setup(default_theme='retro')
+    # If already logged in
+    if st.session_state.user:
+        return st.session_state.user
 
-    
     st.header(st.secrets['app']['title'])
     st.subheader(st.secrets['app']['subtitle'])
     st.write(st.secrets['app']['subheader'])
-    
-    # Login/Register toggle
-    auth_mode = st.sidebar.radio("Select Action", ["Login", "Register"], key="auth_mode")
+
+    auth_mode = st.sidebar.radio(
+        "Select Action",
+        ["Login", "Register"],
+        key="auth_mode"
+    )
 
     if auth_mode == "Login":
-        username = st.sidebar.text_input(
-            "Username",
-            key="login_username"
-        )
+        username = st.sidebar.text_input("Username", key="login_username")
         password = st.sidebar.text_input(
-            "Password", 
+            "Password",
             type="password",
             key="login_password"
         )
-        
-        if st.sidebar.button(
-            "Login", 
-            type="primary", 
-            width='stretch'
-        ):
+
+        if st.sidebar.button("Login", type="primary"):
             if username.strip() and password.strip():
                 user = get_user(username.strip())
                 if user and user.get("password") == password:
-                    # Set query param to persist login
-                    st.query_params["user"] = username.strip()
-                    st.rerun()
+                    st.session_state.user = username.strip()
+                    #st.rerun()
                 else:
                     st.sidebar.error("Invalid username or password")
             else:
                 st.sidebar.error("Please enter username and password")
 
-    else:  # Register
+    else:
         new_username = st.sidebar.text_input(
-            "Choose Username", 
+            "Choose Username",
             key="reg_username"
         )
         new_password = st.sidebar.text_input(
-            "Choose Password", 
-            type="password", 
+            "Choose Password",
+            type="password",
             key="reg_password"
         )
         confirm_password = st.sidebar.text_input(
-            "Confirm Password", 
-            type="password", 
+            "Confirm Password",
+            type="password",
             key="reg_confirm"
         )
-        
-        if st.sidebar.button(
-            "Register",
-            type="primary",
-            width='stretch'
-        ):
+
+        if st.sidebar.button("Register", type="primary"):
             if new_username.strip() and new_password.strip():
                 if new_password != confirm_password:
                     st.sidebar.error("Passwords don't match")
@@ -85,24 +67,16 @@ def handle_authentication():
                     st.sidebar.error("Username already exists")
                 else:
                     create_user(new_username.strip(), new_password)
-                    st.sidebar.success(
-                        f"User '{new_username}' created! Please login."
-                    )
+                    st.sidebar.success("User created! Please login.")
             else:
                 st.sidebar.error("Please fill all fields")
- 
+
     return None
 
 
 def show_user_sidebar(username):
-    """Show logged-in user info and logout button"""
     st.sidebar.write(f"👤 **{username}**")
-  
-    if st.sidebar.button(
-        "🚪 Logout", 
-        width='stretch',
-        type="secondary"
-    ):
-        # Clear query param
-        st.query_params.clear()
-        st.rerun()
+
+    if st.sidebar.button("🚪 Logout", type="secondary"):
+        st.session_state.user = None
+       #st.rerun()

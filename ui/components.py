@@ -8,7 +8,7 @@ from core.flashcard_logic import flip_card, next_card
 def flashcard_box(text, image_url=None):
     """Display flashcard with optional image"""
     if image_url:
-        st.image(image_url, width='stretch')
+        st.image(image_url)
         st.markdown("---")
     
     st.markdown(
@@ -40,7 +40,7 @@ def feedback_box(feedback, is_correct):
     if not feedback:
         return
     
-    text = feedback.get('text', '').strip()
+    text = (feedback.get('text') or '').strip()
     images = feedback.get('images', [])
     links = feedback.get('links', [])
     
@@ -65,14 +65,14 @@ def feedback_box(feedback, is_correct):
     for img_url in images:
         if img_url.strip():
             try:
-                st.image(img_url.strip(), width="stretch")
+                st.image(img_url.strip())
             except Exception as e:
                 st.warning(f"Could not load image: {img_url}")
     
     if links:
         st.markdown("**References:**")
         for link in links:
-            url = link.get('url', '').strip()
+            url = link.get('url').strip()
             label = link.get('label', url).strip() or url
             if url:
                 st.markdown(f"- [{label}]({url})")
@@ -83,15 +83,13 @@ def controls():
         st.button(
             "🔄 Flip", 
             key="flip_btn", 
-            on_click=flip_card, 
-            width='stretch'
+            on_click=flip_card
         )
     with col2:
         st.button(
             "➡️ Next", 
             key="next_btn", 
-            on_click=next_card, 
-            width='stretch'
+            on_click=next_card
         )
 
 
@@ -103,7 +101,6 @@ def answer_buttons(on_correct, on_incorrect, disabled=False):
             "✓ Got it!", 
             key="correct_btn", 
             on_click=on_correct, 
-            width='stretch', 
             type="primary", 
             disabled=disabled
         )
@@ -112,7 +109,6 @@ def answer_buttons(on_correct, on_incorrect, disabled=False):
             "✗ Need practice", 
             key="incorrect_btn", 
             on_click=on_incorrect, 
-            width='stretch', 
             disabled=disabled
         )
 
@@ -125,15 +121,13 @@ def commit_buttons(on_know, on_dont_know):
             "✓ I know this", 
             key="know_btn", 
             on_click=on_know, 
-            width='stretch', 
             type="primary"
         )
     with col2:
         st.button(
             "✗ I don't know", 
             key="dont_know_btn", 
-            on_click=on_dont_know, 
-            width='stretch'
+            on_click=on_dont_know
         )
 
 
@@ -143,7 +137,6 @@ def quiz_input(on_submit):
         user_answer = st.text_input("Your answer:", key="quiz_input")
         submitted = st.form_submit_button(
             "Submit Answer", 
-            width='stretch', 
             type="primary"
         )   
         if submitted:
@@ -216,28 +209,26 @@ def leaderboard(users_list):
     # Display as dataframe
     import pandas as pd
     df = pd.DataFrame(leaderboard_data)
-    st.dataframe(df, width='stretch', hide_index=True)
+    st.dataframe(df, hide_index=True)
 
 
 def mode_selector():
-    """Study mode selector"""
     from core.study_modes import STUDY_MODES
-    
+
     st.sidebar.subheader("Study Mode")
-    
-    mode_options = {key: config["name"] for key, config in STUDY_MODES.items()}
-    
-    selected_mode = st.sidebar.selectbox(
+
+    mode_names = {config["name"]: key for key, config in STUDY_MODES.items()}
+    names = list(mode_names.keys())
+
+    selected_name = st.sidebar.selectbox(
         "Select mode:",
-        options=list(mode_options.keys()),
-        format_func=lambda x: mode_options[x],
+        options=names,
         key="study_mode_selector"
     )
-    
-    # Show mode description
-    mode_config = STUDY_MODES[selected_mode]
+
+    selected_mode = mode_names.get(selected_name) or "flashcard"
+    mode_config = STUDY_MODES.get(selected_mode, STUDY_MODES["flashcard"])
     st.sidebar.caption(mode_config["description"])
-    
     return selected_mode
 
 
@@ -273,7 +264,6 @@ def multiple_choice_buttons(options, on_answer, correct_index=None, show_result=
             if st.button(
                 button_label,
                 key=f"mc_option_{idx}",
-                width='stretch',
                 type=button_type,
                 disabled=show_result
             ):
@@ -310,7 +300,6 @@ def multi_select_checkboxes(options, on_submit, correct_indices=None, show_resul
         
         submitted = st.form_submit_button(
             "Submit Answer",
-            width='stretch',
             type="primary",
             disabled=show_result
         )
@@ -339,7 +328,6 @@ def true_false_buttons(on_answer, correct_answer=None, show_result=False):
         if st.button(
             true_label,
             key="tf_true",
-            width='stretch',
             type=true_type,
             disabled=show_result
         ):
@@ -354,7 +342,6 @@ def true_false_buttons(on_answer, correct_answer=None, show_result=False):
         if st.button(
             false_label,
             key="tf_false",
-            width='stretch',
             type=false_type,
             disabled=show_result
         ):
@@ -371,7 +358,7 @@ def display_question_with_image(question_text, image_url=None):
     """
     if image_url:
         try:
-            st.image(image_url, caption="Question Image", width='stretch')
+            st.image(image_url, caption="Question Image")
             st.markdown("---")
         except Exception as e:
             st.warning(f"Could not load image: {e}")
