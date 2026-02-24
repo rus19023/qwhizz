@@ -1,0 +1,4 @@
+streamlit
+pymongo
+# theme-switcher = { git = "ssh://ssh-keygen -t ed25519 -C "streamlit-deploy-key" -f ~/.ssh/id_deploy -N ""@github.com/rus19023/theme_switcher.git" }
+git+https://github.com/rus19023/theme-switcher.git@a6623933d24040515f6df3c26f360eb38367505f
