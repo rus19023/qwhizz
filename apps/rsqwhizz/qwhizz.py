@@ -1,5 +1,12 @@
 #qwhizz.py
 
+import sys
+from pathlib import Path
+
+# Add /common to Python path
+COMMON_PATH = Path(__file__).resolve().parents[2] / "common"
+sys.path.insert(0, str(COMMON_PATH))
+
 import traceback
 import streamlit as st
 
@@ -26,13 +33,6 @@ from ui.router import TabSpec, render_tabs
 from core.state import init_state, reset_study_state_on_mode_change
 from data.deck_store import get_deck_names, get_deck, create_deck
 from data.user_store import get_user, get_leaderboard
-
-import sys
-from pathlib import Path
-
-# Add /common to Python path
-COMMON_PATH = Path(__file__).resolve().parents[2] / "common"
-sys.path.insert(0, str(COMMON_PATH))
 
 
 def require_login() -> str:
