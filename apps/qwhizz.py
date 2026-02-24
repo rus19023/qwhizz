@@ -1,12 +1,5 @@
 #qwhizz.py
 
-# import sys
-# from pathlib import Path
-
-# # Add /common to Python path
-# COMMON_PATH = Path(__file__).resolve().parents[2] / "common"
-# sys.path.insert(0, str(COMMON_PATH))
-
 import traceback
 import streamlit as st
 
@@ -34,13 +27,6 @@ from core.state import init_state, reset_study_state_on_mode_change
 from data.deck_store import get_deck_names, get_deck, create_deck
 from data.user_store import get_user, get_leaderboard
 
-def require_login() -> str:
-    user = handle_authentication()
-    if not user:
-        st.info("Please login or register in the sidebar to continue.")
-        st.stop()
-    return user
-
 
 def require_deck_selection() -> str:
     deck_names = get_deck_names()
@@ -66,8 +52,7 @@ def main() -> None:
     apply_global_css()
     quick_theme_setup(default_theme=st.secrets["app"]["theme"])
 
-    logged_in_user = require_login()
-
+    logged_in_user = handle_authentication()
     render_header()
     show_user_sidebar(logged_in_user)
 
