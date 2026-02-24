@@ -86,3 +86,17 @@ def get_all_cards_with_indices(deck_name: str) -> List[Dict[str, Any]]:
         }
         for idx, card in enumerate(cards)
     ]
+    
+# data/deck_store.py
+from typing import Any, Dict
+
+from data.db import get_database
+
+def add_card_full(deck_name: str, card: Dict[str, Any]) -> None:
+    """Push a complete card dict into the deck in one atomic operation."""
+    db = get_database()
+    db.decks.update_one(
+        {"_id": deck_name},
+        {"$push": {"cards": card}},
+        upsert=True
+    )
