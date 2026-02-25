@@ -1,5 +1,14 @@
 import streamlit as st
 from data.user_store import get_user, create_user
+from streamlit_cookies_manager import EncryptedCookieManager
+
+cookies = EncryptedCookieManager(
+    prefix="qwhizz_",
+    password=st.secrets["app"]["cookie_password"],
+)
+
+if not cookies.ready():
+    st.stop()
 
 
 def handle_authentication() -> str:
@@ -17,14 +26,23 @@ def handle_authentication() -> str:
         show_user_sidebar(st.session_state.user)
         return st.session_state.user
 
+    # session_state init
+    if "user" not in st.session_state:
+        st.session_state.user = None
+
+    # If cookie exists, restore login
+    cookie_user = (cookies.get("user") or "").strip()
+    if not st.session_state.user and cookie_user:
+        st.session_state.user = cookie_user
+
     # Not logged in: show auth UI (sidebar)
-    st.sidebar.header(st.secrets["app"].get("title", "QWhizz"))
+    st.header(st.secrets["app"].get("title", "QWhizz"))
     subtitle = st.secrets["app"].get("subtitle", "")
     subheader = st.secrets["app"].get("subheader", "")
     if subtitle:
-        st.sidebar.subheader(subtitle)
+        st.subheader(subtitle)
     if subheader:
-        st.sidebar.caption(subheader)
+        st.caption(subheader)
 
     auth_mode = st.sidebar.radio("Select Action", ["Login", "Register"], key="auth_mode")
 
@@ -42,6 +60,8 @@ def handle_authentication() -> str:
                 user = get_user(username)
                 if user and user.get("password") == password:
                     st.session_state.user = username
+                    cookies["user"] = username
+                    cookies.save()
                     st.rerun()
                 else:
                     st.sidebar.error("Invalid username or password")
@@ -73,6 +93,8 @@ def handle_authentication() -> str:
 def show_user_sidebar(username: str) -> None:
     st.sidebar.write(f"👤 **{username}**")
 
-    if st.sidebar.button("🚪 Logout"):
+    if st.sidebar.button("🚪 Logout", key="logout_btn"):
         st.session_state.user = None
+        cookies["user"] = ""
+        cookies.save()
         st.rerun()

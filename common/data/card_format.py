@@ -75,45 +75,69 @@ IMAGE_EXAMPLE = {
 }
 
 
-def validate_card(card):
+def validate_card(question, answer, *args, **kwargs):
     """
     Validate card structure
-    
+
+    Accepts either:
+      - validate_card(card_dict, answer_str)
+      - validate_card(question_str, answer_str)
+
     Returns:
         (bool, str): (is_valid, error_message)
     """
-    if "question" not in card or "answer" not in card:
-        return False, "Card must have 'question' and 'answer' fields"
-    
+    # Normalize inputs into a single dict `card`
+    if isinstance(question, dict):
+        card = dict(question)  # shallow copy
+        if not isinstance(answer, str) or not answer:
+            answer = card.get("answer", "")
+        card.setdefault("answer", answer)
+        card.setdefault("question", card.get("question", ""))
+    else:
+        card = {"question": question, "answer": answer}
+
+    # Basic required fields
+    q = (card.get("question") or "")
+    a = (card.get("answer") or "")
+    if not isinstance(q, str) or not q.strip():
+        return False, "Question cannot be empty"
+    if not isinstance(a, str) or not a.strip():
+        return False, "Answer cannot be empty"
+
     card_type = card.get("type", "flashcard")
-    
+
     if card_type == "multiple_choice":
         if "options" not in card or "correct_index" not in card:
             return False, "Multiple choice cards need 'options' and 'correct_index'"
-        if not (0 <= card["correct_index"] < len(card["options"])):
-            return False, "correct_index out of range"
+        if not isinstance(card["options"], list) or len(card["options"]) < 2:
+            return False, "options must be a list with at least 2 items"
         if len(card["options"]) > 10:
             return False, "Maximum 10 options allowed"
-    
+        if not isinstance(card["correct_index"], int):
+            return False, "correct_index must be an integer"
+        if not (0 <= card["correct_index"] < len(card["options"])):
+            return False, "correct_index out of range"
+
     elif card_type == "multi_select":
         if "options" not in card or "correct_indices" not in card:
             return False, "Multi-select cards need 'options' and 'correct_indices'"
-        if not isinstance(card["correct_indices"], list):
-            return False, "correct_indices must be a list"
+        if not isinstance(card["options"], list) or len(card["options"]) < 3:
+            return False, "options must be a list with at least 3 items"
         if len(card["options"]) > 10:
             return False, "Maximum 10 options allowed"
+        if not isinstance(card["correct_indices"], list):
+            return False, "correct_indices must be a list"
         for idx in card["correct_indices"]:
-            if not (0 <= idx < len(card["options"])):
+            if not isinstance(idx, int) or not (0 <= idx < len(card["options"])):
                 return False, f"correct_index {idx} out of range"
-    
+
     elif card_type == "true_false":
         if "correct_answer" not in card:
             return False, "True/false cards need 'correct_answer'"
         if not isinstance(card["correct_answer"], bool):
             return False, "correct_answer must be True or False"
-    
-    return True, ""
 
+    return True, ""
 
 def get_card_type(card):
     """Determine card type, defaulting to flashcard"""
@@ -152,8 +176,14 @@ def validate_card(question, answer, deck_name=None):
     """
     
     # Strip whitespace for checking
-    q = question.strip()
-    a = answer.strip()
+    # If validate_card was called with a full card dict as "question"
+    if isinstance(question, dict):
+        card = question
+        question = card.get("question", "")
+        answer = card.get("answer", answer if isinstance(answer, str) else "")
+
+    q = (question or "").strip()
+    a = (answer or "").strip()
     
     # 1. Check if empty
     if not q:
@@ -240,8 +270,13 @@ def get_card_warnings(question, answer):
     """
     warnings = []
     
-    q = question.strip()
-    a = answer.strip()
+    if isinstance(question, dict):
+        card = question
+        question = card.get("question", "")
+        answer = card.get("answer", answer if isinstance(answer, str) else "")
+
+    q = (question or "").strip()
+    a = (answer or "").strip()
     
     # Check if question doesn't end with punctuation
     if q and q[-1] not in '.?!':
@@ -276,8 +311,13 @@ def format_card_stats(question, answer):
     Returns:
         dict: Statistics about the card
     """
-    q = question.strip()
-    a = answer.strip()
+    if isinstance(question, dict):
+        card = question
+        question = card.get("question", "")
+        answer = card.get("answer", answer if isinstance(answer, str) else "")
+
+    q = (question or "").strip()
+    a = (answer or "").strip()
     
     return {
         'question_length': len(q),

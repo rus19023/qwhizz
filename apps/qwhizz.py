@@ -7,8 +7,8 @@ import streamlit as st
 st.set_page_config(
     page_title=st.secrets["app"]["title"],
     page_icon=st.secrets["app"]["icon"],
-    layout="wide",
-    initial_sidebar_state="expanded"
+    layout=st.secrets["app"]["screen_width"],
+    initial_sidebar_state=st.secrets["app"]["start_sidebar_state"]
 )
 
 from theme_switcher import quick_theme_setup
@@ -54,7 +54,6 @@ def main() -> None:
 
     logged_in_user = handle_authentication()
     render_header()
-    show_user_sidebar(logged_in_user)
 
     study_mode = mode_selector()
     reset_study_state_on_mode_change(study_mode)

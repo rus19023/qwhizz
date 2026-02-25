@@ -109,29 +109,37 @@ def render_study_tab(cards, deck_name, username, study_mode, init_state):
 # ============================================================================
 
 def render_flashcard_mode(card, username):
-    """Traditional flashcard with flip"""
-    
-    # Display question (with optional image)
+
     image_url = card.get("image_url")
+
     if image_url:
         display_question_with_image(card["question"], image_url)
     else:
         flashcard_box(card["question"])
-    
-    # Show answer if flipped
+
+    # Use ONE consistent state variable
     if st.session_state.get("show_answer", False):
+
         st.success("**Answer:**")
         flashcard_box(card["answer"])
-        
-        # Answer buttons
-        answer_buttons(
-            on_correct=lambda: handle_answer(True, username),
-            on_incorrect=lambda: handle_answer(False, username)
-        )
-    else:
-        # Control buttons
-        controls()
 
+        col1, col2 = st.columns(2)
+
+        with col1:
+            if st.button("✓ Got it!", type="primary"):
+                handle_answer(True, username)
+
+        with col2:
+            if st.button("✗ Need practice"):
+                handle_answer(False, username)
+
+        # Always show Next after answering
+        if st.button("Next Card →", key="flash_next", type="primary"):
+            advance_to_next_card()
+
+    else:
+        if st.button("🔄 Flip"):
+            st.session_state.show_answer = True
 
 def render_multiple_choice_mode(card, all_cards, username):
     """Multiple choice mode (single correct answer)"""

@@ -1,7 +1,7 @@
 # ui/add_card_tab.py
 
 import streamlit as st
-from data.deck_store import add_card_full, get_deck_names
+from data.deck_store import add_card, add_card_full, get_deck_names
 from data.card_format import validate_card
 from data.import_cards import render_import_ui
 from data.db import get_database
@@ -29,7 +29,7 @@ def render_add_card_tab():
             st.error("No decks found. Create a deck first in the Manage tab.")
             return
         
-        selected_deck = st.selectbox("Select deck", deck_names, key="add_card_deck")
+        selected_deck = st.selectbox("Select deck", deck_names, index=int(len(deck_names) -1), key="add_card_deck")
         
         # Card type selector - store display name as string to match browser cache
         selected_display = st.selectbox(
@@ -40,23 +40,23 @@ def render_add_card_tab():
         card_type = CARD_TYPE_DISPLAY.get(selected_display, "flashcard")
         
         # Create form based on card type
-        with st.form("add_card_form", clear_on_submit=True):
+        with st.form("add_card_form", clear_on_submit=False):
             
             # Common fields
             question = st.text_area("Question", height=100, key="new_question")
             
             # Optional image
-            with st.expander("🖼️ Add Image (Optional)"):
-                image_url = st.text_input(
-                    "Image URL",
-                    help="URL to an image (diagram, chart, table, etc.)",
-                    key="new_image_url"
-                )
-                if image_url:
-                    try:
-                        st.image(image_url, caption="Preview")
-                    except:
-                        st.warning("Could not load image preview")
+            "🖼️ Add Image (Optional)"
+            image_url = st.text_input(
+                "Image URL",
+                help="URL to an image (diagram, chart, table, etc.)",
+                key="new_image_url"
+            )
+            if image_url:
+                try:
+                    st.image(image_url, caption="Preview")
+                except:
+                    st.warning("Could not load image preview")
             
             # Card type specific fields
             card_data = {"type": card_type}
@@ -206,7 +206,14 @@ def render_add_card_tab():
             if submitted:
                 card_data["question"] = question
 
-                is_valid, error_msg = validate_card(card_data, card_data.get("answer", ""))
+                result = validate_card(card_data, card_data.get("answer", ""))
+
+                if isinstance(result, tuple) and len(result) == 2:
+                    is_valid, error_msg = result
+                else:
+                    # backwards compatibility if validate_card returns only bool
+                    is_valid = bool(result)
+                    error_msg = "" if is_valid else "Invalid card"
 
                 if not is_valid:
                     st.error(f"❌ Invalid card: {error_msg}")
