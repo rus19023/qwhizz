@@ -14,18 +14,18 @@ def flashcard_box(text, image_url=None):
     st.markdown(
         f"""
         <div style="
-            font-size:20px;
+            font-size:1rem;
             border-radius:10px;
             border:2px solid #ddd;
             text-align:center;
-            height:300px;
+            height:15rem;
             overflow-y:auto;">
             <div style="
                 min-height:100%;
                 display:flex;
                 align-items:center;
                 justify-content:center;
-                padding:20px;">
+                padding:1rem;">
                 {text}
             </div>
         </div>
@@ -233,41 +233,33 @@ def mode_selector():
 
 
 def multiple_choice_buttons(options, on_answer, correct_index=None, show_result=False):
-    """
-    Display multiple choice buttons (up to 10 options)
-    
-    Args:
-        options: List of option strings (up to 10)
-        on_answer: Callback function(selected_index)
-        correct_index: Index of correct answer (for showing results)
-        show_result: Whether to show if answer was correct/incorrect
-    """
     st.write("**Choose the correct answer:**")
-    
-    # Support up to 10 options
+
+    st.markdown('<div class="mc-mode">', unsafe_allow_html=True)
+
     num_options = min(len(options), 10)
-    
-    # Use 2 columns for clean layout
     cols = st.columns(2)
-    
+
     for idx in range(num_options):
         with cols[idx % 2]:
             button_label = f"{chr(65 + idx)}. {options[idx]}"
-            
-            # Determine button type based on result
+
             button_type = "secondary"
             if show_result and correct_index is not None:
                 if idx == correct_index:
                     button_type = "primary"
                     button_label += " ✓"
-            
+
             if st.button(
                 button_label,
                 key=f"mc_option_{idx}",
                 type=button_type,
-                disabled=show_result
+                disabled=show_result,
+                use_container_width=True,   # <— important for quiz feel
             ):
                 on_answer(idx)
+
+    st.markdown("</div>", unsafe_allow_html=True)
 
 
 def multi_select_checkboxes(options, on_submit, correct_indices=None, show_result=False):

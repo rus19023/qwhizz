@@ -29,7 +29,7 @@ APP_CSS = """
     }
 
     div[data-testid="stButton"] button {
-        height: 80px !important;
+        # height: 80px !important;
         white-space: normal !important;
         overflow-y: auto !important;
     }
@@ -39,7 +39,9 @@ APP_CSS = """
         max-width: 98% !important;
         padding-left: 1rem !important;
         padding-right: 1rem !important;
-    }/* Shrink tab padding */
+    }
+    
+    /* Shrink tab padding */
     button[data-baseweb="tab"] {
         padding: 6px 12px !important;
         font-size: 14px !important;
@@ -53,6 +55,13 @@ APP_CSS = """
     div[role="tablist"] {
     overflow-x: auto !important;
     flex-wrap: nowrap !important;
+}
+
+/* Make multiple choice buttons taller */
+button[key^="mc_option_"] {
+    min-height: 12rem !important;
+    font-size: 1rem !important;
+    padding: .75rem !important;
 }
 </style>
 """
