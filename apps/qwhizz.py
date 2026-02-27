@@ -45,11 +45,9 @@ def require_deck_selection() -> str:
 
         st.stop()
 
-<<<<<<< HEAD
-    return st.sidebar.selectbox("Choose a deck", options=deck_names)
-=======
+
     return st.sidebar.selectbox("Choose a deck", index=len(deck_names)-1, options=deck_names)
->>>>>>> 0da8c8439b43acd744d086feac38f23e40a65cda
+
 
 
 def main() -> None:
@@ -60,10 +58,6 @@ def main() -> None:
     render_header()
 
     study_mode = mode_selector()
-<<<<<<< HEAD
-=======
-    st.error(study_mode
->>>>>>> 0da8c8439b43acd744d086feac38f23e40a65cda
     reset_study_state_on_mode_change(study_mode)
 
     deck_name = require_deck_selection()
