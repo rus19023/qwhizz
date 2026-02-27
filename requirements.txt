@@ -2,4 +2,4 @@ streamlit
 pymongo
 streamlit-cookies-manager
 
-git+https://github.com/rus19023/theme-switcher.git
+git+https://github.com/rus19023/theme-switcher.git@a6623933d24040515f6df3c26f360eb38367505f
