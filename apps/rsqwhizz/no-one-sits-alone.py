@@ -59,7 +59,11 @@ cards = [
     {"question": "In the story of the young deacon, what caused him to stop attending church?", 
      "answer": "Other deacons laughed at his new shoes because they weren’t fashionable."},
 
+<<<<<<< HEAD
     {"question": "What does Elder Gong say 'no one sits alone' also means besides physical seating?", 
+=======
+    {"question": "What does Elder Gong say 'no one sits alone' also means, besides physical seating?", 
+>>>>>>> 0da8c8439b43acd744d086feac38f23e40a65cda
      "answer": "No one sits alone emotionally or spiritually."},
 
     {"question": "What hymn phrase does Elder Gong quote about sorrow and healing?", 
@@ -72,7 +76,11 @@ cards = [
      "answer": "How we treat the hungry, thirsty, and those left out is how we treat Him."},
 
     {"question": "What is Elder Gong’s invitation about how we should welcome others?", 
+<<<<<<< HEAD
      "answer": "Not just accommodate or tolerate—genuinely welcome, acknowledge, minister, and love."},
+=======
+     "answer": "Not just accommodate or tolerate — genuinely welcome, acknowledge, minister, and love."},
+>>>>>>> 0da8c8439b43acd744d086feac38f23e40a65cda
 
     {"question": "What does Mosiah 18:21 invite us to do?", 
      "answer": "Knit our hearts together in love."},
@@ -92,7 +100,11 @@ cards = [
     {"question": "Name one substance Elder Gong lists that gospel culture abstains from.", 
      "answer": "Alcohol."},
 
+<<<<<<< HEAD
     {"question": "What does Elder Gong say about Church positions—how do we move in them?", 
+=======
+    {"question": "What does Elder Gong say about Church positions — how do we move in them?", 
+>>>>>>> 0da8c8439b43acd744d086feac38f23e40a65cda
      "answer": "We move forward, not upward or downward."},
 
     {"question": "What identity does President Russell M. Nelson teach to prioritize (as quoted in the talk)?", 
@@ -108,7 +120,11 @@ cards = [
      "answer": "I even like myself now!"},
 
     {"question": "What does Elder Gong say each small gesture helps build over time?", 
+<<<<<<< HEAD
      "answer": "Zion—one hello at a time."},
+=======
+     "answer": "Zion — one hello at a time."},
+>>>>>>> 0da8c8439b43acd744d086feac38f23e40a65cda
 ]
 
 

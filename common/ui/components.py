@@ -221,7 +221,11 @@ def mode_selector():
     names = list(mode_names.keys())
 
     selected_name = st.sidebar.selectbox(
+<<<<<<< HEAD
         "Select mode:",
+=======
+        "Select learningmode:",
+>>>>>>> 0da8c8439b43acd744d086feac38f23e40a65cda
         options=names,
         key="study_mode_selector"
     )

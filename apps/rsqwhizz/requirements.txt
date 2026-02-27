@@ -1,5 +1,0 @@
-streamlit
-pymongo
-streamlit_cookies_manager
-# theme-switcher = { git = "ssh://ssh-keygen -t ed25519 -C "streamlit-deploy-key" -f ~/.ssh/id_deploy -N ""@github.com/rus19023/theme_switcher.git" }
-git+https://github.com/rus19023/theme-switcher.git
