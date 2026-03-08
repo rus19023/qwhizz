@@ -144,6 +144,11 @@ def render_flashcard_mode(card, username):
 def render_multiple_choice_mode(card, all_cards, username):
     """Multiple choice mode (single correct answer)"""
     
+    # Don't show true/false cards as multiple choice
+    if get_card_type(card) == "true_false":
+        render_true_false_mode(card, username)
+        return
+    
     # Initialize game state for this card if needed
     if "mc_options" not in st.session_state or st.session_state.get("mc_card_id") != id(card):
         options, correct_idx = generate_multiple_choice_options(card, all_cards, num_options=4)
