@@ -1,24 +1,81 @@
 # core/quiz_generator.py
 
 import random
+import requests
 from difflib import SequenceMatcher
 import streamlit as st
 
-headers={
-    "Content-Type": "application/json",
-    "x-api-key": st.secrets["ANTHROPIC_API_KEY"],
-    "anthropic-version": "2023-06-01",
-}
+
+def _get_headers():
+    return {
+        "Content-Type": "application/json",
+        "x-api-key": st.secrets["ANTHROPIC_API_KEY"],
+        "anthropic-version": "2023-06-01",
+    }
+
+
+def _is_too_similar(a, b, threshold=0.85):
+    """Return True if two strings are suspiciously similar."""
+    return SequenceMatcher(None, a.lower().strip(), b.lower().strip()).ratio() > threshold
 
 
 def _get_wrong_answers(card):
-    """Extract stored wrong answers from a card, checking all possible field names."""
-    return (
+    raw = (
         card.get("wrong_answers")
         or card.get("distractors")
         or card.get("incorrect_answers")
         or []
     )
+    return [w for w in raw if w and not w.strip().startswith("[DISTRACTOR")]
+
+
+def _generate_ai_distractors(question, correct_answer, count=3):
+    """Call Claude API to generate plausible wrong answers."""
+    prompt = (
+        f"Generate exactly {count} plausible but incorrect answers for this flashcard.\n\n"
+        f"Question: {question}\n"
+        f"Correct answer: {correct_answer}\n\n"
+        f"Rules:\n"
+        f"- Each wrong answer should be believable but clearly incorrect\n"
+        f"- Same format/length as the correct answer\n"
+        f"- No duplicates or near-duplicates of each other or the correct answer\n"
+        f"- Return ONLY a plain numbered list, one per line, no explanations\n"
+        f"Example format:\n1. Wrong answer one\n2. Wrong answer two\n3. Wrong answer three"
+    )
+
+    try:
+        response = requests.post(
+            "https://api.anthropic.com/v1/messages",
+            headers=_get_headers(),
+            json={
+                "model": "claude-haiku-4-5-20251001",
+                "max_tokens": 300,
+                "messages": [{"role": "user", "content": prompt}]
+            },
+            timeout=10
+        )
+        response.raise_for_status()
+        text = response.json()["content"][0]["text"]
+
+        # Parse numbered list
+        distractors = []
+        for line in text.strip().splitlines():
+            line = line.strip()
+            if not line:
+                continue
+            # Strip leading "1. " or "- " etc.
+            if line[0].isdigit() and len(line) > 2 and line[1] in ".):":
+                line = line[2:].strip()
+            elif line.startswith("- "):
+                line = line[2:].strip()
+            if line and not _is_too_similar(line, correct_answer):
+                distractors.append(line)
+
+        return distractors[:count]
+
+    except Exception as e:
+        st.warning(f"Could not generate AI distractors: {e}")
+        return []
 
 
 def generate_fake_answers(correct_answer, card, all_cards, count=3):
@@ -26,26 +83,41 @@ def generate_fake_answers(correct_answer, card, all_cards, count=3):
     Generate plausible fake answers.
     Priority:
       1. Stored wrong_answers/distractors on the card itself
-      2. Other cards' correct answers as distractors
-      3. Generated variations as a last resort
+      2. AI-generated distractors via Claude API
+      3. Other cards' correct answers as a last resort
     """
     fake_answers = []
 
-    # 1. Use stored wrong answers first
-    stored_wrong = [
-        w for w in _get_wrong_answers(card)
-        if w and w.lower().strip() != correct_answer.lower().strip()
-    ]
-    if stored_wrong:
-        sampled = random.sample(stored_wrong, min(count, len(stored_wrong)))
-        fake_answers.extend(sampled)
+    # 1. Use stored wrong answers first (deduplicated by similarity)
+    for w in _get_wrong_answers(card):
+        if not w:
+            continue
+        if _is_too_similar(w, correct_answer):
+            continue
+        if any(_is_too_similar(w, existing) for existing in fake_answers):
+            continue
+        fake_answers.append(w)
 
-    # 2. Fill remaining slots from other cards' correct answers
+    fake_answers = fake_answers[:count]
+
+    # 2. Fill remaining with AI-generated distractors
+    if len(fake_answers) < count:
+        still_needed = count - len(fake_answers)
+        ai_distractors = _generate_ai_distractors(
+            card.get("question", ""), correct_answer, count=still_needed
+        )
+        for d in ai_distractors:
+            if not _is_too_similar(d, correct_answer) and not any(_is_too_similar(d, f) for f in fake_answers):
+                fake_answers.append(d)
+
+    # 3. Last resort: other cards' answers
     if len(fake_answers) < count:
         other_answers = [
             c["answer"] for c in all_cards
             if c["answer"].lower().strip() != correct_answer.lower().strip()
             and c["answer"] not in fake_answers
+            and not _is_too_similar(c["answer"], correct_answer)
+            and not any(_is_too_similar(c["answer"], f) for f in fake_answers)
         ]
         still_needed = count - len(fake_answers)
         if len(other_answers) >= still_needed:
@@ -53,24 +125,7 @@ def generate_fake_answers(correct_answer, card, all_cards, count=3):
         else:
             fake_answers.extend(other_answers)
 
-    # 3. Last resort: generate variations
-    while len(fake_answers) < count:
-        variation = _create_variation(correct_answer)
-        if variation not in fake_answers:
-            fake_answers.append(variation)
-
     return fake_answers[:count]
-
-
-def _create_variation(answer):
-    """Create a plausible variation of an answer (last resort only)."""
-    variations = [
-        f"Incorrect: {answer}",
-        f"Similar to {answer}",
-        f"Related: {answer.split()[0] if len(answer.split()) > 1 else answer}",
-        f"Alternative explanation"
-    ]
-    return random.choice(variations)
 
 
 def generate_true_false_statement(question, answer, is_true=True):
@@ -86,10 +141,8 @@ def create_multiple_choice_question(card, all_cards):
     """Create a multiple choice question from a card"""
     correct_answer = card["answer"]
 
-    # Generate 3 distractors, using stored wrong answers when available
     fake_answers = generate_fake_answers(correct_answer, card, all_cards, count=3)
 
-    # Combine and shuffle
     all_options = fake_answers + [correct_answer]
     random.shuffle(all_options)
 
