@@ -1,0 +1,6 @@
+streamlit
+pymongo
+streamlit-cookies-manager
+
+
+git+https://github.com/rus19023/theme-switcher.git

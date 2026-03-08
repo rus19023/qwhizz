@@ -1,0 +1,218 @@
+[
+  {
+    "question": "Which physician is Duchenne muscular dystrophy named after?",
+    "answer": "Guillaume Duchenne de Boulogne",
+    "type": "multiple_choice",
+    "options": [
+      "Guillaume Duchenne de Boulogne",
+      "Gaetano Conte",
+      "Wilhelm Conrad Röntgen",
+      "Gregor Mendel"
+    ],
+    "correct_index": 0
+  },
+  {
+    "question": "Why was the older term 'pseudohypertrophic muscular dystrophy' used for Duchenne muscular dystrophy?",
+    "answer": "Calves can look enlarged due to fat and connective tissue replacing muscle",
+    "type": "multiple_choice",
+    "options": [
+      "Calves can look enlarged due to fat and connective tissue replacing muscle",
+      "Calves look enlarged because muscle fibers multiply rapidly",
+      "Calves look enlarged due to fluid accumulation from kidney failure",
+      "Calves look enlarged because of excessive bone growth"
+    ],
+    "correct_index": 0
+  },
+  {
+    "question": "In what decade was the DMD gene localized to the X chromosome and dystrophin identified?",
+    "answer": "1980s",
+    "type": "multiple_choice",
+    "options": [
+      "1860s",
+      "1920s",
+      "1980s",
+      "2000s"
+    ],
+    "correct_index": 2
+  },
+  {
+    "question": "Which description best matches the typical early presentation of Duchenne muscular dystrophy?",
+    "answer": "Early childhood onset with delayed motor milestones and proximal muscle weakness",
+    "type": "multiple_choice",
+    "options": [
+      "Early childhood onset with delayed motor milestones and proximal muscle weakness",
+      "Adult onset with distal hand weakness and sensory loss",
+      "Neonatal onset with seizures as the first sign",
+      "Adolescent onset with isolated facial weakness only"
+    ],
+    "correct_index": 0
+  },
+  {
+    "question": "Which maneuver is commonly used by children with DMD to rise from the floor?",
+    "answer": "Gowers maneuver",
+    "type": "multiple_choice",
+    "options": [
+      "Babinski maneuver",
+      "Gowers maneuver",
+      "Valsalva maneuver",
+      "Romberg maneuver"
+    ],
+    "correct_index": 1
+  },
+  {
+    "question": "Many individuals with classic DMD become wheelchair-dependent around what age?",
+    "answer": "Around age 12",
+    "type": "multiple_choice",
+    "options": [
+      "Around age 5",
+      "Around age 12",
+      "Around age 18",
+      "Around age 25"
+    ],
+    "correct_index": 1
+  },
+  {
+    "question": "Which body systems are commonly affected in later stages of Duchenne muscular dystrophy?",
+    "answer": "Cardiac and respiratory muscles",
+    "type": "multiple_choice",
+    "options": [
+      "Cardiac and respiratory muscles",
+      "Only the gastrointestinal tract",
+      "Only the kidneys",
+      "Only the skin"
+    ],
+    "correct_index": 0
+  },
+  {
+    "question": "Duchenne muscular dystrophy follows which inheritance pattern?",
+    "answer": "X-linked inheritance",
+    "type": "multiple_choice",
+    "options": [
+      "Autosomal dominant",
+      "Autosomal recessive",
+      "X-linked inheritance",
+      "Mitochondrial inheritance"
+    ],
+    "correct_index": 2
+  },
+  {
+    "question": "If a woman is a carrier of DMD, what is the chance that each son will have DMD?",
+    "answer": "50%",
+    "type": "multiple_choice",
+    "options": [
+      "25%",
+      "50%",
+      "75%",
+      "100%"
+    ],
+    "correct_index": 1
+  },
+  {
+    "question": "Where is the DMD gene located?",
+    "answer": "Xp21.2–p21.1",
+    "type": "multiple_choice",
+    "options": [
+      "Chromosome 7q31",
+      "Chromosome 21q22",
+      "Xp21.2–p21.1",
+      "Yp11.2"
+    ],
+    "correct_index": 2
+  },
+  {
+    "question": "Which statement best describes the DMD gene?",
+    "answer": "It is exceptionally large and contains 79 exons",
+    "type": "multiple_choice",
+    "options": [
+      "It is exceptionally large and contains 79 exons",
+      "It is one of the smallest human genes and contains 3 exons",
+      "It is found only on the Y chromosome",
+      "It is a mitochondrial gene with no exons"
+    ],
+    "correct_index": 0
+  },
+  {
+    "question": "What is the name of the protein that is absent or nonfunctional in DMD?",
+    "answer": "Dystrophin",
+    "type": "multiple_choice",
+    "options": [
+      "Myosin",
+      "Dystrophin",
+      "Collagen",
+      "Actinin"
+    ],
+    "correct_index": 1
+  },
+  {
+    "question": "What is dystrophin's key role in muscle cells?",
+    "answer": "It links the cytoskeleton to the extracellular matrix to stabilize muscle fibers",
+    "type": "multiple_choice",
+    "options": [
+      "It links the cytoskeleton to the extracellular matrix to stabilize muscle fibers",
+      "It produces ATP as the primary muscle energy enzyme",
+      "It transports oxygen within red blood cells",
+      "It functions as a neurotransmitter at synapses"
+    ],
+    "correct_index": 0
+  },
+  {
+    "question": "What laboratory finding is typically markedly elevated in DMD?",
+    "answer": "Creatine kinase (CK)",
+    "type": "multiple_choice",
+    "options": [
+      "Troponin I",
+      "Creatinine",
+      "Creatine kinase (CK)",
+      "Bilirubin"
+    ],
+    "correct_index": 2
+  },
+  {
+    "question": "What type of pathogenic variants account for the majority of DMD cases and are often tested first?",
+    "answer": "Whole-exon deletions or duplications",
+    "type": "multiple_choice",
+    "options": [
+      "Whole-exon deletions or duplications",
+      "Only balanced chromosomal translocations",
+      "Only mitochondrial point mutations",
+      "Only trinucleotide repeat expansions"
+    ],
+    "correct_index": 0
+  },
+  {
+    "question": "What is the commonly cited birth incidence of DMD in males?",
+    "answer": "Approximately 1 in 3,500 to 5,000 male births",
+    "type": "multiple_choice",
+    "options": [
+      "1 in 500 male births",
+      "1 in 3,500 to 5,000 male births",
+      "1 in 50,000 male births",
+      "1 in 100,000 male births"
+    ],
+    "correct_index": 1
+  },
+  {
+    "question": "Which statement about family history in DMD is most accurate?",
+    "answer": "Some cases occur without known family history due to de novo variants or germline mosaicism",
+    "type": "multiple_choice",
+    "options": [
+      "Some cases occur without known family history due to de novo variants or germline mosaicism",
+      "All cases require a known affected male in the prior generation",
+      "DMD occurs only when both parents are affected",
+      "DMD never occurs as a new mutation"
+    ],
+    "correct_index": 0
+  },
+  {
+    "question": "Which best explains why new mutations are relatively common in DMD?",
+    "answer": "The DMD gene is exceptionally large",
+    "type": "multiple_choice",
+    "options": [
+      "It is located on the Y chromosome",
+      "It is exceptionally small",
+      "The DMD gene is exceptionally large",
+      "It only contains one exon"
+    ],
+    "correct_index": 2
+  }
+]

@@ -1,0 +1,51 @@
+{
+    "quiz_title": "No One Sits Alone",
+    "source": "No One Sits Alone - Elder Gerrit W. Gong",
+    "questions": [{
+            "type": "multiple_choice",
+            "question": "What example does Elder Gong use to illustrate cultural triangulation?",
+            "options": ["Olive trees", "Wedding feasts", "Fortune cookies", "German vocabulary"],
+            "answer": "Fortune cookies"
+        },
+        {
+            "type": "multiple_choice",
+            "question": "What symbolizes gathering people from diverse locations in Jacob 5?",
+            "options": ["Wheat and tares", "Olive trees and grafting", "Lost sheep", "Mustard seed"],
+            "answer": "Olive trees and grafting"
+        },
+        {
+            "type": "multiple_choice",
+            "question": "What caused the young deacon to stop attending church?",
+            "options": [
+                "He moved away",
+                "He disagreed with doctrine",
+                "Other deacons laughed at his shoes",
+                "His family stopped attending"
+            ],
+            "answer": "Other deacons laughed at his shoes"
+        },
+        {
+            "type": "true_false",
+            "question": "“No one sits alone” only refers to physical seating in church meetings.",
+            "answer": false
+        },
+        {
+            "type": "true_false",
+            "question": "Gospel culture replaces traditions that contradict commandments.",
+            "answer": true
+        },
+        {
+            "type": "true_false",
+            "question": "Everyone is invited to partake of the Lord’s goodness.",
+            "answer": true
+        },
+        {
+            "type": "essay",
+            "question": "Explain what Elder Gong means by “no one sits alone.” Include physical, emotional, and spiritual dimensions."
+        },
+        {
+            "type": "essay",
+            "question": "How does gospel culture differ from national or local culture?"
+        }
+    ]
+}
