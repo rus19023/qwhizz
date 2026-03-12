@@ -2,7 +2,16 @@
 __pycache__/
 *.py[codz]
 *$py.class
+
+# Security 
 .streamlit/*secrets.toml
+.env
+.env.local
+*secrets.toml
+config/secrets.toml
+api_keys.txt
+*.key
+*.pem
 
 # C extensions
 *.so
@@ -220,3 +229,4 @@ __pycache__/
 clearances-old-maybe/
 *.pdf
 *.csv
+*secrets.toml
