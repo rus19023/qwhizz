@@ -2,6 +2,7 @@
 
 import streamlit as st
 import random
+import time
 from core.study_modes import get_mode_config, is_game_mode
 from core.game_mode_logic import (
     generate_multiple_choice_options,
@@ -25,7 +26,7 @@ from ui.components import (
     user_stats
 )
 from data.card_format import get_card_type
-from data.user_store import update_user_score
+from data.user_store import update_user_score, log_study_session
 from data.ponder_store import submit_ponder_response, get_user_response_for_card
 from core.quiz_generator import generate_true_false_statement
 
@@ -58,10 +59,9 @@ def render_study_tab(cards, deck_name, username, study_mode, init_state):
     card_type = get_card_type(current_card)
     
     if card_type == "essay":
-        render_essay_mode(current_card, username)
+        render_essay_mode(current_card, username, deck_name)
         return
 
-    
     # Get mode configuration
     mode_config = get_mode_config(study_mode)
     st.caption(mode_config.get("description", ""))
@@ -80,25 +80,25 @@ def render_study_tab(cards, deck_name, username, study_mode, init_state):
         return
 
     if study_mode == "flashcard":
-        render_flashcard_mode(current_card, username)
+        render_flashcard_mode(current_card, username, deck_name)
     
     elif study_mode == "multiple_choice":
-        render_multiple_choice_mode(current_card, session_cards, username)
+        render_multiple_choice_mode(current_card, session_cards, username, deck_name)
     
     elif study_mode == "multi_select":
-        render_multi_select_mode(current_card, session_cards, username)
+        render_multi_select_mode(current_card, session_cards, username, deck_name)
     
     elif study_mode == "true_false":
-        render_true_false_mode(current_card, username)
+        render_true_false_mode(current_card, username, deck_name)
     
     elif study_mode == "quiz":
-        render_quiz_mode(current_card, username)
+        render_quiz_mode(current_card, username, deck_name)
     
     elif study_mode == "commit":
-        render_commit_mode(current_card, username)
+        render_commit_mode(current_card, username, deck_name)
     
     elif study_mode == "hardcore":
-        render_hardcore_mode(current_card, username)
+        render_hardcore_mode(current_card, username, deck_name)
     
     else:
         st.error(f"Unknown study mode: {study_mode}")
@@ -108,7 +108,7 @@ def render_study_tab(cards, deck_name, username, study_mode, init_state):
 # MODE RENDERERS
 # ============================================================================
 
-def render_flashcard_mode(card, username):
+def render_flashcard_mode(card, username, deck_name):
 
     image_url = card.get("image_url")
 
@@ -117,7 +117,6 @@ def render_flashcard_mode(card, username):
     else:
         flashcard_box(card["question"])
 
-    # Use ONE consistent state variable
     if st.session_state.get("show_answer", False):
 
         st.success("**Answer:**")
@@ -127,13 +126,12 @@ def render_flashcard_mode(card, username):
 
         with col1:
             if st.button("✓ Got it!", type="primary"):
-                handle_answer(True, username)
+                handle_answer(True, username, deck_name, card, "flashcard")
 
         with col2:
             if st.button("✗ Need practice"):
-                handle_answer(False, username)
+                handle_answer(False, username, deck_name, card, "flashcard")
 
-        # Always show Next after answering
         if st.button("Next Card →", key="flash_next", type="primary"):
             advance_to_next_card()
 
@@ -141,9 +139,15 @@ def render_flashcard_mode(card, username):
         if st.button("🔄 Flip"):
             st.session_state.show_answer = True
 
-def render_multiple_choice_mode(card, all_cards, username):
+
+def render_multiple_choice_mode(card, all_cards, username, deck_name):
     """Multiple choice mode (single correct answer)"""
     
+    # Don't show true/false cards as multiple choice
+    if get_card_type(card) == "true_false":
+        render_true_false_mode(card, username, deck_name)
+        return
+
     # Initialize game state for this card if needed
     if "mc_options" not in st.session_state or st.session_state.get("mc_card_id") != id(card):
         options, correct_idx = generate_multiple_choice_options(card, all_cards, num_options=4)
@@ -168,7 +172,7 @@ def render_multiple_choice_mode(card, all_cards, username):
             st.session_state.mc_correct_index,
             selected_idx
         )
-        handle_answer(is_correct, username)
+        handle_answer(is_correct, username, deck_name, card, "multiple_choice")
     
     multiple_choice_buttons(
         options=st.session_state.mc_options,
@@ -190,7 +194,7 @@ def render_multiple_choice_mode(card, all_cards, username):
             advance_to_next_card()
 
 
-def render_multi_select_mode(card, all_cards, username):
+def render_multi_select_mode(card, all_cards, username, deck_name):
     """Multi-select mode (multiple correct answers)"""
     
     # Initialize game state
@@ -200,7 +204,7 @@ def render_multi_select_mode(card, all_cards, username):
         # Fallback if card doesn't have multi-select data
         if not options:
             st.warning("This card doesn't have multi-select data. Using flashcard mode instead.")
-            render_flashcard_mode(card, username)
+            render_flashcard_mode(card, username, deck_name)
             return
         
         st.session_state.ms_options = options
@@ -226,7 +230,7 @@ def render_multi_select_mode(card, all_cards, username):
             st.session_state.ms_correct_indices,
             selected_indices
         )
-        handle_answer(is_correct, username)
+        handle_answer(is_correct, username, deck_name, card, "multi_select")
     
     multi_select_checkboxes(
         options=st.session_state.ms_options,
@@ -250,7 +254,7 @@ def render_multi_select_mode(card, all_cards, username):
             advance_to_next_card()
 
 
-def render_true_false_mode(card, username):
+def render_true_false_mode(card, username, deck_name):
     """True/False mode"""
 
     # If this isn't a true/false card, generate one dynamically
@@ -285,7 +289,7 @@ def render_true_false_mode(card, username):
         st.session_state.tf_user_answer = user_answer
         st.session_state.tf_answered = True
         is_correct = (user_answer == st.session_state.tf_correct)
-        handle_answer(is_correct, username)
+        handle_answer(is_correct, username, deck_name, card, "true_false")
 
     true_false_buttons(
         on_answer=on_answer,
@@ -308,8 +312,7 @@ def render_true_false_mode(card, username):
             advance_to_next_card()
 
 
-
-def render_quiz_mode(card, username):
+def render_quiz_mode(card, username, deck_name):
     """Quiz mode - type your answer"""
     
     # Display question
@@ -326,7 +329,7 @@ def render_quiz_mode(card, username):
             st.session_state.quiz_answered = True
             st.session_state.quiz_user_answer = user_answer
             st.session_state.quiz_similarity = similarity
-            handle_answer(is_correct, username)
+            handle_answer(is_correct, username, deck_name, card, "quiz")
         
         quiz_input(on_submit)
     else:
@@ -344,15 +347,15 @@ def render_quiz_mode(card, username):
             advance_to_next_card()
 
 
-def render_commit_mode(card, username):
+def render_commit_mode(card, username, deck_name):
     """Commit mode - commit before seeing answer"""
     
     flashcard_box(card["question"])
     
     if not st.session_state.get("committed", False):
         commit_buttons(
-            on_know=lambda: commit_answer(True, username),
-            on_dont_know=lambda: commit_answer(False, username)
+            on_know=lambda: commit_answer(True, username, deck_name, card),
+            on_dont_know=lambda: commit_answer(False, username, deck_name, card)
         )
     else:
         st.success("**Answer:**")
@@ -363,13 +366,13 @@ def render_commit_mode(card, username):
             advance_to_next_card()
 
 
-def render_hardcore_mode(card, username):
+def render_hardcore_mode(card, username, deck_name):
     """Hardcore mode - all features enabled"""
-    # Similar to quiz + commit mode
     st.info("🔥 Hardcore Mode: Type your answer AND commit time!")
-    render_quiz_mode(card, username)
+    render_quiz_mode(card, username, deck_name)
 
-def render_essay_mode(card, username):
+
+def render_essay_mode(card, username, deck_name):
     """Essay mode: user writes response, then can reveal rubric/expected points."""
     st.markdown(f"### {card['question']}")
     st.caption("✍️ Write your response below. This is self-graded (rubric shown after).")
@@ -379,8 +382,7 @@ def render_essay_mode(card, username):
     col1, col2 = st.columns(2)
     with col1:
         if st.button("I wrote an answer", '', type="primary"):
-            # Give participation points (optional). If you prefer no points, remove this.
-            handle_answer(True, username)
+            handle_answer(True, username, deck_name, card, "essay")
 
     with col2:
         if st.button("Show rubric", ''):
@@ -388,8 +390,6 @@ def render_essay_mode(card, username):
 
     if st.button("Next Card →", ''):
         advance_to_next_card()
-
-
 
 
 def render_ponder_mode(card, card_index, deck_name, username):
@@ -451,16 +451,27 @@ def render_ponder_mode(card, card_index, deck_name, username):
 # HELPER FUNCTIONS
 # ============================================================================
 
-def handle_answer(is_correct, username):
-    """Handle answer and update score"""
+def handle_answer(is_correct, username, deck_name, card, mode):
+    """Handle answer, update score, and log session for per-deck stats."""
     from core.scoring import calculate_points
-    
-    # Calculate points
+
     points = calculate_points(is_correct)
-    
-    # Update score
     update_user_score(username, points, is_correct)
-    
+
+    # Log to study_sessions for per-deck stats tracking
+    try:
+        response_time = time.time() - st.session_state.get("card_start_time", time.time())
+        log_study_session(
+            username=username,
+            deck_name=deck_name,
+            card_question=card.get("question", "")[:200],
+            response_time=response_time,
+            correct=is_correct,
+            mode=mode,
+        )
+    except Exception:
+        pass  # Never let logging break the study flow
+
     # Update streak
     if is_correct:
         st.session_state.current_streak = st.session_state.get("current_streak", 0) + 1
@@ -468,10 +479,10 @@ def handle_answer(is_correct, username):
         st.session_state.current_streak = 0
 
 
-def commit_answer(knew_it, username):
+def commit_answer(knew_it, username, deck_name, card):
     """Handle commit action"""
     st.session_state.committed = True
-    handle_answer(knew_it, username)
+    handle_answer(knew_it, username, deck_name, card, "commit")
 
 
 def advance_to_next_card():
@@ -482,6 +493,7 @@ def advance_to_next_card():
 
     st.session_state.current_card_index = (st.session_state.get("current_card_index", 0) + 1) % len(cards)
     st.session_state.show_answer = False
+    st.session_state.card_start_time = time.time()  # start timer for next card
 
     # Clear per-mode state so next card doesn't inherit old answers
     for key in [
@@ -493,3 +505,5 @@ def advance_to_next_card():
     ]:
         if key in st.session_state:
             del st.session_state[key]
+
+    st.rerun()
