@@ -11,6 +11,10 @@ st.set_page_config(
     initial_sidebar_state=st.secrets["app"]["start_sidebar_state"]
 )
 
+
+if hasattr(st, "cache"):
+    st.cache = st.cache_data  # Redirect st.cache to st.cache_data
+
 from theme_switcher import quick_theme_setup
 from ui.styles import apply_global_css
 from ui.layout import render_header
@@ -26,6 +30,17 @@ from ui.router import TabSpec, render_tabs
 from core.state import init_state, reset_study_state_on_mode_change
 from data.deck_store import get_deck_names, get_deck, create_deck
 from data.user_store import get_user, get_leaderboard
+
+
+st.markdown("""
+<style>
+.main .block-container {
+    max-width: 1200px;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+</style>
+""", unsafe_allow_html=True)
 
 
 def require_deck_selection() -> str:
@@ -81,7 +96,7 @@ def main() -> None:
         TabSpec("📊 Stats", lambda: render_stats_tab(current_user)),
         TabSpec("🏆 Leaderboard", lambda: leaderboard(get_leaderboard(limit=10))),
         TabSpec("🛡️ Admin", lambda: render_admin_tab(), admin_only=True),
-        TabSpec("🗂️ Manage Decks", lambda: render_manage_tab(), admin_only=True),
+        TabSpec("🗂️ Manage Decks", lambda: render_manage_tab(username=st.session_state.user), admin_only=True),
         TabSpec("➕ Add Card", lambda: render_add_card_tab(), admin_only=True),
     ]
 

@@ -1,5 +1,8 @@
 streamlit
 pymongo
 streamlit-cookies-manager
+pdfplumber
+python-docx 
+beautifulsoup4
 
 git+https://github.com/rus19023/theme-switcher.git

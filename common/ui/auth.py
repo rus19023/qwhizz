@@ -2,6 +2,7 @@ import streamlit as st
 from data.user_store import get_user, create_user
 from streamlit_cookies_manager import EncryptedCookieManager
 
+
 cookies = EncryptedCookieManager(
     prefix="qwhizz_",
     password=st.secrets["app"]["cookie_password"],

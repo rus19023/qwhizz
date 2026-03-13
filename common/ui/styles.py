@@ -2,112 +2,114 @@ import streamlit as st
 
 APP_CSS = """
 <style>
-    MainMenu {visibility: hidden;}
-    footer {visibility: hidden;}
-    #header {visibility: hidden;}
-    .stDeployButton {display: none;}
+    /* ── Hide Streamlit chrome ─────────────────────────────────────────── */
+    MainMenu          { visibility: hidden; }
+    footer            { visibility: hidden; }
+    #header           { visibility: hidden; }
+    .stDeployButton   { display: none; }
 
-    .block-container { padding-top: 1rem; }
+    /* ── Full-width layout ─────────────────────────────────────────────
+       Use wide padding on desktop, tighter on mobile.
+       DO NOT set max-width: 100% here — it breaks Streamlit's
+       responsive column system. Let Streamlit control max-width.
+    ──────────────────────────────────────────────────────────────────── */
+    .block-container {
+        padding-top:   1rem !important;
+        padding-left:  1.5rem !important;
+        padding-right: 1.5rem !important;
+        /* Streamlit default max-width is ~730px. Override to get full width: */
+        max-width: min(98vw, 1400px) !important;
+    }
 
-    # section[data-testid="stSidebar"] {
-    #     display: block !important;
-    #     visibility: visible !important;
-    #     transform: translateX(0) !important;
-    #     margin-left: 0 !important;
-    # }
+    /* ── Sidebar — let Streamlit handle mobile collapse natively ───────
+       REMOVED: transform: translateX(0) — that was locking the sidebar
+       open and breaking the mobile hamburger menu entirely.
+    ──────────────────────────────────────────────────────────────────── */
 
+    /* Make the collapsed-control (hamburger) button always visible */
     button[kind="header"],
     [data-testid="collapsedControl"] {
-        background: #ffffff !important;
-        color: #000000 !important;
-        border: 2px solid #000000 !important;
-        padding: 8px !important;
         visibility: visible !important;
-        display: block !important;
-        opacity: 1 !important;
-        z-index: 999999 !important;
+        display:    block !important;
+        opacity:    1 !important;
+        z-index:    999999 !important;
     }
 
+    /* ── Buttons — allow text to wrap ──────────────────────────────── */
     div[data-testid="stButton"] button {
-        # height: 80px !important;
         white-space: normal !important;
-        overflow-y: auto !important;
+        overflow-y:  auto !important;
     }
 
-    /* Make main content wider */
-    section.main > div {
-        max-width: 98% !important;
-        padding-left: 1rem !important;
-        padding-right: 1rem !important;
-    }
-    
-    /* Shrink tab padding */
+    /* ── Tabs — scrollable on small screens ────────────────────────── */
     button[data-baseweb="tab"] {
-        padding: 6px 12px !important;
-        font-size: 14px !important;
+        padding:    6px 12px !important;
+        font-size:  14px !important;
         white-space: nowrap !important;
     }
-
-    /* Reduce tab container spacing */
     div[role="tablist"] {
-        gap: 6px !important;
+        gap:        6px !important;
+        overflow-x: auto !important;
+        flex-wrap:  nowrap !important;
     }
-    div[role="tablist"] {
-    overflow-x: auto !important;
-    flex-wrap: nowrap !important;
-}
 
-/* Make multiple choice buttons taller */
-button[key^="mc_option_"] {
-    min-height: 12rem !important;
-    font-size: 1rem !important;
-    padding: .75rem !important;
-}
-<<<<<<< HEAD
-=======
-/* =========================
-   Multiple Choice "Quiz App" Buttons
-   ========================= */
+    /* ── Multiple choice buttons ────────────────────────────────────── */
+    .mc-mode div[data-testid="stVerticalBlock"] > div[data-testid="stVerticalBlockBorderWrapper"],
+    .mc-mode div[data-testid="stVerticalBlock"] > div {
+        height:         100%;
+        display:        flex;
+        flex-direction: column;
+    }
+    .mc-mode div[data-testid="stButton"] {
+        flex:           1;
+        display:        flex;
+        flex-direction: column;
+    }
+    .mc-mode div[data-testid="stButton"] button {
+        width:          100% !important;
+        flex:           1 !important;
+        min-height:     80px !important;
+        padding:        14px !important;
+        border-radius:  16px !important;
+        font-size:      12px !important;
+        line-height:    1.0 !important;
+        font-weight:    600 !important;
+        white-space:    normal !important;
+        text-align:     left !important;
+        display:        flex !important;
+        align-items:    center !important;
+        justify-content: flex-start !important;
+    }
+    .mc-mode div[data-testid="stButton"] button:hover {
+        transform: translateY(-1px);
+        filter:    brightness(1.05);
+    }
+    .mc-mode div[data-testid="stButton"] button:active {
+        transform: translateY(0px) scale(0.99);
+    }
+    .mc-mode div[data-testid="stButton"] button:focus {
+        outline:        2px solid rgba(255,255,255,0.35) !important;
+        outline-offset: 2px !important;
+    }
 
-.mc-mode div[data-testid="stButton"] button {
-    width: 100% !important;
-    min-height: 160px !important;     /* uniform height */
-    height: 160px !important;
-    padding: 14px 14px !important;
-    border-radius: 16px !important;   /* rounded */
-    font-size: 14px !important;       /* smaller but readable */
-    line-height: 1.25 !important;
-    font-weight: 600 !important;
-    white-space: normal !important;   /* allow wrapping */
-    overflow: hidden !important;
-    text-align: left !important;      /* quiz-app style */
-    display: flex !important;
-    align-items: center !important;
-    justify-content: flex-start !important;
-}
+    /* ── Mobile tweaks ──────────────────────────────────────────────── */
+    @media (max-width: 768px) {
+        .block-container {
+            padding-left:  0.5rem !important;
+            padding-right: 0.5rem !important;
+        }
 
-/* Better spacing between the two columns */
-.mc-mode [data-testid="column"] {
-    padding: 6px !important;
-}
+        /* Stack MC buttons vertically on small screens */
+        .mc-mode div[data-testid="stHorizontalBlock"] {
+            flex-direction: column !important;
+        }
 
-/* Hover effect */
-.mc-mode div[data-testid="stButton"] button:hover {
-    transform: translateY(-1px);
-    filter: brightness(1.05);
-}
-
-/* Pressed/click effect */
-.mc-mode div[data-testid="stButton"] button:active {
-    transform: translateY(0px) scale(0.99);
-}
-
-/* Subtle focus ring for accessibility */
-.mc-mode div[data-testid="stButton"] button:focus {
-    outline: 2px solid rgba(255,255,255,0.35) !important;
-    outline-offset: 2px !important;
-}
->>>>>>> 0da8c8439b43acd744d086feac38f23e40a65cda
+        /* Make tabs font smaller on mobile */
+        button[data-baseweb="tab"] {
+            font-size:  11px !important;
+            padding:    4px 8px !important;
+        }
+    }
 </style>
 """
 
