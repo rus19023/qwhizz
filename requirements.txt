@@ -1,5 +1,6 @@
 streamlit
 pymongo
+pydantic
 streamlit-cookies-manager
 pdfplumber
 python-docx 
