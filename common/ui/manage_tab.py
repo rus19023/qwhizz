@@ -25,7 +25,7 @@ def _cards_from_deck(manage_deck: str) -> list[tuple[int, Card]]:
     return [(c["index"], Card.from_dict(c)) for c in raw]
 
 
-def _save_card(manage_deck: str, index: int, card: Card):
+def _save_card(manage_deck: str, index: int, card: Card) -> bool:
     from data.db import get_database
     db = get_database()
     deck_doc = db.decks.find_one({"_id": manage_deck})
@@ -36,6 +36,67 @@ def _save_card(manage_deck: str, index: int, card: Card):
     cards_list[index] = card.to_dict()
     db.decks.update_one({"_id": manage_deck}, {"$set": {"cards": cards_list}})
     return True
+
+
+def _rename_deck(old_name: str, new_name: str) -> tuple[bool, str]:
+    """
+    Rename a deck by inserting a new document with the new _id,
+    copying all cards, then deleting the old document.
+    Returns (success, message).
+    """
+    from data.db import get_database
+    db = get_database()
+
+    if not new_name.strip():
+        return False, "New name cannot be empty."
+    new_name = new_name.strip()
+    if new_name == old_name:
+        return False, "New name is the same as the current name."
+    if db.decks.find_one({"_id": new_name}):
+        return False, f"A deck named '{new_name}' already exists."
+
+    old_doc = db.decks.find_one({"_id": old_name})
+    if not old_doc:
+        return False, f"Deck '{old_name}' not found."
+
+    # Insert under new _id, then remove old
+    new_doc = {**old_doc, "_id": new_name}
+    db.decks.insert_one(new_doc)
+    db.decks.delete_one({"_id": old_name})
+    return True, f"Deck renamed to '{new_name}'."
+
+
+# ── Shared helpers ────────────────────────────────────────────────────────────
+
+def _render_card_preview(cards: list):
+    """Show a preview of cards (Card models or dicts)."""
+    with st.expander("👁️ Preview cards"):
+        preview = cards[:5]
+        for c in preview:
+            if isinstance(c, dict):
+                st.write(f"**Q:** {c.get('question', '')}")
+                st.write(f"**A:** {c.get('answer', '')}")
+            else:
+                st.write(f"**Q:** {c.question}")
+                st.write(f"**A:** {c.answer}")
+                if c.wrong_answers:
+                    st.caption("Wrong: " + ", ".join(c.wrong_answers))
+            st.divider()
+        if len(cards) > 5:
+            st.caption(f"...and {len(cards) - 5} more")
+
+
+def _save_cards_to_deck(deck_name: str, cards: list[dict]):
+    """Append a list of card dicts to a deck in MongoDB."""
+    from data.db import get_database
+    db = get_database()
+    deck_doc = db.decks.find_one({"_id": deck_name})
+    if deck_doc:
+        existing = deck_doc.get("cards", [])
+        existing.extend(cards)
+        db.decks.update_one({"_id": deck_name}, {"$set": {"cards": existing}})
+    else:
+        db.decks.insert_one({"_id": deck_name, "cards": cards})
 
 
 # ── Main tab ──────────────────────────────────────────────────────────────────
@@ -62,36 +123,34 @@ def render_manage_tab(username: str | None = None):
         indexed_cards = _cards_from_deck(manage_deck)
 
         # ── Tabs ──────────────────────────────────────────────────────────────
-        tab_export, tab_import, tab_ai, tab_dupes, tab_browse, tab_users = st.tabs([
+        tab_export, tab_import, tab_ai, tab_dupes, tab_browse, tab_rename, tab_users = st.tabs([
             "📤 Export",
             "📥 Import",
             "🤖 AI Generate",
             "🔍 Duplicates",
             "📋 Browse & Edit",
+            "✏️ Rename Deck",
             "👥 User Access",
         ])
 
-        # ── Export ────────────────────────────────────────────────────────────
         with tab_export:
             _render_export(manage_deck, indexed_cards)
 
-        # ── Import ────────────────────────────────────────────────────────────
         with tab_import:
             _render_import(manage_deck)
 
-        # ── AI Deck Generator ─────────────────────────────────────────────────
         with tab_ai:
             _render_ai_generator(manage_deck, username)
 
-        # ── Duplicate Detection ───────────────────────────────────────────────
         with tab_dupes:
             _render_duplicates(manage_deck)
 
-        # ── Card Browser ──────────────────────────────────────────────────────
         with tab_browse:
             _render_browse(manage_deck, indexed_cards)
 
-        # ── User Access (admin only) ──────────────────────────────────────────
+        with tab_rename:
+            _render_rename_deck(manage_deck, username)
+
         with tab_users:
             _render_user_access(username)
 
@@ -212,7 +271,6 @@ def _render_import(manage_deck: str):
 def _render_ai_generator(manage_deck: str, username: str | None):
     st.subheader("🤖 AI Deck Generator")
 
-    # Gate behind admin/pro
     if username and not require_feature("ai_deck_gen", username):
         return
 
@@ -263,14 +321,12 @@ def _render_ai_generator(manage_deck: str, username: str | None):
         st.session_state["ai_generated_cards"] = cards
         st.session_state["ai_generated_for_deck"] = manage_deck
 
-    # Show preview + save options if we have generated cards
     stored_cards = st.session_state.get("ai_generated_cards", [])
-    stored_deck = st.session_state.get("ai_generated_for_deck", manage_deck)
+    stored_deck  = st.session_state.get("ai_generated_for_deck", manage_deck)
 
     if stored_cards:
         st.success(f"✅ Generated {len(stored_cards)} cards.")
 
-        # ── Preview ───────────────────────────────────────────────────────────
         with st.expander("👁️ Preview all generated cards", expanded=True):
             for i, card in enumerate(stored_cards):
                 st.markdown(f"**Card {i+1}** — `{card.get('type', 'flashcard')}`")
@@ -284,13 +340,10 @@ def _render_ai_generator(manage_deck: str, username: str | None):
                     st.write(f"  Correct: {'TRUE' if card['correct_answer'] else 'FALSE'}")
                 st.divider()
 
-        # ── Save options ──────────────────────────────────────────────────────
         st.markdown("### 💾 Save Options")
-
         save_col1, save_col2, save_col3 = st.columns(3)
 
         with save_col1:
-            # Save directly to current deck
             if st.button(f"✅ Add to '{stored_deck}'", type="primary", key="ai_save_deck"):
                 _save_cards_to_deck(stored_deck, stored_cards)
                 st.success(f"✅ Added {len(stored_cards)} cards to '{stored_deck}'!")
@@ -298,7 +351,6 @@ def _render_ai_generator(manage_deck: str, username: str | None):
                 st.rerun()
 
         with save_col2:
-            # Save to a new deck
             new_deck_name = st.text_input("Or save to new deck:", key="ai_new_deck_name")
             if new_deck_name.strip() and st.button("➕ Create & Save", key="ai_save_new_deck"):
                 create_deck(new_deck_name.strip())
@@ -308,7 +360,6 @@ def _render_ai_generator(manage_deck: str, username: str | None):
                 st.rerun()
 
         with save_col3:
-            # Download as JSON/CSV without saving to DB
             json_bytes = json.dumps(stored_cards, indent=2).encode("utf-8")
             st.download_button(
                 "⬇️ Download JSON",
@@ -318,7 +369,6 @@ def _render_ai_generator(manage_deck: str, username: str | None):
                 use_container_width=True,
                 key="ai_download_json",
             )
-            # CSV download
             if stored_cards:
                 buf = io.StringIO()
                 fields = ["question", "answer", "type"]
@@ -339,7 +389,7 @@ def _render_ai_generator(manage_deck: str, username: str | None):
             st.rerun()
 
 
-# ── Duplicates ────────────────────────────────────────────────────────────────
+# ── Duplicate Detection ───────────────────────────────────────────────────────
 
 def _render_duplicates(manage_deck: str):
     st.subheader("🔍 Duplicate Detection")
@@ -352,7 +402,7 @@ def _render_duplicates(manage_deck: str):
                     st.write(f"**Question:** {dup['question']}")
                     st.write(f"**Answer:** {dup['answer']}")
                     st.write(f"**Index:** {dup['index']} (original at index {dup['original_index']})")
-                    if st.button(f"Delete this duplicate", key=f"delete_dup_{dup['index']}"):
+                    if st.button("Delete this duplicate", key=f"delete_dup_{dup['index']}"):
                         if delete_card(manage_deck, dup["index"]):
                             st.success("Duplicate deleted!")
                         else:
@@ -389,7 +439,7 @@ def _render_browse(manage_deck: str, indexed_cards):
             if not card.feedback.is_empty():
                 st.caption("💬 " + (card.feedback.text or "")[:80])
 
-            # Edit Card
+            # ── Edit full card ────────────────────────────────────────────────
             card_edit_key = f"editing_card_{idx}"
             if st.button("✏️ Edit Card", key=f"card_edit_btn_{idx}"):
                 st.session_state[card_edit_key] = not st.session_state.get(card_edit_key, False)
@@ -432,7 +482,7 @@ def _render_browse(manage_deck: str, indexed_cards):
                             st.session_state[card_edit_key] = False
                             st.success("✅ Card saved!")
 
-            # Edit Feedback
+            # ── Edit feedback only ────────────────────────────────────────────
             edit_key = f"editing_{idx}"
             if st.button("✏️ Edit Feedback", key=f"edit_btn_{idx}"):
                 st.session_state[edit_key] = not st.session_state.get(edit_key, False)
@@ -472,7 +522,7 @@ def _render_browse(manage_deck: str, indexed_cards):
                             st.session_state[edit_key] = False
                             st.success("✅ Feedback saved!")
 
-            # Delete
+            # ── Delete with confirmation ───────────────────────────────────────
             if f"confirm_delete_{idx}" not in st.session_state:
                 st.session_state[f"confirm_delete_{idx}"] = False
 
@@ -494,6 +544,45 @@ def _render_browse(manage_deck: str, indexed_cards):
                 with col2:
                     if st.button("✗ Cancel", key=f"confirm_no_{idx}"):
                         st.session_state[f"confirm_delete_{idx}"] = False
+
+
+# ── Rename Deck ───────────────────────────────────────────────────────────────
+
+def _render_rename_deck(manage_deck: str, username: str | None):
+    st.subheader("✏️ Rename Deck")
+
+    # Admin-only gate
+    if username:
+        from data.user_store import get_user
+        user_doc = get_user(username)
+        if not user_doc or not user_doc.get("is_admin"):
+            st.warning("Admin access required to rename decks.")
+            return
+
+    st.write(f"Current name: **{manage_deck}**")
+
+    with st.form("rename_deck_form"):
+        new_name = st.text_input(
+            "New deck name",
+            placeholder=manage_deck,
+            help="Must be unique. This cannot be undone without renaming again.",
+        )
+        confirm = st.checkbox("I understand this will rename the deck for all users.")
+        submit = st.form_submit_button("✏️ Rename Deck", type="primary")
+
+        if submit:
+            if not confirm:
+                st.warning("Please check the confirmation box to proceed.")
+            else:
+                ok, msg = _rename_deck(manage_deck, new_name)
+                if ok:
+                    st.success(f"✅ {msg}")
+                    # Clear selectbox cache so the new name appears immediately
+                    if "manage_deck_select" in st.session_state:
+                        del st.session_state["manage_deck_select"]
+                    st.rerun()
+                else:
+                    st.error(f"❌ {msg}")
 
 
 # ── User Access Management ────────────────────────────────────────────────────
@@ -521,7 +610,7 @@ def _render_user_access(username: str | None):
 
     if target:
         target_doc = get_user(target)
-        is_pro = target_doc.get("is_pro", False) if target_doc else False
+        is_pro   = target_doc.get("is_pro", False)   if target_doc else False
         is_admin = target_doc.get("is_admin", False) if target_doc else False
 
         st.write(f"**Current tier:** {'Admin' if is_admin else 'Pro' if is_pro else 'Free'}")
@@ -539,36 +628,3 @@ def _render_user_access(username: str | None):
                     if revoke_pro(target):
                         st.success(f"✅ Revoked Pro from {target}")
                         st.rerun()
-
-
-# ── Shared helpers ────────────────────────────────────────────────────────────
-
-def _render_card_preview(cards: list):
-    """Show a preview of cards (Card models or dicts)."""
-    with st.expander("👁️ Preview cards"):
-        preview = cards[:5]
-        for c in preview:
-            if isinstance(c, dict):
-                st.write(f"**Q:** {c.get('question', '')}")
-                st.write(f"**A:** {c.get('answer', '')}")
-            else:
-                st.write(f"**Q:** {c.question}")
-                st.write(f"**A:** {c.answer}")
-                if c.wrong_answers:
-                    st.caption("Wrong: " + ", ".join(c.wrong_answers))
-            st.divider()
-        if len(cards) > 5:
-            st.caption(f"...and {len(cards) - 5} more")
-
-
-def _save_cards_to_deck(deck_name: str, cards: list[dict]):
-    """Append a list of card dicts to a deck in MongoDB."""
-    from data.db import get_database
-    db = get_database()
-    deck_doc = db.decks.find_one({"_id": deck_name})
-    if deck_doc:
-        existing = deck_doc.get("cards", [])
-        existing.extend(cards)
-        db.decks.update_one({"_id": deck_name}, {"$set": {"cards": existing}})
-    else:
-        db.decks.insert_one({"_id": deck_name, "cards": cards})
