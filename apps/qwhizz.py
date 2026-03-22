@@ -73,12 +73,11 @@ def main() -> None:
     render_header()
 
     study_mode = mode_selector()
-    st.error(study_mode)
     reset_study_state_on_mode_change(study_mode)
 
     deck_name = require_deck_selection()
 
-    st.header(study_mode)
+    st.subheader(study_mode)
 
     current_user = get_user(logged_in_user)
     if not current_user:
