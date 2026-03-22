@@ -1,7 +1,7 @@
 # models/card.py
 from __future__ import annotations
 from typing import Optional
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 
 class CardLink(BaseModel):
@@ -64,6 +64,20 @@ class Card(BaseModel):
     correct_indices: list[int] = Field(default_factory=list)  # multi_select
     num_correct: Optional[int] = None          # multi_select
     correct_answer: Optional[bool] = None      # true_false
+
+    # ── Validators ────────────────────────────────────────────────────────────
+
+    @field_validator("question", "answer", mode="before")
+    @classmethod
+    def coerce_to_str(cls, v: object) -> str:
+        """
+        Coerce non-string values to str before Pydantic validates the field.
+        Handles True/False cards whose `answer` was stored as a boolean in MongoDB
+        (e.g. answer=True instead of answer="True").
+        """
+        if v is None:
+            return ""
+        return str(v) if not isinstance(v, str) else v
 
     # ── Serialisation ─────────────────────────────────────────────────────────
 
