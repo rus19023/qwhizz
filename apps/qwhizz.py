@@ -16,6 +16,8 @@ if hasattr(st, "cache"):
     st.cache = st.cache_data  # Redirect st.cache to st.cache_data
 
 from theme_switcher import quick_theme_setup
+
+from ui.router import TabSpec, render_tabs
 from ui.styles import apply_global_css
 from ui.layout import render_header
 from ui.auth import handle_authentication, show_user_sidebar
@@ -26,7 +28,6 @@ from ui.admin_tab import render_admin_tab
 from ui.manage_tab import render_manage_tab
 from ui.add_card_tab import render_add_card_tab
 from ui.add_deck_tab import render_add_deck_tab
-from ui.router import TabSpec, render_tabs
 
 from core.state import init_state, reset_study_state_on_mode_change
 from data.deck_store import get_deck_names, get_deck, create_deck
