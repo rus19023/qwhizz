@@ -16,6 +16,7 @@ from __future__ import annotations
 import json
 import requests
 import streamlit as st
+from prompt import SYSTEM_PROMPT
 
 
 # ── Provider registry ─────────────────────────────────────────────────────────
