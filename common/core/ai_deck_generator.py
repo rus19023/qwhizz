@@ -244,28 +244,53 @@ def generate_cards_from_text(
 # ── Main entry points ─────────────────────────────────────────────────────────
 
 def generate_from_file(
-    uploaded_file,
+    uploaded_files,                    # now a list
     num_cards: int = 15,
     provider: str = "claude",
     model: str | None = None,
 ) -> tuple[str, list[dict]]:
-    name = uploaded_file.name.lower()
-    text = ""
+    """
+    Extract text from one or more uploaded files, concatenate, and generate cards.
+    Supports .pdf, .docx, and .txt files in any combination.
 
-    if name.endswith(".pdf"):
-        text = _extract_text_from_pdf(uploaded_file)
-    elif name.endswith(".docx"):
-        text = _extract_text_from_docx(uploaded_file)
-    elif name.endswith(".txt"):
-        text = uploaded_file.read().decode("utf-8", errors="ignore")
-    else:
-        st.error(f"Unsupported file type: {name}")
+    Args:
+        uploaded_files: A single file or list of files from st.file_uploader.
+        num_cards (int): Approximate number of cards to generate.
+        provider (str): AI provider key.
+        model (str | None): Model override.
 
-    if not text:
+    Returns:
+        tuple[str, list[dict]]: (concatenated_text, generated_cards)
+    """
+    # Normalise to list so callers can pass a single file or a list
+    if not isinstance(uploaded_files, list):
+        uploaded_files = [uploaded_files]
+
+    texts = []
+    for uploaded_file in uploaded_files:
+        name = uploaded_file.name.lower()
+        if name.endswith(".pdf"):
+            text = _extract_text_from_pdf(uploaded_file)
+        elif name.endswith(".docx"):
+            text = _extract_text_from_docx(uploaded_file)
+        elif name.endswith(".txt"):
+            text = uploaded_file.read().decode("utf-8", errors="ignore")
+        else:
+            st.warning(f"Skipping unsupported file type: {uploaded_file.name}")
+            continue
+
+        if text.strip():
+            # Label each source so the AI knows where content came from
+            texts.append(f"=== Source: {uploaded_file.name} ===\n{text}")
+        else:
+            st.warning(f"No text extracted from {uploaded_file.name}")
+
+    if not texts:
         return "", []
 
-    cards = generate_cards_from_text(text, num_cards, provider, model)
-    return text, cards
+    combined = "\n\n".join(texts)
+    cards = generate_cards_from_text(combined, num_cards, provider, model)
+    return combined, cards
 
 
 def generate_from_url(

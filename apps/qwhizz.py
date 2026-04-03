@@ -3,6 +3,7 @@
 import traceback
 import streamlit as st
 
+
 # Page configuration MUST be first
 st.set_page_config(
     page_title=st.secrets["app"]["title"],
@@ -25,13 +26,16 @@ from ui.components import leaderboard, mode_selector
 from ui.study_tab import render_study_tab
 from ui.stats_tab import render_stats_tab
 from ui.admin_tab import render_admin_tab
-from ui.manage_tab import render_manage_tab
+from ui.manage_tab import render_manage_tab, _render_user_access
 from ui.add_card_tab import render_add_card_tab
 from ui.add_deck_tab import render_add_deck_tab
+from ui.ai_generate_tab import render_ai_generate_tab
+
 
 from core.state import init_state, reset_study_state_on_mode_change
 from data.deck_store import get_deck_names, get_deck, create_deck
 from data.user_store import get_user, get_leaderboard
+
 
 st.markdown("""
 <style>
@@ -94,9 +98,9 @@ def main() -> None:
         TabSpec("🏆 Leaderboard", lambda: leaderboard(get_leaderboard(limit=10))),
         TabSpec("🛡️ Admin", lambda: render_admin_tab(), admin_only=True),
         TabSpec("🗂️ Manage Decks", lambda: render_manage_tab(username=st.session_state.user), admin_only=True),
-        TabSpec("➕ Add Card", lambda: render_add_card_tab(), admin_only=True),
+        TabSpec("➕ Add Card", lambda: render_add_card_tab(), admin_only=True),TabSpec("🤖 AI Generate", lambda: render_ai_generate_tab(), admin_only=True),
         TabSpec("🗃️ Add Deck", lambda: render_add_deck_tab(), admin_only=True),
-        TabSpec("👥 User Access", lambda: _render_user_access(username), admin_only=True),
+        TabSpec("👥 User Access", lambda: _render_user_access(logged_in_user ), admin_only=True),
     ]
 
     render_tabs(tabs, is_admin=is_admin)
