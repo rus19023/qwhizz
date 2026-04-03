@@ -108,7 +108,7 @@ def _render_submit_form(deck_name, card_index, question, username):
         with col2:
             anon = st.checkbox("Post anonymously", key=f"ponder_anon_{card_index}", disabled=not share)
 
-        submitted = st.form_submit_button("Submit", type="primary", use_container_width=True)
+        submitted = st.form_submit_button("Submit", type="primary", width='stretch')
 
         if submitted:
             if not response_text.strip():

@@ -64,7 +64,7 @@ def render_stats_tab(user_data):
         })
 
     df = pd.DataFrame(rows)
-    st.dataframe(df, hide_index=True, use_container_width=True)
+    st.dataframe(df, hide_index=True, width='stretch')
 
     # ── Per-deck detail expanders ─────────────────────────────────────────────
     st.markdown("#### Deck Details")

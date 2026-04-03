@@ -15,6 +15,7 @@ from data.deck_store import (
     get_all_cards_with_indices,
     create_deck,
 )
+from ui.router import TabSpec, render_tabs
 from models.card import Card, CardFeedback, CardLink
 from core.paywall import require_feature, has_access
 
@@ -123,42 +124,23 @@ def render_manage_tab(username: str | None = None):
         )
 
         indexed_cards = _cards_from_deck(manage_deck)
+        
+        
+    
+        manage_deck_tabs = [            
+            TabSpec("📤 Export", lambda: _render_export(manage_deck, indexed_cards), admin_only=True),
+            TabSpec("📥 Import", lambda: _render_import(manage_deck), admin_only=True),
+            TabSpec("💡 AI Enrich Deck", lambda: render_ai_enrich_section(manage_deck, indexed_cards), admin_only=True),
+            TabSpec("🔍 Duplicates", lambda: _render_duplicates(manage_deck), admin_only=True),
+            TabSpec("📋 Browse & Edit", lambda: _render_browse(manage_deck, indexed_cards), admin_only=True),
+            TabSpec("✏️ Rename Deck", lambda: _render_rename_deck(manage_deck, username), admin_only=True),
+            TabSpec("👥 User Access", lambda: _render_user_access(username), admin_only=True),
+        ]
+
 
         # ── Tabs ──────────────────────────────────────────────────────────────
-        tab_export, tab_import, tab_ai, tab_enrich, tab_dupes, tab_browse, tab_rename, tab_users = st.tabs([
-            "📤 Export",
-            "📥 Import",
-            "🤖 AI Generate",
-            "🔍 Duplicates",
-            "📋 Browse & Edit",
-            "💡 AI Enrich Deck",
-            "✏️ Rename Deck",
-            "👥 User Access",
-        ])
-
-        with tab_export:
-            _render_export(manage_deck, indexed_cards)
-
-        with tab_import:
-            _render_import(manage_deck)
-
-        with tab_enrich:
-            render_ai_enrich_section(manage_deck, indexed_cards)
-
-        with tab_ai:
-            _render_ai_generator(manage_deck, username)
-
-        with tab_dupes:
-            _render_duplicates(manage_deck)
-
-        with tab_browse:
-            _render_browse(manage_deck, indexed_cards)
-
-        with tab_rename:
-            _render_rename_deck(manage_deck, username)
-
-        with tab_users:
-            _render_user_access(username)
+        
+        render_tabs(manage_deck_tabs, is_admin=is_admin)
 
     except Exception as e:
         st.error(f"Error: {e}")
@@ -194,7 +176,7 @@ def _render_export(manage_deck: str, indexed_cards):
             data=json_bytes,
             file_name=f"{manage_deck}.json",
             mime="application/json",
-            use_container_width=True,
+            width='stretch',
         )
     with col_csv:
         st.download_button(
@@ -202,7 +184,7 @@ def _render_export(manage_deck: str, indexed_cards):
             data=csv_bytes,
             file_name=f"{manage_deck}.csv",
             mime="text/csv",
-            use_container_width=True,
+            width='stretch',
         )
 
     with st.expander("💾 Save to local folder"):
@@ -213,7 +195,7 @@ def _render_export(manage_deck: str, indexed_cards):
         )
         col_sj, col_sc = st.columns(2)
         with col_sj:
-            if st.button("💾 Save JSON", key="save_json_local", use_container_width=True):
+            if st.button("💾 Save JSON", key="save_json_local", width='stretch'):
                 try:
                     dest = Path(save_path) / f"{manage_deck}.json"
                     dest.parent.mkdir(parents=True, exist_ok=True)
@@ -222,7 +204,7 @@ def _render_export(manage_deck: str, indexed_cards):
                 except Exception as e:
                     st.error(f"Could not save: {e}")
         with col_sc:
-            if st.button("💾 Save CSV", key="save_csv_local", use_container_width=True):
+            if st.button("💾 Save CSV", key="save_csv_local", width='stretch'):
                 try:
                     dest = Path(save_path) / f"{manage_deck}.csv"
                     dest.parent.mkdir(parents=True, exist_ok=True)
@@ -372,7 +354,7 @@ def _render_ai_generator(manage_deck: str, username: str | None):
                 data=json_bytes,
                 file_name="generated_deck.json",
                 mime="application/json",
-                use_container_width=True,
+                width='stretch',
                 key="ai_download_json",
             )
             if stored_cards:
@@ -386,7 +368,7 @@ def _render_ai_generator(manage_deck: str, username: str | None):
                     data=buf.getvalue().encode("utf-8"),
                     file_name="generated_deck.csv",
                     mime="text/csv",
-                    use_container_width=True,
+                    width='stretch',
                     key="ai_download_csv",
                 )
 

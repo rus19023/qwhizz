@@ -414,7 +414,7 @@ def render_ponder_mode(card, card_index, deck_name, username):
         st.success("✅ You have already reflected on this question.")
         st.markdown(f"**Your response:** {existing['response_text']}")
         st.caption(f"Shared: {'Yes (anonymous)' if existing['anonymous'] else 'Yes' if not existing['anonymous'] else 'Privately'}")
-        if st.button("Next Card →", key="ponder_next", type="primary", use_container_width=True):
+        if st.button("Next Card →", key="ponder_next", type="primary", width='stretch'):
             advance_to_next_card()
         return
 
@@ -430,7 +430,7 @@ def render_ponder_mode(card, card_index, deck_name, username):
         with col2:
             anon = st.checkbox("Post anonymously", disabled=not share)
 
-        submitted = st.form_submit_button("Submit & Continue", type="primary", use_container_width=True)
+        submitted = st.form_submit_button("Submit & Continue", type="primary", width='stretch')
 
         if submitted:
             if response_text.strip():

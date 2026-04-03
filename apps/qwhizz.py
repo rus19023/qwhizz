@@ -92,18 +92,16 @@ def main() -> None:
     
     is_admin = bool(current_user.get("is_admin", False))
 
-    tabs = [
+    main_tabs = [
         TabSpec("📚 Study", lambda: render_study_tab(get_deck(deck_name), deck_name, logged_in_user, study_mode, init_state)),
         TabSpec("📊 Stats", lambda: render_stats_tab(current_user)),
         TabSpec("🏆 Leaderboard", lambda: leaderboard(get_leaderboard(limit=10))),
         TabSpec("🛡️ Admin", lambda: render_admin_tab(), admin_only=True),
         TabSpec("🗂️ Manage Decks", lambda: render_manage_tab(username=st.session_state.user), admin_only=True),
-        TabSpec("➕ Add Card", lambda: render_add_card_tab(), admin_only=True),TabSpec("🤖 AI Generate", lambda: render_ai_generate_tab(), admin_only=True),
-        TabSpec("🗃️ Add Deck", lambda: render_add_deck_tab(), admin_only=True),
+        TabSpec("🤖 AI Generate", lambda: render_ai_generate_tab(), admin_only=True),
         TabSpec("👥 User Access", lambda: _render_user_access(logged_in_user ), admin_only=True),
     ]
-
-    render_tabs(tabs, is_admin=is_admin)
+    render_tabs(main_tabs, is_admin=is_admin)
 
 
 if __name__ == "__main__":
