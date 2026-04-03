@@ -6,6 +6,7 @@ import csv
 import io
 from pathlib import Path
 import streamlit as st
+from ui.ai_enrich_section import render_ai_enrich_section
 
 from data.deck_store import (
     get_deck_names,
@@ -107,6 +108,7 @@ def render_manage_tab(username: str | None = None):
         username: logged-in username — used for access control.
                   Pass None to disable gating (legacy callers).
     """
+    
     try:
         st.subheader("🗂️ Manage Decks")
 
@@ -123,7 +125,7 @@ def render_manage_tab(username: str | None = None):
         indexed_cards = _cards_from_deck(manage_deck)
 
         # ── Tabs ──────────────────────────────────────────────────────────────
-        tab_export, tab_import, tab_ai, tab_dupes, tab_browse, tab_rename, tab_users = st.tabs([
+        tab_export, tab_import, tab_ai, tab_enrich, tab_dupes, tab_browse, tab_rename, tab_users = st.tabs([
             "📤 Export",
             "📥 Import",
             "🤖 AI Generate",
@@ -138,6 +140,9 @@ def render_manage_tab(username: str | None = None):
 
         with tab_import:
             _render_import(manage_deck)
+
+        with tab_enrich:
+            render_ai_enrich_section(manage_deck, indexed_cards)
 
         with tab_ai:
             _render_ai_generator(manage_deck, username)
