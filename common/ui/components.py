@@ -248,7 +248,7 @@ def multiple_choice_buttons(options, on_answer, correct_index=None, show_result=
     st.markdown("""
         <style>
         div[data-testid="stHorizontalBlock"] div[data-testid="stButton"] button {
-            min-height: 6rem;
+            min-height: 8rem;
             white-space: normal;
             word-wrap: break-word;
             height: 100%;
