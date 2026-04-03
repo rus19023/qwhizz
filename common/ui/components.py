@@ -233,33 +233,35 @@ def mode_selector():
 
 
 def multiple_choice_buttons(options, on_answer, correct_index=None, show_result=False):
-    st.write("**Choose the correct answer:**")
+    """
+    Display multiple choice answer buttons — all equal height regardless of text length.
 
-    st.markdown('<div class="mc-mode">', unsafe_allow_html=True)
+    Args:
+        options (list): List of answer option strings.
+        on_answer (callable): Callback receiving the selected index (int).
+        correct_index (int, optional): Index of the correct answer (for showing result).
+        show_result (bool): Whether to highlight the correct answer and disable buttons.
+    """
+    st.write("**Choose the correct answer:**")
 
     num_options = min(len(options), 10)
     cols = st.columns(2)
 
     for idx in range(num_options):
         with cols[idx % 2]:
-            button_label = f"{chr(65 + idx)}. {options[idx]}"
-
+            label       = options[idx]
             button_type = "secondary"
-            if show_result and correct_index is not None:
-                if idx == correct_index:
-                    button_type = "primary"
-                    button_label += " ✓"
-
+            if show_result and correct_index is not None and idx == correct_index:
+                button_type = "primary"
+                label      += " ✓"
             if st.button(
-                button_label,
+                label,
                 key=f"mc_option_{idx}",
                 type=button_type,
                 disabled=show_result,
-                use_container_width=True,   # <— important for quiz feel
+                use_container_width=True,
             ):
                 on_answer(idx)
-
-    st.markdown("</div>", unsafe_allow_html=True)
 
 
 def multi_select_checkboxes(options, on_submit, correct_indices=None, show_result=False):
