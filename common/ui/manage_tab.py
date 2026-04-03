@@ -131,6 +131,7 @@ def render_manage_tab(username: str | None = None):
             "🤖 AI Generate",
             "🔍 Duplicates",
             "📋 Browse & Edit",
+            "💡 AI Enrich Deck",
             "✏️ Rename Deck",
             "👥 User Access",
         ])
@@ -473,24 +474,25 @@ def _render_browse(manage_deck: str, indexed_cards):
 
                     save_card_btn = st.form_submit_button("💾 Save Card", type="primary")
                     if save_card_btn:
+                        updated = None
                         if not (new_question or "").strip():
                             st.error("❌ Question cannot be empty.")
                         elif not (new_answer or "").strip():
                             st.error("❌ Answer cannot be empty.")
                         else:
                             updated = Card(
-                            question=new_question or "",
-                            answer=new_answer or "",
-                            wrong_answers=[w for w in new_wrong if w.strip()],
-                            hint=new_hint.strip() or None,
-                            tags=[t.strip() for t in new_tags_raw.split(",") if t.strip()],
-                            image_url=new_image_url.strip() or None,
-                            explanation=new_explanation.strip() or None,
-                            feedback=card.feedback,
-                        )
-                        if _save_card(manage_deck, idx, updated):
-                            st.session_state[card_edit_key] = False
-                            st.success("✅ Card saved!")
+                                question=new_question or "",
+                                answer=new_answer or "",
+                                wrong_answers=[w for w in new_wrong if w.strip()],
+                                hint=new_hint.strip() or None,
+                                tags=[t.strip() for t in new_tags_raw.split(",") if t.strip()],
+                                image_url=new_image_url.strip() or None,
+                                explanation=new_explanation.strip() or None,
+                                feedback=card.feedback,
+                            )
+                            if _save_card(manage_deck, idx, updated):
+                                st.session_state[card_edit_key] = False
+                                st.success("✅ Card saved!")
 
             # ── Edit feedback only ────────────────────────────────────────────
             edit_key = f"editing_{idx}"
