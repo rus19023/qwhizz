@@ -9,4 +9,4 @@ sys.path.insert(0, str(ROOT / "apps"))
 
 from qwhizz import main
 
-main()
+main() 
