@@ -244,6 +244,18 @@ def multiple_choice_buttons(options, on_answer, correct_index=None, show_result=
     """
     st.write("**Choose the correct answer:**")
 
+    # Force all buttons in the mc grid to the same min-height
+    st.markdown("""
+        <style>
+        div[data-testid="stHorizontalBlock"] div[data-testid="stButton"] button {
+            min-height: 6rem;
+            white-space: normal;
+            word-wrap: break-word;
+            height: 100%;
+        }
+        </style>
+    """, unsafe_allow_html=True)
+
     num_options = min(len(options), 10)
     cols = st.columns(2)
 
