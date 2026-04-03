@@ -1,7 +1,7 @@
 # core/ai_deck_generator.py
 """
 AI-powered deck generation from various source types:
-  - PDF files
+  - PDF files (.pdf)
   - Word documents (.docx)
   - Plain text files (.txt)
   - Web page URLs
@@ -16,6 +16,7 @@ from __future__ import annotations
 import json
 import requests
 import streamlit as st
+from prompt import SYSTEM_PROMPT
 
 
 # ── Provider registry ─────────────────────────────────────────────────────────
@@ -226,10 +227,10 @@ def generate_cards_from_text(
     if len(text) > max_chars:
         text = text[:max_chars] + "\n\n[Text truncated for length]"
 
-    prompt = _build_prompt(text, num_cards)
+    #prompt = _build_prompt(text, num_cards)
 
     try:
-        raw = _call_provider(prompt, provider, model)
+        raw = _call_provider(SYSTEM_PROMPT, provider, model)
         if not raw:
             return []
         return _parse_response(raw)
