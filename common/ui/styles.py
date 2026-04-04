@@ -110,8 +110,55 @@ APP_CSS = """
             padding:    4px 8px !important;
         }
     }
+/* ── Sidebar auth form — mobile friendly ── */
+
+/* Make sidebar itself more opaque/visible */
+section[data-testid="stSidebar"] {
+    background-color: #1a1a2e !important;
+}
+
+/* Larger, more visible text inputs */
+section[data-testid="stSidebar"] input {
+    font-size: 1rem !important;
+    padding: 0.5rem 0.7rem !important;
+    height: 2.8rem !important;
+    background-color: #2a2a3e !important;
+    color: #ffffff !important;
+    border: 1px solid #555 !important;
+    border-radius: 6px !important;
+}
+
+/* Input focus state */
+section[data-testid="stSidebar"] input:focus {
+    border-color: #7c83fd !important;
+    box-shadow: 0 0 0 2px rgba(124,131,253,0.3) !important;
+}
+
+/* Make the submit button bigger and more tappable */
+section[data-testid="stSidebar"] button[kind="primaryFormSubmit"],
+section[data-testid="stSidebar"] button[kind="primary"] {
+    height: 3rem !important;
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+    width: 100% !important;
+    border-radius: 6px !important;
+}
+
+/* Labels more readable */
+section[data-testid="stSidebar"] label {
+    font-size: 0.9rem !important;
+    font-weight: 500 !important;
+    color: #ccccdd !important;
+}
+
+/* Radio buttons bigger tap targets */
+section[data-testid="stSidebar"] .stRadio label {
+    font-size: 1rem !important;
+    padding: 0.3rem 0 !important;
+}
 </style>
 """
 
 def apply_global_css() -> None:
     st.markdown(APP_CSS, unsafe_allow_html=True)
+    

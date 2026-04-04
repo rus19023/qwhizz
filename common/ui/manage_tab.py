@@ -125,8 +125,14 @@ def render_manage_tab(username: str | None = None):
 
         indexed_cards = _cards_from_deck(manage_deck)
         
-        
-    
+        # Determine is_admin from username
+        is_admin = False
+        if username:
+            from data.user_store import get_user
+            user_doc = get_user(username)
+            is_admin = bool(user_doc.get("is_admin", False)) if user_doc else False
+            
+            
         manage_deck_tabs = [            
             TabSpec("📤 Export", lambda: _render_export(manage_deck, indexed_cards), admin_only=True),
             TabSpec("📥 Import", lambda: _render_import(manage_deck), admin_only=True),

@@ -1,3 +1,5 @@
+# ui/auth.py
+
 import streamlit as st
 from data.user_store import get_user, create_user
 from streamlit_cookies_manager import EncryptedCookieManager
@@ -14,29 +16,25 @@ if not cookies.ready():
 
 def handle_authentication() -> str:
     """
-    Renders auth UI in the sidebar when not logged in.
+    Renders auth UI in the when not logged in.
     Returns the logged-in username.
     Stops the app when user is not logged in.
     """
-    # Initialize
     if "user" not in st.session_state:
         st.session_state.user = None
 
-    # If already logged in, show sidebar + return
+    # If already logged in, show + return
     if st.session_state.user:
-        show_user_sidebar(st.session_state.user)
+        show_user(st.session_state.user)
         return st.session_state.user
 
-    # session_state init
-    if "user" not in st.session_state:
-        st.session_state.user = None
-
-    # If cookie exists, restore login
+    # Restore from cookie
     cookie_user = (cookies.get("user") or "").strip()
     if not st.session_state.user and cookie_user:
         st.session_state.user = cookie_user
+        st.rerun()
 
-    # Not logged in: show auth UI (sidebar)
+    # Header
     st.header(st.secrets["app"].get("title", "QWhizz"))
     subtitle = st.secrets["app"].get("subtitle", "")
     subheader = st.secrets["app"].get("subheader", "")
@@ -45,18 +43,20 @@ def handle_authentication() -> str:
     if subheader:
         st.caption(subheader)
 
-    auth_mode = st.sidebar.radio("Select Action", ["Login", "Register"], key="auth_mode")
+    auth_mode = st.radio("Select Action", ["Login", "Register"], key="auth_mode")
 
+    # ── Login ─────────────────────────────────────────────────────────────────
     if auth_mode == "Login":
-        username = st.sidebar.text_input("Username", key="login_username")
-        password = st.sidebar.text_input("Password", type="password", key="login_password")
+        with st.form("login_form"):
+            username  = st.text_input("Username", key="login_username")
+            password  = st.text_input("Password", type="password", key="login_password")
+            submitted = st.form_submit_button("Login", type="primary", use_container_width=True)
 
-        if st.sidebar.button("Login", type="primary"):
+        if submitted:
             username = (username or "").strip()
             password = (password or "").strip()
-
             if not username or not password:
-                st.sidebar.error("Please enter username and password")
+                st.error("Please enter username and password")
             else:
                 user = get_user(username)
                 if user and user.get("password") == password:
@@ -65,36 +65,46 @@ def handle_authentication() -> str:
                     cookies.save()
                     st.rerun()
                 else:
-                    st.sidebar.error("Invalid username or password")
+                    st.error("Invalid username or password")
 
-    else:  # Register
-        new_username = st.sidebar.text_input("Choose Username", key="reg_username")
-        new_password = st.sidebar.text_input("Choose Password", type="password", key="reg_password")
-        confirm_password = st.sidebar.text_input("Confirm Password", type="password", key="reg_confirm")
+    # ── Register ──────────────────────────────────────────────────────────────
+    else:
+        with st.form("register_form"):
+            new_username     = st.text_input("Username", key="reg_username")
+            real_name        = st.text_input("Full Name", key="reg_real_name")
+            email            = st.text_input("Email", key="reg_email")
+            new_password     = st.text_input("Password", type="password", key="reg_password")
+            confirm_password = st.text_input("Confirm Password", type="password", key="reg_confirm")
+            submitted        = st.form_submit_button("Register", type="primary", use_container_width=True)
 
-        if st.sidebar.button("Register", type="primary"):
+        if submitted:
             new_username = (new_username or "").strip()
             new_password = (new_password or "").strip()
+            real_name    = (real_name or "").strip()
+            email        = (email or "").strip()
 
             if not new_username or not new_password:
-                st.sidebar.error("Please fill all fields")
+                st.error("Please fill all required fields")
             elif new_password != confirm_password:
-                st.sidebar.error("Passwords don't match")
+                st.error("Passwords don't match")
             elif get_user(new_username):
-                st.sidebar.error("Username already exists")
+                st.error("Username already taken")
             else:
-                create_user(new_username, new_password)
-                st.sidebar.success("User created! Switch to Login to continue.")
+                create_user(new_username, new_password, real_name=real_name, email=email)
+                st.session_state.auth_mode = "Login"
+                st.rerun()
 
-    # Main panel message + stop the app here
-    st.info("Please login or register in the sidebar to continue.")
+    st.info("Please login or register to continue.")
     st.stop()
 
 
-def show_user_sidebar(username: str) -> None:
-    st.sidebar.write(f"👤 **{username}**")
+def show_user(username: str) -> None:
+    """Show the logged-in user's name and logout button in the."""
+    user    = get_user(username)
+    display = user.get("real_name") or username if user else username
+    st.write(f"👤 **{display}**")
 
-    if st.sidebar.button("🚪 Logout", key="logout_btn"):
+    if st.button("🚪 Logout", key="logout_btn"):
         st.session_state.user = None
         cookies["user"] = ""
         cookies.save()
