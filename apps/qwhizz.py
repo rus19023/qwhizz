@@ -21,7 +21,7 @@ from theme_switcher import quick_theme_setup
 from ui.router import TabSpec, render_tabs
 from ui.styles import apply_global_css
 from ui.layout import render_header
-from ui.auth import handle_authentication, show_user_sidebar
+from ui.auth import handle_authentication
 from ui.components import leaderboard, mode_selector
 from ui.study_tab import render_study_tab
 from ui.stats_tab import render_stats_tab
