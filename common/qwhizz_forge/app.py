@@ -103,6 +103,15 @@ def _validate_url(url: str) -> tuple[bool, str]:
 
 # ── Ollama helpers ────────────────────────────────────────────────────────────
 
+def _ollama_available() -> bool:
+    """Check if Ollama is reachable."""
+    try:
+        r = requests.get(f"{OLLAMA_BASE}/api/tags", timeout=3)
+        return r.status_code == 200
+    except Exception:
+        return False
+
+
 def _get_models() -> list[str]:
     try:
         r = requests.get(f"{OLLAMA_BASE}/api/tags", timeout=5)
@@ -351,6 +360,15 @@ def render_forge_tab(current_deck: str = "", username: str = "") -> None:
     """
     st.subheader("QWhizz Forge")
     st.caption("Generate Bloom's Taxonomy-aligned cards with Ollama and add them to any deck.")
+
+    # ── Ollama availability check ─────────────────────────────────────────────
+    if not _ollama_available():
+        st.warning(
+            f"Ollama is not reachable at `{OLLAMA_BASE}`. "
+            "QWhizz Forge requires a local Ollama instance and cannot run on Streamlit Cloud. "
+            "Run the app locally on your Mac Mini to use this feature."
+        )
+        return
 
     # ── Model selector + Bloom reference ─────────────────────────────────────
     col_model, col_ref = st.columns([1, 2])
