@@ -539,10 +539,11 @@ def render_forge_tab(current_deck: str = "", username: str = "") -> None:
         col_dl, col_send = st.columns(2)
 
         with col_dl:
+            safe_deck_name = re.sub(r"[^\w]", "_", deck_name)
             st.download_button(
                 label="Download JSON",
                 data=json.dumps(cards, indent=2),
-                file_name=f"{re.sub(r'[^\w]', '_', deck_name)}_forge.json",
+                file_name=f"{safe_deck_name}_forge.json",
                 mime="application/json",
                 key="forge_download",
             )
