@@ -380,18 +380,38 @@ def render_forge_tab(current_deck: str = "", username: str = "") -> None:
     col1, col2, col3 = st.columns([2, 1, 1])
 
     with col1:
-        topic_raw    = st.text_input(
+        topic_raw = st.text_input(
             "Topic",
             placeholder="e.g. DNA replication, Python decorators",
             max_chars=_MAX_TOPIC_LEN,
             key="forge_topic",
         )
-        deck_raw = st.text_input(
+
+        # Deck selector — pick existing or type a new name
+        from data.deck_store import get_deck_names
+        existing_decks = get_deck_names()
+        NEW_DECK_OPTION = "➕ Create new deck..."
+        deck_options = existing_decks + [NEW_DECK_OPTION]
+
+        # Pre-select current_deck if it exists
+        default_idx = existing_decks.index(current_deck) if current_deck in existing_decks else 0
+
+        deck_choice = st.selectbox(
             "Add to Deck",
-            value=current_deck,
-            max_chars=_MAX_DECK_NAME_LEN,
-            key="forge_deck",
+            options=deck_options,
+            index=default_idx,
+            key="forge_deck_select",
         )
+
+        if deck_choice == NEW_DECK_OPTION:
+            deck_raw = st.text_input(
+                "New deck name",
+                max_chars=_MAX_DECK_NAME_LEN,
+                key="forge_deck_new",
+                placeholder="Enter a name for the new deck",
+            )
+        else:
+            deck_raw = deck_choice
 
     with col2:
         card_type  = st.selectbox("Card Type",  CARD_TYPES,        key="forge_card_type")
