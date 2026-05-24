@@ -96,7 +96,7 @@ def main() -> None:
         TabSpec("📊 Stats", lambda: render_stats_tab(current_user)),
         TabSpec("🏆 Leaderboard", lambda: leaderboard(get_leaderboard(limit=10))),
         TabSpec("🛡️ Admin", lambda: render_admin_tab(), admin_only=True),
-        TabSpec("🔨 Forge",   lambda: render_forge_tab(current_deck, username)), 
+        TabSpec("🔨 Forge", lambda: render_forge_tab(current_deck, username), admin_only=True),
         TabSpec("🗂️ Manage Decks", lambda: render_manage_tab(username=st.session_state.user), admin_only=True),
         TabSpec("🤖 AI Generate", lambda: render_ai_generate_tab(), admin_only=True),
         TabSpec("👥 User Access", lambda: _render_user_access(logged_in_user ), admin_only=True),

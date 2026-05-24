@@ -234,31 +234,38 @@ def mode_selector():
 
 def multiple_choice_buttons(options, on_answer, correct_index=None, show_result=False):
     """
-    Display multiple choice answer buttons — all equal height regardless of text length.
-
+    Display multiple choice answer buttons — compact, equal height.
+ 
     Args:
-        options (list): List of answer option strings.
-        on_answer (callable): Callback receiving the selected index (int).
-        correct_index (int, optional): Index of the correct answer (for showing result).
-        show_result (bool): Whether to highlight the correct answer and disable buttons.
+        options (list):            Answer option strings.
+        on_answer (callable):      Callback receiving selected index (int).
+        correct_index (int|None):  Index of the correct answer.
+        show_result (bool):        When True, highlight correct and disable all.
     """
     st.write("**Choose the correct answer:**")
-
-    # Force all buttons in the mc grid to the same min-height
-    st.markdown("""
+ 
+    # Compact equal-height buttons — 3rem fits one line comfortably,
+    # text wraps cleanly for longer answers. Raise to 4rem if your
+    # answers regularly run to 2+ lines.
+    st.markdown(
+        """
         <style>
         div[data-testid="stHorizontalBlock"] div[data-testid="stButton"] button {
-            min-height: 15rem;
+            min-height: 3rem;
+            max-height: 5rem;
             white-space: normal;
             word-wrap: break-word;
-            height: 100%;
+            line-height: 1.3;
+            padding: 0.35rem 0.75rem;
         }
         </style>
-    """, unsafe_allow_html=True)
-
+        """,
+        unsafe_allow_html=True,
+    )
+ 
     num_options = min(len(options), 10)
     cols = st.columns(2)
-
+ 
     for idx in range(num_options):
         with cols[idx % 2]:
             label       = options[idx]
@@ -271,7 +278,7 @@ def multiple_choice_buttons(options, on_answer, correct_index=None, show_result=
                 key=f"mc_option_{idx}",
                 type=button_type,
                 disabled=show_result,
-                width='stretch',
+                use_container_width=True,
             ):
                 on_answer(idx)
 
