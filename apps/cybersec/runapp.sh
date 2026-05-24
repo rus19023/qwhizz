@@ -1,1 +1,1 @@
-streamlit run runapp.py --server.port 8369
+streamlit run apps/cybersec/runapp.py --server.port 8369

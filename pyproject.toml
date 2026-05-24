@@ -1,0 +1,80 @@
+# QWhizz Poetry Configuration
+# ⚠️  REQUIRES: Python 3.12+ (your Mac Mini may have 3.9.6)
+# To upgrade: brew install python@3.12 && brew link python@3.12 --force
+# Then verify: python3 --version
+
+[tool.poetry]
+name = "qwhizz"
+version = "0.1.0"
+description = "Streamlit flashcard platform with AI deck generation and MongoDB backend"
+authors = ["Nonya <you@example.com>"]
+readme = "README.md"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.12"
+streamlit = "^1.40.0"
+pymongo = "^4.8.0"
+pydantic = "^2.7.0"
+streamlit-cookies-manager = "^0.2.0"
+pdfplumber = "^0.10.0"
+python-docx = "^1.1.0"
+beautifulsoup4 = "^4.12.0"
+theme-switcher = {git = "https://github.com/rus19023/theme-switcher.git"}
+requests = "^2.32.0"
+python-dotenv = "^1.0.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.0.0"
+pytest-asyncio = "^0.24.0"
+black = "^24.4.0"
+ruff = "^0.5.0"
+mypy = "^1.11.0"
+deptry = "^0.20.0"
+pip-audit = "^2.6.0"
+
+[tool.poetry.urls]
+Homepage = "https://github.com/rus19023/qwhizz"
+Repository = "https://github.com/rus19023/qwhizz.git"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 100
+target-version = ["py312"]
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+)/
+'''
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+select = ["E", "F", "W", "I"]
+ignore = ["E501"]  # Line too long (handled by black)
+
+[tool.mypy]
+python_version = "3.12"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false
+ignore_missing_imports = true
+
+[tool.deptry]
+ignore_missing_imports = [
+  "streamlit",
+]
+ignore_obsolete = [
+  "typing-extensions",
+]

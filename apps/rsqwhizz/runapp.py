@@ -1,3 +1,5 @@
+# apps/rsqwhizz/runapp.py
+
 import sys
 from pathlib import Path
 
