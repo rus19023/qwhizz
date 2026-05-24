@@ -65,6 +65,11 @@ class Card(BaseModel):
     num_correct: Optional[int] = None          # multi_select
     correct_answer: Optional[bool] = None      # true_false
 
+    # Bloom's Taxonomy / QWhizz Forge fields (optional — only present on Forge-generated cards)
+    bloom_level: Optional[str] = None          # Remember/Understand/Apply/Analyze/Evaluate/Create
+    estimated_time_seconds: Optional[int] = None
+    points: Optional[int] = None
+
     # ── Validators ────────────────────────────────────────────────────────────
 
     @field_validator("question", "answer", mode="before")
@@ -114,6 +119,14 @@ class Card(BaseModel):
         if self.correct_answer is not None:
             d["correct_answer"] = self.correct_answer
 
+        # Bloom's / Forge fields
+        if self.bloom_level:
+            d["bloom_level"] = self.bloom_level
+        if self.estimated_time_seconds is not None:
+            d["estimated_time_seconds"] = self.estimated_time_seconds
+        if self.points is not None:
+            d["points"] = self.points
+
         return d
 
     @classmethod
@@ -137,18 +150,21 @@ class Card(BaseModel):
 
     def to_export_row(self) -> dict:
         return {
-            "question":        self.question,
-            "answer":          self.answer,
-            "wrong_answers":   " | ".join(self.wrong_answers),
-            "hint":            self.hint or "",
-            "tags":            ", ".join(self.tags),
-            "image_url":       self.image_url or "",
-            "explanation":     self.explanation or "",
-            "feedback_text":   self.feedback.text or "",
-            "feedback_images": " | ".join(self.feedback.images),
-            "feedback_links":  ", ".join(
+            "question":               self.question,
+            "answer":                 self.answer,
+            "wrong_answers":          " | ".join(self.wrong_answers),
+            "hint":                   self.hint or "",
+            "tags":                   ", ".join(self.tags),
+            "image_url":              self.image_url or "",
+            "explanation":            self.explanation or "",
+            "feedback_text":          self.feedback.text or "",
+            "feedback_images":        " | ".join(self.feedback.images),
+            "feedback_links":         ", ".join(
                 f"{lnk.label}|{lnk.url}" for lnk in self.feedback.links
             ),
+            "bloom_level":            self.bloom_level or "",
+            "estimated_time_seconds": self.estimated_time_seconds or "",
+            "points":                 self.points or "",
         }
 
     @classmethod
@@ -192,4 +208,7 @@ class Card(BaseModel):
             image_url=row.get("image_url") or None,
             explanation=row.get("explanation") or None,
             feedback=feedback,
+            bloom_level=row.get("bloom_level") or None,
+            estimated_time_seconds=row.get("estimated_time_seconds") or None,
+            points=row.get("points") or None,
         )

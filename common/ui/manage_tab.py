@@ -12,6 +12,7 @@ from data.deck_store import (
     get_deck_names,
     find_duplicate_cards,
     delete_card,
+    delete_deck,
     get_all_cards_with_indices,
     create_deck,
 )
@@ -32,20 +33,19 @@ def _save_card(manage_deck: str, index: int, card: Card) -> bool:
     db = get_database()
     deck_doc = db.decks.find_one({"_id": manage_deck})
     if not deck_doc:
-        st.error("Could not find deck in database.")
+        st.error("❌ Could not find deck in database.")
         return False
-    cards_list = deck_doc["cards"]
-    cards_list[index] = card.to_dict()
-    db.decks.update_one({"_id": manage_deck}, {"$set": {"cards": cards_list}})
-    return True
+    try:
+        cards_list = deck_doc["cards"]
+        cards_list[index] = card.to_dict()
+        db.decks.update_one({"_id": manage_deck}, {"$set": {"cards": cards_list}})
+        return True
+    except Exception as e:
+        st.error(f"❌ Failed to save card: {e}")
+        return False
 
 
 def _rename_deck(old_name: str, new_name: str) -> tuple[bool, str]:
-    """
-    Rename a deck by inserting a new document with the new _id,
-    copying all cards, then deleting the old document.
-    Returns (success, message).
-    """
     from data.db import get_database
     db = get_database()
 
@@ -67,10 +67,40 @@ def _rename_deck(old_name: str, new_name: str) -> tuple[bool, str]:
     return True, f"Deck renamed to '{new_name}'."
 
 
+def _deduplicate_deck(deck_name: str) -> tuple[int, int]:
+    """
+    Remove duplicate cards from a deck, keeping the first occurrence.
+    Duplicates are matched on (question, answer) lowercased and stripped.
+    Returns (cards_before, cards_after).
+    """
+    from data.db import get_database
+    db = get_database()
+
+    deck_doc = db.decks.find_one({"_id": deck_name})
+    if not deck_doc:
+        return 0, 0
+
+    cards = deck_doc.get("cards", [])
+    cards_before = len(cards)
+    seen: set[tuple[str, str]] = set()
+    unique: list[dict] = []
+
+    for card in cards:
+        key = (
+            str(card.get("question", "")).strip().lower(),
+            str(card.get("answer",   "")).strip().lower(),
+        )
+        if key not in seen:
+            seen.add(key)
+            unique.append(card)
+
+    db.decks.update_one({"_id": deck_name}, {"$set": {"cards": unique}})
+    return cards_before, len(unique)
+
+
 # ── Shared helpers ────────────────────────────────────────────────────────────
 
 def _render_card_preview(cards: list):
-    """Show a preview of cards (Card models or dicts)."""
     with st.expander("👁️ Preview cards"):
         preview = cards[:5]
         for c in preview:
@@ -87,32 +117,42 @@ def _render_card_preview(cards: list):
             st.caption(f"...and {len(cards) - 5} more")
 
 
-def _save_cards_to_deck(deck_name: str, cards: list[dict]):
-    """Append a list of card dicts to a deck in MongoDB."""
+def _save_cards_to_deck(deck_name: str, cards: list[dict]) -> bool:
+    try:
+        from data.db import get_database
+        db = get_database()
+        deck_doc = db.decks.find_one({"_id": deck_name})
+        if deck_doc:
+            existing = deck_doc.get("cards", [])
+            existing.extend(cards)
+            db.decks.update_one({"_id": deck_name}, {"$set": {"cards": existing}})
+        else:
+            db.decks.insert_one({"_id": deck_name, "cards": cards})
+        return True
+    except Exception as e:
+        st.error(f"❌ Failed to save cards: {e}")
+        return False
+
+
+def _existing_questions(deck_name: str) -> set[str]:
+    """Return a set of lowercased stripped questions already in the deck."""
     from data.db import get_database
     db = get_database()
     deck_doc = db.decks.find_one({"_id": deck_name})
-    if deck_doc:
-        existing = deck_doc.get("cards", [])
-        existing.extend(cards)
-        db.decks.update_one({"_id": deck_name}, {"$set": {"cards": existing}})
-    else:
-        db.decks.insert_one({"_id": deck_name, "cards": cards})
+    if not deck_doc:
+        return set()
+    return {
+        str(c.get("question", "")).strip().lower()
+        for c in deck_doc.get("cards", [])
+    }
 
 
 # ── Main tab ──────────────────────────────────────────────────────────────────
 
 def render_manage_tab(username: str | None = None):
-    """
-    Args:
-        username: logged-in username — used for access control.
-                  Pass None to disable gating (legacy callers).
-    """
-
     try:
         st.subheader("🗂️ Manage Decks")
 
-        # ── Access control ────────────────────────────────────────────────────
         if username and not require_feature("manage_decks", username):
             return
 
@@ -124,7 +164,6 @@ def render_manage_tab(username: str | None = None):
 
         indexed_cards = _cards_from_deck(manage_deck)
 
-        # Determine is_admin from username
         is_admin = False
         if username:
             from data.user_store import get_user
@@ -132,14 +171,15 @@ def render_manage_tab(username: str | None = None):
             is_admin = bool(user_doc.get("is_admin", False)) if user_doc else False
 
         manage_deck_tabs = [
-            TabSpec("➕ Create Deck",    lambda: _render_create_deck(),                                  admin_only=True),
-            TabSpec("📤 Export",         lambda: _render_export(manage_deck, indexed_cards),             admin_only=True),
-            TabSpec("📥 Import",         lambda: _render_import(manage_deck),                            admin_only=True),
-            TabSpec("💡 AI Enrich Deck", lambda: render_ai_enrich_section(manage_deck, indexed_cards),   admin_only=True),
-            TabSpec("🔍 Duplicates",     lambda: _render_duplicates(manage_deck),                        admin_only=True),
-            TabSpec("📋 Browse & Edit",  lambda: _render_browse(manage_deck, indexed_cards),             admin_only=True),
-            TabSpec("✏️ Rename Deck",    lambda: _render_rename_deck(manage_deck, username),             admin_only=True),
-            TabSpec("👥 User Access",    lambda: _render_user_access(username),                          admin_only=True),
+            TabSpec("➕ Create Deck",    lambda: _render_create_deck(),                                admin_only=True),
+            TabSpec("📤 Export",         lambda: _render_export(manage_deck, indexed_cards),           admin_only=True),
+            TabSpec("📥 Import",         lambda: _render_import(manage_deck),                          admin_only=True),
+            TabSpec("💡 AI Enrich Deck", lambda: render_ai_enrich_section(manage_deck, indexed_cards), admin_only=True),
+            TabSpec("🔍 Duplicates",     lambda: _render_duplicates(manage_deck),                      admin_only=True),
+            TabSpec("📋 Browse & Edit",  lambda: _render_browse(manage_deck, indexed_cards),           admin_only=True),
+            TabSpec("✏️ Rename Deck",    lambda: _render_rename_deck(manage_deck, username),           admin_only=True),
+            TabSpec("🗑️ Delete Deck",    lambda: _render_delete_deck(manage_deck),                     admin_only=True),
+            TabSpec("👥 User Access",    lambda: _render_user_access(username),                        admin_only=True),
         ]
 
         render_tabs(manage_deck_tabs, is_admin=is_admin)
@@ -172,6 +212,42 @@ def _render_create_deck():
                     st.rerun()
                 else:
                     st.error("Failed to create deck.")
+
+
+# ── Delete Deck ───────────────────────────────────────────────────────────────
+
+def _render_delete_deck(manage_deck: str):
+    st.subheader("🗑️ Delete Deck")
+
+    from data.db import get_database
+    db = get_database()
+    deck_doc = db.decks.find_one({"_id": manage_deck})
+    card_count = len(deck_doc.get("cards", [])) if deck_doc else 0
+
+    st.error(
+        f"⚠️ **Danger Zone** — This will permanently delete **{manage_deck}** "
+        f"and all **{card_count} cards**. This cannot be undone."
+    )
+
+    st.write(f"Type the deck name **`{manage_deck}`** to confirm:")
+    typed = st.text_input("Deck name confirmation", key="delete_deck_type_confirm", label_visibility="collapsed")
+
+    name_matches = typed.strip() == manage_deck.strip()
+
+    if not name_matches and typed:
+        st.warning("Name doesn't match — check your spelling.")
+
+    if st.button("🗑️ Permanently Delete Deck", type="primary", disabled=not name_matches, key="delete_deck_btn"):
+        ok = delete_deck(manage_deck)
+        if ok:
+            st.success(f"Deleted deck: **{manage_deck}**")
+            if "manage_deck_select" in st.session_state:
+                del st.session_state["manage_deck_select"]
+            if "delete_deck_type_confirm" in st.session_state:
+                del st.session_state["delete_deck_type_confirm"]
+            st.rerun()
+        else:
+            st.error("Failed to delete deck.")
 
 
 # ── Export ────────────────────────────────────────────────────────────────────
@@ -268,14 +344,36 @@ def _render_import(manage_deck: str):
             for err in errors:
                 st.caption(err)
 
-        if parsed:
-            st.success(f"Ready to import {len(parsed)} card(s).")
-            _render_card_preview(parsed)
+        if not parsed:
+            return
 
-            if st.button("✅ Confirm Import", type="primary", key="confirm_import_json"):
-                _save_cards_to_deck(manage_deck, [c.to_dict() for c in parsed])
-                st.success(f"✅ Imported {len(parsed)} cards into '{manage_deck}'!")
-                st.rerun()
+        # ── Duplicate detection ───────────────────────────────────────────────
+        existing_qs = _existing_questions(manage_deck)
+        new_cards    = [c for c in parsed if c.question.strip().lower() not in existing_qs]
+        dupe_cards   = [c for c in parsed if c.question.strip().lower() in existing_qs]
+
+        st.write(f"**{len(parsed)}** cards in file — "
+                 f"**{len(new_cards)}** new, "
+                 f"**{len(dupe_cards)}** already exist in deck")
+
+        if dupe_cards:
+            with st.expander(f"⚠️ {len(dupe_cards)} duplicate question(s) — will be skipped"):
+                for c in dupe_cards[:10]:
+                    st.caption(f"• {c.question[:80]}")
+                if len(dupe_cards) > 10:
+                    st.caption(f"...and {len(dupe_cards) - 10} more")
+
+        if not new_cards:
+            st.info("All cards already exist in this deck. Nothing to import.")
+            return
+
+        st.success(f"Ready to import {len(new_cards)} new card(s).")
+        _render_card_preview(new_cards)
+
+        if st.button("✅ Confirm Import", type="primary", key="confirm_import_json"):
+            _save_cards_to_deck(manage_deck, [c.to_dict() for c in new_cards])
+            st.success(f"✅ Imported {len(new_cards)} cards into '{manage_deck}'!")
+            st.rerun()
 
     except json.JSONDecodeError as e:
         st.error(f"Invalid JSON: {e}")
@@ -359,19 +457,19 @@ def _render_ai_generator(manage_deck: str, username: str | None):
 
         with save_col1:
             if st.button(f"✅ Add to '{stored_deck}'", type="primary", key="ai_save_deck"):
-                _save_cards_to_deck(stored_deck, stored_cards)
-                st.success(f"✅ Added {len(stored_cards)} cards to '{stored_deck}'!")
-                del st.session_state["ai_generated_cards"]
-                st.rerun()
+                if _save_cards_to_deck(stored_deck, stored_cards):
+                    st.toast(f"✅ Added {len(stored_cards)} cards to '{stored_deck}'!", icon="✅")
+                    del st.session_state["ai_generated_cards"]
+                    st.rerun()
 
         with save_col2:
             new_deck_name = st.text_input("Or save to new deck:", key="ai_new_deck_name")
             if new_deck_name.strip() and st.button("➕ Create & Save", key="ai_save_new_deck"):
                 create_deck(new_deck_name.strip())
-                _save_cards_to_deck(new_deck_name.strip(), stored_cards)
-                st.success(f"✅ Created deck '{new_deck_name}' with {len(stored_cards)} cards!")
-                del st.session_state["ai_generated_cards"]
-                st.rerun()
+                if _save_cards_to_deck(new_deck_name.strip(), stored_cards):
+                    st.toast(f"✅ Created deck '{new_deck_name}' with {len(stored_cards)} cards!", icon="✅")
+                    del st.session_state["ai_generated_cards"]
+                    st.rerun()
 
         with save_col3:
             json_bytes = json.dumps(stored_cards, indent=2).encode("utf-8")
@@ -407,20 +505,50 @@ def _render_ai_generator(manage_deck: str, username: str | None):
 
 def _render_duplicates(manage_deck: str):
     st.subheader("🔍 Duplicate Detection")
-    if st.button("Find Duplicates"):
+
+    from data.db import get_database
+    db = get_database()
+    deck_doc = db.decks.find_one({"_id": manage_deck})
+    card_count = len(deck_doc.get("cards", [])) if deck_doc else 0
+
+    st.write(f"**{manage_deck}** — {card_count} cards total")
+
+    # ── Auto-deduplicate ──────────────────────────────────────────────────────
+    st.markdown("#### ⚡ Auto-Deduplicate")
+    st.write("Instantly removes all duplicate cards, keeping the first occurrence of each.")
+
+    confirm_dedup = st.checkbox(
+        "I want to remove all duplicate cards automatically",
+        key="dedup_confirm",
+    )
+    if st.button("Remove All Duplicates", type="primary", disabled=not confirm_dedup, key="dedup_btn"):
+        before, after = _deduplicate_deck(manage_deck)
+        removed = before - after
+        if removed == 0:
+            st.info("No duplicates found — deck is already clean.")
+        else:
+            st.success(f"✅ Removed {removed} duplicate card(s). Deck now has {after} cards.")
+        st.rerun()
+
+    st.divider()
+
+    # ── Manual review ─────────────────────────────────────────────────────────
+    st.markdown("#### 🔎 Review Duplicates Manually")
+    if st.button("Find Duplicates", key="find_dupes_btn"):
         duplicates = find_duplicate_cards(manage_deck)
         if duplicates:
-            st.warning(f"Found {len(duplicates)} duplicate card(s)!")
+            st.warning(f"Found {len(duplicates)} duplicate card(s).")
             for dup in duplicates:
-                with st.expander(f"Duplicate: {dup['question'][:50]}..."):
+                with st.expander(f"Duplicate: {dup['question'][:60]}..."):
                     st.write(f"**Question:** {dup['question']}")
                     st.write(f"**Answer:** {dup['answer']}")
-                    st.write(f"**Index:** {dup['index']} (original at index {dup['original_index']})")
+                    st.caption(f"Index {dup['index']} — duplicate of index {dup['original_index']}")
                     if st.button("Delete this duplicate", key=f"delete_dup_{dup['index']}"):
                         if delete_card(manage_deck, dup["index"]):
-                            st.success("Duplicate deleted!")
+                            st.toast("✅ Duplicate deleted.", icon="✅")
+                            st.rerun()
                         else:
-                            st.error("Failed to delete card")
+                            st.error("❌ Failed to delete card.")
         else:
             st.success("No duplicates found!")
 
@@ -453,7 +581,6 @@ def _render_browse(manage_deck: str, indexed_cards):
             if not card.feedback.is_empty():
                 st.caption("💬 " + (card.feedback.text or "")[:80])
 
-            # ── Edit full card ────────────────────────────────────────────────
             card_edit_key = f"editing_card_{idx}"
             if st.button("✏️ Edit Card", key=f"card_edit_btn_{idx}"):
                 st.session_state[card_edit_key] = not st.session_state.get(card_edit_key, False)
@@ -501,7 +628,6 @@ def _render_browse(manage_deck: str, indexed_cards):
                                 st.session_state[card_edit_key] = False
                                 st.success("✅ Card saved!")
 
-            # ── Edit feedback only ────────────────────────────────────────────
             edit_key = f"editing_{idx}"
             if st.button("✏️ Edit Feedback", key=f"edit_btn_{idx}"):
                 st.session_state[edit_key] = not st.session_state.get(edit_key, False)
@@ -541,7 +667,6 @@ def _render_browse(manage_deck: str, indexed_cards):
                             st.session_state[edit_key] = False
                             st.success("✅ Feedback saved!")
 
-            # ── Delete with confirmation ──────────────────────────────────────
             if f"confirm_delete_{idx}" not in st.session_state:
                 st.session_state[f"confirm_delete_{idx}"] = False
 
@@ -555,11 +680,12 @@ def _render_browse(manage_deck: str, indexed_cards):
                     if st.button("✓ Yes, delete", key=f"confirm_yes_{idx}", type="primary"):
                         if delete_card(manage_deck, idx):
                             st.session_state[f"confirm_delete_{idx}"] = False
-                            st.success("Card deleted!")
+                            st.toast("🗑️ Card deleted.", icon="🗑️")
                             if "cards" in st.session_state:
                                 del st.session_state["cards"]
+                            st.rerun()
                         else:
-                            st.error("Failed to delete card")
+                            st.error("❌ Failed to delete card.")
                 with col2:
                     if st.button("✗ Cancel", key=f"confirm_no_{idx}"):
                         st.session_state[f"confirm_delete_{idx}"] = False

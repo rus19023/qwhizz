@@ -167,6 +167,14 @@ def _generate(
 
     source = f"\n\nSource material:\n{source_text}" if source_text else ""
 
+    source_instruction = (
+        "The source material was written or spoken by a specific person. "
+        "Identify their name from the source and use it in questions "
+        "(e.g. 'According to Elder Gilbert...' or 'What did Sister Smith teach about...'). "
+        "Never use generic phrases like 'the author' or 'the source material' or 'the speaker'. "
+        "Always use the person's actual name or title."
+    ) if source_text else ""
+
     prompt = f"""You are an expert educational flashcard generator trained in Bloom's Taxonomy.
 
 Generate exactly {num_cards} {difficulty} {card_type} cards about: {topic}
@@ -183,6 +191,8 @@ Every card must also include:
 - "bloom_level": one of Remember/Understand/Apply/Analyze/Evaluate/Create
 - "estimated_time_seconds": integer 15-120
 - "points": integer 1-5 based on cognitive complexity
+
+{source_instruction}
 {source}
 
 Respond ONLY with a valid JSON array. No markdown, no preamble, no commentary."""
@@ -328,7 +338,7 @@ def _render_bloom_distribution(cards: list[dict]) -> None:
 def _render_card_previews(cards: list[dict]) -> None:
     for i, card in enumerate(cards):
         bloom = card.get("bloom_level", "")
-        with st.expander(f"Card {i+1}: {card['question'][:80]}", expanded=(i == 0)):
+        with st.expander(f"Card {i+1}: {card['question']}", expanded=(i == 0)):
             # Badge uses our own color dict — not user-supplied HTML
             st.markdown(
                 f"{_bloom_badge(bloom)} &nbsp; "

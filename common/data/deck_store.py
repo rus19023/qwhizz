@@ -21,6 +21,12 @@ def create_deck(deck_name: str) -> str:
     return name
 
 
+def delete_deck(deck_name: str) -> bool:
+    """Delete an entire deck and all its cards."""
+    result = _decks().delete_one({"_id": deck_name})
+    return result.deleted_count > 0
+
+
 def get_deck_names() -> List[str]:
     return sorted(_decks().distinct("_id"))
 
@@ -42,6 +48,15 @@ def add_card(deck_name: str, question: str, answer: str, feedback: Optional[dict
     )
 
 
+def add_card_full(deck_name: str, card: Dict[str, Any]) -> None:
+    """Push a complete card dict into the deck in one atomic operation."""
+    _decks().update_one(
+        {"_id": deck_name},
+        {"$push": {"cards": card}},
+        upsert=True
+    )
+
+
 def find_duplicate_cards(deck_name: str) -> List[Dict[str, Any]]:
     """Find duplicate cards in a deck (same question)."""
     cards = get_deck(deck_name)
@@ -54,10 +69,10 @@ def find_duplicate_cards(deck_name: str) -> List[Dict[str, Any]]:
             continue
         if q in seen:
             duplicates.append({
-                "index": idx,
-                "question": card.get("question", ""),
-                "answer": card.get("answer", ""),
-                "original_index": seen[q]
+                "index":          idx,
+                "question":       card.get("question", ""),
+                "answer":         card.get("answer", ""),
+                "original_index": seen[q],
             })
         else:
             seen[q] = idx
@@ -76,27 +91,16 @@ def delete_card(deck_name: str, card_index: int) -> bool:
 
 
 def get_all_cards_with_indices(deck_name: str) -> List[Dict[str, Any]]:
+    """Return all cards with their positional index prepended.
+
+    Returns the full card document so that Card.from_dict() receives every
+    field (tags, hint, bloom_level, wrong_answers, etc.), not just the fields
+    that were explicitly listed here.
+    """
     cards = get_deck(deck_name)
-    return [
-        {
-            "index": idx,
-            "question": (card.get("question") or ""),
-            "answer": (card.get("answer") or ""),
-            "feedback": card.get("feedback", {}) or {},
-        }
-        for idx, card in enumerate(cards)
-    ]
-    
-# data/deck_store.py
-from typing import Any, Dict
-
-from data.db import get_database
-
-def add_card_full(deck_name: str, card: Dict[str, Any]) -> None:
-    """Push a complete card dict into the deck in one atomic operation."""
-    db = get_database()
-    db.decks.update_one(
-        {"_id": deck_name},
-        {"$push": {"cards": card}},
-        upsert=True
-    )
+    result = []
+    for idx, card in enumerate(cards):
+        entry = dict(card)   # full card — all fields preserved
+        entry["index"] = idx
+        result.append(entry)
+    return result

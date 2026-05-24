@@ -263,11 +263,8 @@ def render_add_card_tab():
                     # Save whole card in one atomic push
                     try:
                         _add_card_full(selected_deck, card_data)
-
-                        st.success(f"✅ Card added to '{selected_deck}'!")
-
-                        with st.expander("Preview added card"):
-                            st.json(card_data)
+                        # Use toast so notification survives clear_on_submit form reset
+                        st.toast(f"✅ Card added to '{selected_deck}'!", icon="✅")
 
                     except Exception as e:
                         st.error(f"❌ Error adding card: {e}")

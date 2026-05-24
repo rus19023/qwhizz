@@ -5,7 +5,6 @@ import traceback
 from pathlib import Path
 
 # ── Path setup — must come before any local imports ───────────────────────────
-# Adds the project root to sys.path so common/ is importable on Streamlit Cloud
 _ROOT = Path(__file__).parent.parent
 if str(_ROOT) not in sys.path:
     sys.path.insert(0, str(_ROOT))
@@ -17,11 +16,11 @@ st.set_page_config(
     page_title=st.secrets["app"]["title"],
     page_icon=st.secrets["app"]["icon"],
     layout=st.secrets["app"]["screen_width"],
-    initial_sidebar_state=st.secrets["app"]["start_sidebar_state"]
+    initial_sidebar_state="collapsed",   # sidebar now mostly empty — collapse it
 )
 
 if hasattr(st, "cache"):
-    st.cache = st.cache_data  # Redirect st.cache to st.cache_data
+    st.cache = st.cache_data
 
 from theme_switcher import quick_theme_setup
 
@@ -48,31 +47,58 @@ st.markdown("""
 <style>
 .main .block-container {
     max-width: 1200px;
-    padding-left: 2rem;
-    padding-right: 2rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
 </style>
 """, unsafe_allow_html=True)
 
 
-def require_deck_selection() -> str:
+def render_top_controls(logged_in_user: str) -> tuple[str, str]:
+    """
+    Render deck selector + mode selector as a compact top row.
+    Returns (deck_name, study_mode).
+    Also shows user info + logout inline.
+    """
     deck_names = get_deck_names()
 
-    if not deck_names:
-        st.sidebar.warning("No decks found yet. Create your first deck:")
-        new_deck = st.sidebar.text_input("New deck name", key="new_deck_name")
+    col_deck, col_mode, col_user = st.columns([2, 2, 1])
 
-        if st.sidebar.button("Create deck", type="primary"):
-            try:
-                create_deck(new_deck)
-                st.success(f"Created deck: {new_deck.strip()}")
-                st.rerun()
-            except Exception as e:
-                st.sidebar.error(str(e))
+    with col_deck:
+        if not deck_names:
+            st.warning("No decks yet.")
+            new_deck = st.text_input("Create first deck:", key="new_deck_name")
+            if st.button("Create", type="primary", key="create_first_deck"):
+                try:
+                    create_deck(new_deck)
+                    st.toast(f"✅ Created deck: {new_deck.strip()}", icon="✅")
+                    st.rerun()
+                except Exception as e:
+                    st.error(str(e))
+            st.stop()
 
-        st.stop()
+        deck_name = st.selectbox(
+            "Deck",
+            options=deck_names,
+            index=len(deck_names) - 1,
+            key="top_deck_select",
+            label_visibility="collapsed",
+        )
 
-    return st.sidebar.selectbox("Choose a deck", index=len(deck_names)-1, options=deck_names)
+    with col_mode:
+        study_mode = mode_selector(inline=True)
+
+    with col_user:
+        st.markdown(
+            f"<div style='text-align:right;padding-top:6px;font-size:0.85em'>"
+            f"👤 {logged_in_user}</div>",
+            unsafe_allow_html=True,
+        )
+        if st.button("🚪", key="top_logout", help="Logout", use_container_width=True):
+            st.query_params.clear()
+            st.rerun()
+
+    return deck_name, study_mode
 
 
 def main() -> None:
@@ -82,12 +108,9 @@ def main() -> None:
     logged_in_user = handle_authentication()
     render_header()
 
-    study_mode = mode_selector()
+    deck_name, study_mode = render_top_controls(logged_in_user)
+
     reset_study_state_on_mode_change(study_mode)
-
-    deck_name = require_deck_selection()
-
-    st.subheader(study_mode)
 
     current_user = get_user(logged_in_user)
     if not current_user:
@@ -103,7 +126,6 @@ def main() -> None:
         TabSpec("🛡️ Admin",        lambda: render_admin_tab(),                          admin_only=True),
         TabSpec("🔨 Forge",        lambda: render_forge_tab(deck_name, logged_in_user), admin_only=True),
         TabSpec("🗂️ Manage Decks", lambda: render_manage_tab(username=logged_in_user),  admin_only=True),
-        TabSpec("➕ Create Deck", lambda: _render_create_deck(), admin_only=True),
         TabSpec("🤖 AI Generate",  lambda: render_ai_generate_tab(),                    admin_only=True),
         TabSpec("👥 User Access",  lambda: _render_user_access(logged_in_user),         admin_only=True),
     ]

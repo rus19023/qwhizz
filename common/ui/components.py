@@ -212,51 +212,50 @@ def leaderboard(users_list):
     st.dataframe(df, hide_index=True)
 
 
-def mode_selector():
+def mode_selector(inline: bool = False):
+    """
+    Render the study mode selector.
+ 
+    Args:
+        inline: If True, renders as a plain selectbox (for top row in main app).
+                If False (default), renders in sidebar as before.
+    """
     from core.study_modes import STUDY_MODES
-
-    st.sidebar.subheader("Study Mode")
-
-    mode_names = {config["name"]: key for key, config in STUDY_MODES.items()}
-    names = list(mode_names.keys())
-
-    selected_name = st.sidebar.selectbox(
-        "Select learning mode:",
-        options=names,
-        key="study_mode_selector"
+ 
+    mode_names    = {config["name"]: key for key, config in STUDY_MODES.items()}
+    selected_name = (st.selectbox if inline else st.sidebar.selectbox)(
+        "Mode",
+        options=list(mode_names.keys()),
+        key="study_mode_selector",
+        label_visibility="collapsed" if inline else "visible",
     )
-
     selected_mode = mode_names.get(selected_name) or "flashcard"
-    mode_config = STUDY_MODES.get(selected_mode, STUDY_MODES["flashcard"])
-    st.sidebar.caption(mode_config["description"])
+ 
+    if not inline:
+        mode_config = STUDY_MODES.get(selected_mode, STUDY_MODES["flashcard"])
+        st.sidebar.caption(mode_config["description"])
+ 
     return selected_mode
+
 
 
 def multiple_choice_buttons(options, on_answer, correct_index=None, show_result=False):
     """
-    Display multiple choice answer buttons — compact, equal height.
- 
-    Args:
-        options (list):            Answer option strings.
-        on_answer (callable):      Callback receiving selected index (int).
-        correct_index (int|None):  Index of the correct answer.
-        show_result (bool):        When True, highlight correct and disable all.
+    Display multiple choice answer buttons — equal height, larger font.
     """
     st.write("**Choose the correct answer:**")
  
-    # Compact equal-height buttons — 3rem fits one line comfortably,
-    # text wraps cleanly for longer answers. Raise to 4rem if your
-    # answers regularly run to 2+ lines.
     st.markdown(
         """
         <style>
         div[data-testid="stHorizontalBlock"] div[data-testid="stButton"] button {
-            min-height: 3rem;
-            max-height: 5rem;
+            min-height: 5rem;
             white-space: normal;
             word-wrap: break-word;
-            line-height: 1.3;
-            padding: 0.35rem 0.75rem;
+            height: 100%;
+            line-height: 1.4;
+            padding: 0.6rem 1rem;
+            font-size: 1.05rem;
         }
         </style>
         """,
@@ -281,6 +280,7 @@ def multiple_choice_buttons(options, on_answer, correct_index=None, show_result=
                 use_container_width=True,
             ):
                 on_answer(idx)
+ 
 
 
 def multi_select_checkboxes(options, on_submit, correct_indices=None, show_result=False):
