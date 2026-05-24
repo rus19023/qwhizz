@@ -61,7 +61,6 @@ def _rename_deck(old_name: str, new_name: str) -> tuple[bool, str]:
     if not old_doc:
         return False, f"Deck '{old_name}' not found."
 
-    # Insert under new _id, then remove old
     new_doc = {**old_doc, "_id": new_name}
     db.decks.insert_one(new_doc)
     db.decks.delete_one({"_id": old_name})
@@ -109,7 +108,7 @@ def render_manage_tab(username: str | None = None):
         username: logged-in username — used for access control.
                   Pass None to disable gating (legacy callers).
     """
-    
+
     try:
         st.subheader("🗂️ Manage Decks")
 
@@ -124,33 +123,55 @@ def render_manage_tab(username: str | None = None):
         )
 
         indexed_cards = _cards_from_deck(manage_deck)
-        
+
         # Determine is_admin from username
         is_admin = False
         if username:
             from data.user_store import get_user
             user_doc = get_user(username)
             is_admin = bool(user_doc.get("is_admin", False)) if user_doc else False
-            
-            
-        manage_deck_tabs = [            
-            TabSpec("📤 Export", lambda: _render_export(manage_deck, indexed_cards), admin_only=True),
-            TabSpec("📥 Import", lambda: _render_import(manage_deck), admin_only=True),
-            TabSpec("💡 AI Enrich Deck", lambda: render_ai_enrich_section(manage_deck, indexed_cards), admin_only=True),
-            TabSpec("🔍 Duplicates", lambda: _render_duplicates(manage_deck), admin_only=True),
-            TabSpec("📋 Browse & Edit", lambda: _render_browse(manage_deck, indexed_cards), admin_only=True),
-            TabSpec("✏️ Rename Deck", lambda: _render_rename_deck(manage_deck, username), admin_only=True),
-            TabSpec("👥 User Access", lambda: _render_user_access(username), admin_only=True),
+
+        manage_deck_tabs = [
+            TabSpec("➕ Create Deck",    lambda: _render_create_deck(),                                  admin_only=True),
+            TabSpec("📤 Export",         lambda: _render_export(manage_deck, indexed_cards),             admin_only=True),
+            TabSpec("📥 Import",         lambda: _render_import(manage_deck),                            admin_only=True),
+            TabSpec("💡 AI Enrich Deck", lambda: render_ai_enrich_section(manage_deck, indexed_cards),   admin_only=True),
+            TabSpec("🔍 Duplicates",     lambda: _render_duplicates(manage_deck),                        admin_only=True),
+            TabSpec("📋 Browse & Edit",  lambda: _render_browse(manage_deck, indexed_cards),             admin_only=True),
+            TabSpec("✏️ Rename Deck",    lambda: _render_rename_deck(manage_deck, username),             admin_only=True),
+            TabSpec("👥 User Access",    lambda: _render_user_access(username),                          admin_only=True),
         ]
 
-
-        # ── Tabs ──────────────────────────────────────────────────────────────
-        
         render_tabs(manage_deck_tabs, is_admin=is_admin)
 
     except Exception as e:
         st.error(f"Error: {e}")
         st.code(traceback.format_exc())
+
+
+# ── Create Deck ───────────────────────────────────────────────────────────────
+
+def _render_create_deck():
+    st.subheader("➕ Create New Deck")
+    with st.form("create_deck_form"):
+        new_name = st.text_input(
+            "Deck name",
+            placeholder="e.g. Biology Chapter 5",
+            max_chars=100,
+        )
+        submit = st.form_submit_button("Create Deck", type="primary")
+        if submit:
+            name = new_name.strip()
+            if not name:
+                st.error("Deck name cannot be empty.")
+            elif name in get_deck_names():
+                st.error(f"A deck named '{name}' already exists.")
+            else:
+                if create_deck(name):
+                    st.success(f"Created deck: **{name}**")
+                    st.rerun()
+                else:
+                    st.error("Failed to create deck.")
 
 
 # ── Export ────────────────────────────────────────────────────────────────────
@@ -310,7 +331,6 @@ def _render_ai_generator(manage_deck: str, username: str | None):
                 from core.ai_deck_generator import generate_from_text
                 source_text, cards = generate_from_text(pasted, num_cards)
 
-    # Store generated cards in session state so they persist across reruns
     if cards:
         st.session_state["ai_generated_cards"] = cards
         st.session_state["ai_generated_for_deck"] = manage_deck
@@ -462,7 +482,6 @@ def _render_browse(manage_deck: str, indexed_cards):
 
                     save_card_btn = st.form_submit_button("💾 Save Card", type="primary")
                     if save_card_btn:
-                        updated = None
                         if not (new_question or "").strip():
                             st.error("❌ Question cannot be empty.")
                         elif not (new_answer or "").strip():
@@ -522,7 +541,7 @@ def _render_browse(manage_deck: str, indexed_cards):
                             st.session_state[edit_key] = False
                             st.success("✅ Feedback saved!")
 
-            # ── Delete with confirmation ───────────────────────────────────────
+            # ── Delete with confirmation ──────────────────────────────────────
             if f"confirm_delete_{idx}" not in st.session_state:
                 st.session_state[f"confirm_delete_{idx}"] = False
 
@@ -551,7 +570,6 @@ def _render_browse(manage_deck: str, indexed_cards):
 def _render_rename_deck(manage_deck: str, username: str | None):
     st.subheader("✏️ Rename Deck")
 
-    # Admin-only gate
     if username:
         from data.user_store import get_user
         user_doc = get_user(username)
@@ -559,25 +577,31 @@ def _render_rename_deck(manage_deck: str, username: str | None):
             st.warning("Admin access required to rename decks.")
             return
 
-    st.write(f"Current name: **{manage_deck}**")
+    all_decks = get_deck_names()
+    deck_to_rename = st.selectbox(
+        "Choose deck to rename",
+        all_decks,
+        index=all_decks.index(manage_deck) if manage_deck in all_decks else 0,
+        key="rename_deck_selector",
+    )
+    st.write(f"Current name: **{deck_to_rename}**")
 
     with st.form("rename_deck_form"):
         new_name = st.text_input(
             "New deck name",
-            placeholder=manage_deck,
+            placeholder=deck_to_rename,
             help="Must be unique. This cannot be undone without renaming again.",
         )
         confirm = st.checkbox("I understand this will rename the deck for all users.")
-        submit = st.form_submit_button("✏️ Rename Deck", type="primary")
+        submit  = st.form_submit_button("✏️ Rename Deck", type="primary")
 
         if submit:
             if not confirm:
                 st.warning("Please check the confirmation box to proceed.")
             else:
-                ok, msg = _rename_deck(manage_deck, new_name)
+                ok, msg = _rename_deck(deck_to_rename, new_name)
                 if ok:
                     st.success(f"✅ {msg}")
-                    # Clear selectbox cache so the new name appears immediately
                     if "manage_deck_select" in st.session_state:
                         del st.session_state["manage_deck_select"]
                     st.rerun()

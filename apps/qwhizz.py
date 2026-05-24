@@ -1,16 +1,24 @@
 #qwhizz.py
 
+import sys
 import traceback
+from pathlib import Path
+
+# ── Path setup — must come before any local imports ───────────────────────────
+# Adds the project root to sys.path so common/ is importable on Streamlit Cloud
+_ROOT = Path(__file__).parent.parent
+if str(_ROOT) not in sys.path:
+    sys.path.insert(0, str(_ROOT))
+
 import streamlit as st
-from qwhizz_forge.app import render_forge_tab
-# Page configuration MUST be first
+
+# Page configuration MUST be first Streamlit call
 st.set_page_config(
     page_title=st.secrets["app"]["title"],
     page_icon=st.secrets["app"]["icon"],
     layout=st.secrets["app"]["screen_width"],
     initial_sidebar_state=st.secrets["app"]["start_sidebar_state"]
 )
-
 
 if hasattr(st, "cache"):
     st.cache = st.cache_data  # Redirect st.cache to st.cache_data
@@ -29,7 +37,7 @@ from ui.manage_tab import render_manage_tab, _render_user_access
 from ui.add_card_tab import render_add_card_tab
 from ui.add_deck_tab import render_add_deck_tab
 from ui.ai_generate_tab import render_ai_generate_tab
-
+from qwhizz_forge.app import render_forge_tab
 
 from core.state import init_state, reset_study_state_on_mode_change
 from data.deck_store import get_deck_names, get_deck, create_deck
@@ -64,9 +72,7 @@ def require_deck_selection() -> str:
 
         st.stop()
 
-
     return st.sidebar.selectbox("Choose a deck", index=len(deck_names)-1, options=deck_names)
-
 
 
 def main() -> None:
@@ -88,18 +94,18 @@ def main() -> None:
         st.error("User not found")
         st.stop()
 
-    
     is_admin = bool(current_user.get("is_admin", False))
 
     main_tabs = [
-        TabSpec("📚 Study", lambda: render_study_tab(get_deck(deck_name), deck_name, logged_in_user, study_mode, init_state)),
-        TabSpec("📊 Stats", lambda: render_stats_tab(current_user)),
-        TabSpec("🏆 Leaderboard", lambda: leaderboard(get_leaderboard(limit=10))),
-        TabSpec("🛡️ Admin", lambda: render_admin_tab(), admin_only=True),
-        TabSpec("🔨 Forge", lambda: render_forge_tab(current_deck, username), admin_only=True),
-        TabSpec("🗂️ Manage Decks", lambda: render_manage_tab(username=st.session_state.user), admin_only=True),
-        TabSpec("🤖 AI Generate", lambda: render_ai_generate_tab(), admin_only=True),
-        TabSpec("👥 User Access", lambda: _render_user_access(logged_in_user ), admin_only=True),
+        TabSpec("📚 Study",        lambda: render_study_tab(get_deck(deck_name), deck_name, logged_in_user, study_mode, init_state)),
+        TabSpec("📊 Stats",        lambda: render_stats_tab(current_user)),
+        TabSpec("🏆 Leaderboard",  lambda: leaderboard(get_leaderboard(limit=10))),
+        TabSpec("🛡️ Admin",        lambda: render_admin_tab(),                          admin_only=True),
+        TabSpec("🔨 Forge",        lambda: render_forge_tab(deck_name, logged_in_user), admin_only=True),
+        TabSpec("🗂️ Manage Decks", lambda: render_manage_tab(username=logged_in_user),  admin_only=True),
+        TabSpec("➕ Create Deck", lambda: _render_create_deck(), admin_only=True),
+        TabSpec("🤖 AI Generate",  lambda: render_ai_generate_tab(),                    admin_only=True),
+        TabSpec("👥 User Access",  lambda: _render_user_access(logged_in_user),         admin_only=True),
     ]
     render_tabs(main_tabs, is_admin=is_admin)
 
