@@ -1,0 +1,1 @@
+poetry run streamlit run apps/rsqwhizz/runapp.py --server.port 8591

@@ -3,6 +3,12 @@ __pycache__/
 *.py[codz]
 *$py.class
 
+# macOS resource forks
+._*
+.DS_Store
+.AppleDouble
+.LSOverride
+
 # Security 
 .streamlit/*secrets.toml
 .env

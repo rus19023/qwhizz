@@ -80,16 +80,33 @@ def invalidate_session() -> None:
     cookies.save()
 
 
+def is_mobile() -> bool:
+    """Check if viewing on mobile via query parameter."""
+    return st.query_params.get("mobile", ["false"])[0].lower() == "true"
+
+
 def handle_authentication() -> str:
     """
-    Handles authentication flow with persistent login.
+    Handles authentication flow with mobile-aware UI.
     Returns the logged-in username.
     Stops the app if user is not logged in or session expired.
     
-    - Uses st.session_state for fast in-app access
-    - Uses cookies for persistence across app restarts
-    - Validates token on every load to prevent cookie hijacking
+    - Desktop: sidebar auth
+    - Mobile: main screen auth
     """
+    # Auto-detect mobile and redirect if needed
+    st.markdown("""
+        <script>
+            const isMobile = window.innerWidth < 768;
+            const urlParams = new URLSearchParams(window.location.search);
+            if (isMobile && !urlParams.has('mobile')) {
+                window.location.search = '?mobile=true';
+            } else if (!isMobile && urlParams.has('mobile')) {
+                window.location.search = '';
+            }
+        </script>
+    """, unsafe_allow_html=True)
+    
     cookies = init_cookies()
     init_session()
     
@@ -132,68 +149,127 @@ def handle_authentication() -> str:
     if subheader:
         st.caption(subheader)
 
-    auth_mode = st.sidebar.radio("Select Action", ["Login", "Register"], key="auth_mode")
+    mobile = is_mobile()
 
-    if auth_mode == "Login":
-        username = st.sidebar.text_input("Username", key="login_username")
-        password = st.sidebar.text_input("Password", type="password", key="login_password")
+    if mobile:
+        # Mobile: main screen layout
+        auth_mode = st.radio("Select Action", ["Login", "Register"], key="auth_mode")
 
-        if st.sidebar.button("Login", type="primary"):
-            username = (username or "").strip()
-            password = (password or "").strip()
+        if auth_mode == "Login":
+            username = st.text_input("Username", key="login_username")
+            password = st.text_input("Password", type="password", key="login_password")
 
-            if not username or not password:
-                st.sidebar.error("Please enter username and password")
-            else:
-                user = get_user(username)
-                if user and user.get("password") == password:
-                    # Generate token and store in both session_state and cookie
-                    token = generate_token(username)
-                    st.session_state.user = username
-                    st.session_state.user_token = token
-                    st.session_state.session_start = datetime.now()
-                    cookies["user"] = username
-                    cookies["token"] = token
-                    cookies.save()
-                    st.rerun()
+            if st.button("Login", type="primary", use_container_width=True):
+                username = (username or "").strip()
+                password = (password or "").strip()
+
+                if not username or not password:
+                    st.error("Please enter username and password")
                 else:
-                    st.sidebar.error("Invalid username or password")
+                    user = get_user(username)
+                    if user and user.get("password") == password:
+                        token = generate_token(username)
+                        st.session_state.user = username
+                        st.session_state.user_token = token
+                        st.session_state.session_start = datetime.now()
+                        cookies["user"] = username
+                        cookies["token"] = token
+                        cookies.save()
+                        st.rerun()
+                    else:
+                        st.error("Invalid username or password")
 
-    else:  # Register
-        new_username = st.sidebar.text_input("Choose Username", key="reg_username")
-        new_password = st.sidebar.text_input("Choose Password", type="password", key="reg_password")
-        confirm_password = st.sidebar.text_input("Confirm Password", type="password", key="reg_confirm")
+        else:  # Register
+            new_username = st.text_input("Choose Username", key="reg_username")
+            new_password = st.text_input("Choose Password", type="password", key="reg_password")
+            confirm_password = st.text_input("Confirm Password", type="password", key="reg_confirm")
 
-        if st.sidebar.button("Register", type="primary"):
-            new_username = (new_username or "").strip()
-            new_password = (new_password or "").strip()
+            if st.button("Register", type="primary", use_container_width=True):
+                new_username = (new_username or "").strip()
+                new_password = (new_password or "").strip()
 
-            if not new_username or not new_password:
-                st.sidebar.error("Please fill all fields")
-            elif new_password != confirm_password:
-                st.sidebar.error("Passwords don't match")
-            elif get_user(new_username):
-                st.sidebar.error("Username already exists")
-            else:
-                create_user(new_username, new_password)
-                st.sidebar.success("User created! Switch to Login to continue.")
+                if not new_username or not new_password:
+                    st.error("Please fill all fields")
+                elif new_password != confirm_password:
+                    st.error("Passwords don't match")
+                elif get_user(new_username):
+                    st.error("Username already exists")
+                else:
+                    create_user(new_username, new_password)
+                    st.success("User created! Switch to Login to continue.")
 
-    # Main panel message + stop the app here
-    st.info("Please login or register in the sidebar to continue.")
+    else:
+        # Desktop: sidebar layout
+        auth_mode = st.sidebar.radio("Select Action", ["Login", "Register"], key="auth_mode")
+
+        if auth_mode == "Login":
+            username = st.sidebar.text_input("Username", key="login_username")
+            password = st.sidebar.text_input("Password", type="password", key="login_password")
+
+            if st.sidebar.button("Login", type="primary"):
+                username = (username or "").strip()
+                password = (password or "").strip()
+
+                if not username or not password:
+                    st.sidebar.error("Please enter username and password")
+                else:
+                    user = get_user(username)
+                    if user and user.get("password") == password:
+                        token = generate_token(username)
+                        st.session_state.user = username
+                        st.session_state.user_token = token
+                        st.session_state.session_start = datetime.now()
+                        cookies["user"] = username
+                        cookies["token"] = token
+                        cookies.save()
+                        st.rerun()
+                    else:
+                        st.sidebar.error("Invalid username or password")
+
+        else:  # Register
+            new_username = st.sidebar.text_input("Choose Username", key="reg_username")
+            new_password = st.sidebar.text_input("Choose Password", type="password", key="reg_password")
+            confirm_password = st.sidebar.text_input("Confirm Password", type="password", key="reg_confirm")
+
+            if st.sidebar.button("Register", type="primary"):
+                new_username = (new_username or "").strip()
+                new_password = (new_password or "").strip()
+
+                if not new_username or not new_password:
+                    st.sidebar.error("Please fill all fields")
+                elif new_password != confirm_password:
+                    st.sidebar.error("Passwords don't match")
+                elif get_user(new_username):
+                    st.sidebar.error("Username already exists")
+                else:
+                    create_user(new_username, new_password)
+                    st.sidebar.success("User created! Switch to Login to continue.")
+
+    st.info("Please login or register to continue.")
     st.stop()
 
 
 def show_user_sidebar(username: str) -> None:
     """Display user info and logout button in sidebar."""
-    st.sidebar.write(f"👤 **{username}**")
-    
-    # Show session timeout warning if approaching limit
-    if "session_start" in st.session_state:
-        elapsed = datetime.now() - st.session_state.session_start
-        remaining = SESSION_TIMEOUT_MINUTES - int(elapsed.total_seconds() / 60)
-        if 0 < remaining <= 60:
-            st.sidebar.info(f"Session expires in {remaining}m")
+    if is_mobile():
+        # Mobile: show in main area
+        col1, col2 = st.columns([3, 1])
+        with col1:
+            st.write(f"👤 **{username}**")
+        with col2:
+            if st.button("🚪 Logout", key="logout_btn"):
+                invalidate_session()
+                st.rerun()
+    else:
+        # Desktop: show in sidebar
+        st.sidebar.write(f"👤 **{username}**")
+        
+        if "session_start" in st.session_state:
+            elapsed = datetime.now() - st.session_state.session_start
+            remaining = SESSION_TIMEOUT_MINUTES - int(elapsed.total_seconds() / 60)
+            if 0 < remaining <= 60:
+                st.sidebar.info(f"Session expires in {remaining}m")
 
-    if st.sidebar.button("🚪 Logout", key="logout_btn"):
-        invalidate_session()
-        st.rerun()
+        if st.sidebar.button("🚪 Logout", key="logout_btn"):
+            invalidate_session()
+            st.rerun()

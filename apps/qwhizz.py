@@ -126,7 +126,6 @@ def main() -> None:
         TabSpec("🛡️ Admin",        lambda: render_admin_tab(),                          admin_only=True),
         TabSpec("🔨 Forge",        lambda: render_forge_tab(deck_name, logged_in_user), admin_only=True),
         TabSpec("🗂️ Manage Decks", lambda: render_manage_tab(username=logged_in_user),  admin_only=True),
-        TabSpec("🤖 AI Generate",  lambda: render_ai_generate_tab(),                    admin_only=True),
         TabSpec("👥 User Access",  lambda: _render_user_access(logged_in_user),         admin_only=True),
     ]
     render_tabs(main_tabs, is_admin=is_admin)
