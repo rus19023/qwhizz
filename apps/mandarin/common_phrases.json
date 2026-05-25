@@ -1,0 +1,110 @@
+[
+  {
+    "question": "你叫什么名字？",
+    "answer": "What is your name?",
+    "hint": "Nǐ jiào shénme míngzi?",
+    "tags": ["chinese", "hsk1", "phrase", "greeting", "question"],
+    "explanation": "我叫李明。Wǒ jiào Lǐ Míng. My name is Li Ming. (叫 jiào = to be called)",
+    "type": "chinese_phrase",
+    "image_url": "https://translate.google.com/translate_tts?ie=UTF-8&q=%E4%BD%A0%E5%8F%AB%E4%BB%80%E4%B9%88%E5%90%8D%E5%AD%97&tl=zh-CN&client=tw-ob"
+  },
+  {
+    "question": "你好吗？",
+    "answer": "How are you?",
+    "hint": "Nǐ hǎo ma?",
+    "tags": ["chinese", "hsk1", "phrase", "greeting"],
+    "explanation": "我很好，谢谢！Wǒ hěn hǎo, xièxie! I'm very well, thank you! (吗 ma = question particle)",
+    "type": "chinese_phrase",
+    "image_url": "https://translate.google.com/translate_tts?ie=UTF-8&q=%E4%BD%A0%E5%A5%BD%E5%90%97&tl=zh-CN&client=tw-ob"
+  },
+  {
+    "question": "请问，洗手间在哪里？",
+    "answer": "Excuse me, where is the restroom?",
+    "hint": "Qǐngwèn, xǐshǒujiān zài nǎlǐ?",
+    "tags": ["chinese", "hsk2", "phrase", "practical", "location"],
+    "explanation": "在那边。Zài nà biān. It's over there. (请问 = polite 'may I ask', 洗手间 = restroom/bathroom)",
+    "type": "chinese_phrase",
+    "image_url": "https://translate.google.com/translate_tts?ie=UTF-8&q=%E8%AF%B7%E9%97%AE%E6%B4%97%E6%89%8B%E9%97%B4%E5%9C%A8%E5%93%AA%E9%87%8C&tl=zh-CN&client=tw-ob"
+  },
+  {
+    "question": "多少钱？",
+    "answer": "How much does it cost?",
+    "hint": "Duōshao qián?",
+    "tags": ["chinese", "hsk1", "phrase", "shopping", "money"],
+    "explanation": "五十块钱。Wǔshí kuài qián. Fifty yuan. (多少 = how much/many, 钱 = money)",
+    "type": "chinese_phrase",
+    "image_url": "https://translate.google.com/translate_tts?ie=UTF-8&q=%E5%A4%9A%E5%B0%91%E9%92%B1&tl=zh-CN&client=tw-ob"
+  },
+  {
+    "question": "我听不懂。",
+    "answer": "I don't understand. / I can't understand (by listening).",
+    "hint": "Wǒ tīng bù dǒng.",
+    "tags": ["chinese", "hsk2", "phrase", "communication", "learning"],
+    "explanation": "请说慢一点。Qǐng shuō màn yīdiǎn. Please speak more slowly. (听 = listen, 懂 = understand, 不 = not → result complement)",
+    "type": "chinese_phrase",
+    "image_url": "https://translate.google.com/translate_tts?ie=UTF-8&q=%E6%88%91%E5%90%AC%E4%B8%8D%E6%87%82&tl=zh-CN&client=tw-ob"
+  },
+  {
+    "question": "我可以用一下你的手机吗？",
+    "answer": "May I use your phone for a moment?",
+    "hint": "Wǒ kěyǐ yòng yīxià nǐ de shǒujī ma?",
+    "tags": ["chinese", "hsk3", "phrase", "polite-request", "technology"],
+    "explanation": "当然可以。Dāngrán kěyǐ. Of course you can. (可以 = may/can, 一下 = a moment/brief action, 手机 = mobile phone)",
+    "type": "chinese_phrase",
+    "image_url": "https://translate.google.com/translate_tts?ie=UTF-8&q=%E6%88%91%E5%8F%AF%E4%BB%A5%E7%94%A8%E4%B8%80%E4%B8%8B%E4%BD%A0%E7%9A%84%E6%89%8B%E6%9C%BA%E5%90%97&tl=zh-CN&client=tw-ob"
+  },
+  {
+    "question": "你吃饭了吗？",
+    "answer": "Have you eaten yet? (Common greeting in Chinese culture)",
+    "hint": "Nǐ chīfàn le ma?",
+    "tags": ["chinese", "hsk1", "phrase", "greeting", "culture", "food"],
+    "explanation": "吃了。Chī le. I've eaten. / 还没呢。Hái méi ne. Not yet. (Cultural note: asking if someone has eaten is a common warm greeting, like asking 'How are you?')",
+    "type": "chinese_phrase",
+    "image_url": "https://translate.google.com/translate_tts?ie=UTF-8&q=%E4%BD%A0%E5%90%83%E9%A5%AD%E4%BA%86%E5%90%97&tl=zh-CN&client=tw-ob"
+  },
+  {
+    "question": "我想点一杯咖啡。",
+    "answer": "I would like to order a cup of coffee.",
+    "hint": "Wǒ xiǎng diǎn yī bēi kāfēi.",
+    "tags": ["chinese", "hsk2", "phrase", "ordering", "food-drink", "restaurant"],
+    "explanation": "好的，请稍等。Hǎo de, qǐng shāo děng. Alright, please wait a moment. (想 = would like to, 点 = order, 杯 = cup measure word, 咖啡 = coffee)",
+    "type": "chinese_phrase",
+    "image_url": "https://translate.google.com/translate_tts?ie=UTF-8&q=%E6%88%91%E6%83%B3%E7%82%B9%E4%B8%80%E6%9D%AF%E5%92%96%E5%95%A1&tl=zh-CN&client=tw-ob"
+  },
+  {
+    "question": "我迷路了。",
+    "answer": "I am lost.",
+    "hint": "Wǒ mí lù le.",
+    "tags": ["chinese", "hsk3", "phrase", "practical", "navigation"],
+    "explanation": "你能帮我吗？Nǐ néng bāng wǒ ma? Can you help me? (迷路 = to get lost, 了 = change of state particle)",
+    "type": "chinese_phrase",
+    "image_url": "https://translate.google.com/translate_tts?ie=UTF-8&q=%E6%88%91%E8%BF%B7%E8%B7%AF%E4%BA%86&tl=zh-CN&client=tw-ob"
+  },
+  {
+    "question": "祝你生日快乐！",
+    "answer": "Happy Birthday to you!",
+    "hint": "Zhù nǐ shēngrì kuàilè!",
+    "tags": ["chinese", "hsk2", "phrase", "celebration", "social"],
+    "explanation": "谢谢！Xièxie! Thank you! (祝 = to wish, 生日 = birthday, 快乐 = happy. Often followed by 祝你天天快乐 — wish you happy every day!)",
+    "type": "chinese_phrase",
+    "image_url": "https://translate.google.com/translate_tts?ie=UTF-8&q=%E7%A5%9D%E4%BD%A0%E7%94%9F%E6%97%A5%E5%BF%AB%E4%B9%90&tl=zh-CN&client=tw-ob"
+  },
+  {
+    "question": "没关系。",
+    "answer": "It's okay. / Never mind. / No problem.",
+    "hint": "Méi guānxi.",
+    "tags": ["chinese", "hsk1", "phrase", "social", "forgiveness"],
+    "explanation": "对不起！Duìbuqǐ! Sorry! → 没关系。Méi guānxi. No problem. (没 = no/not, 关系 = relationship/matter)",
+    "type": "chinese_phrase",
+    "image_url": "https://translate.google.com/translate_tts?ie=UTF-8&q=%E6%B2%A1%E5%85%B3%E7%B3%BB&tl=zh-CN&client=tw-ob"
+  },
+  {
+    "question": "请再说一遍。",
+    "answer": "Please say it again.",
+    "hint": "Qǐng zài shuō yī biàn.",
+    "tags": ["chinese", "hsk2", "phrase", "communication", "learning"],
+    "explanation": "Essential learner phrase! 再 (zài) = again, 说 (shuō) = speak, 一遍 (yī biàn) = one time through. Compare 一下 (brief moment) vs 一遍 (one complete time).",
+    "type": "chinese_phrase",
+    "image_url": "https://translate.google.com/translate_tts?ie=UTF-8&q=%E8%AF%B7%E5%86%8D%E8%AF%B4%E4%B8%80%E9%81%8D&tl=zh-CN&client=tw-ob"
+  }
+]

@@ -1,0 +1,182 @@
+[
+  {
+    "question": "你好",
+    "answer": "Hello / Hi",
+    "hint": "nǐ hǎo",
+    "tags": ["chinese", "hsk1", "greeting"],
+    "explanation": "你好！我是学生。Nǐ hǎo! Wǒ shì xuéshēng. Hello! I am a student.",
+    "type": "chinese_vocab",
+    "image_url": "https://translate.google.com/translate_tts?ie=UTF-8&q=%E4%BD%A0%E5%A5%BD&tl=zh-CN&client=tw-ob"
+  },
+  {
+    "question": "谢谢",
+    "answer": "Thank you",
+    "hint": "xiè xie",
+    "tags": ["chinese", "hsk1", "greeting", "politeness"],
+    "explanation": "谢谢你的帮助。Xièxie nǐ de bāngzhù. Thank you for your help.",
+    "type": "chinese_vocab",
+    "image_url": "https://translate.google.com/translate_tts?ie=UTF-8&q=%E8%B0%A2%E8%B0%A2&tl=zh-CN&client=tw-ob"
+  },
+  {
+    "question": "再见",
+    "answer": "Goodbye",
+    "hint": "zài jiàn",
+    "tags": ["chinese", "hsk1", "greeting"],
+    "explanation": "明天见！Míngtiān jiàn! See you tomorrow! (lit. Tomorrow, goodbye!)",
+    "type": "chinese_vocab",
+    "image_url": "https://translate.google.com/translate_tts?ie=UTF-8&q=%E5%86%8D%E8%A7%81&tl=zh-CN&client=tw-ob"
+  },
+  {
+    "question": "我",
+    "answer": "I / Me",
+    "hint": "wǒ",
+    "tags": ["chinese", "hsk1", "pronoun"],
+    "explanation": "我是老师。Wǒ shì lǎoshī. I am a teacher.",
+    "type": "chinese_vocab",
+    "image_url": "https://translate.google.com/translate_tts?ie=UTF-8&q=%E6%88%91&tl=zh-CN&client=tw-ob"
+  },
+  {
+    "question": "你",
+    "answer": "You (singular)",
+    "hint": "nǐ",
+    "tags": ["chinese", "hsk1", "pronoun"],
+    "explanation": "你叫什么名字？Nǐ jiào shénme míngzi? What is your name?",
+    "type": "chinese_vocab",
+    "image_url": "https://translate.google.com/translate_tts?ie=UTF-8&q=%E4%BD%A0&tl=zh-CN&client=tw-ob"
+  },
+  {
+    "question": "他 / 她",
+    "answer": "He / She",
+    "hint": "tā / tā",
+    "tags": ["chinese", "hsk1", "pronoun"],
+    "explanation": "他是我的朋友。Tā shì wǒ de péngyǒu. He is my friend.",
+    "type": "chinese_vocab",
+    "image_url": "https://translate.google.com/translate_tts?ie=UTF-8&q=%E4%BB%96&tl=zh-CN&client=tw-ob"
+  },
+  {
+    "question": "是",
+    "answer": "To be (am / is / are)",
+    "hint": "shì",
+    "tags": ["chinese", "hsk1", "verb", "copula"],
+    "explanation": "我是中国人。Wǒ shì Zhōngguó rén. I am Chinese.",
+    "type": "chinese_vocab",
+    "image_url": "https://translate.google.com/translate_tts?ie=UTF-8&q=%E6%98%AF&tl=zh-CN&client=tw-ob"
+  },
+  {
+    "question": "不",
+    "answer": "No / Not",
+    "hint": "bù (bú before 4th tone)",
+    "tags": ["chinese", "hsk1", "negation"],
+    "explanation": "我不是学生。Wǒ bú shì xuéshēng. I am not a student.",
+    "type": "chinese_vocab",
+    "image_url": "https://translate.google.com/translate_tts?ie=UTF-8&q=%E4%B8%8D&tl=zh-CN&client=tw-ob"
+  },
+  {
+    "question": "好",
+    "answer": "Good / Well / Fine",
+    "hint": "hǎo",
+    "tags": ["chinese", "hsk1", "adjective"],
+    "explanation": "这个苹果很好吃。Zhège píngguǒ hěn hǎo chī. This apple is delicious.",
+    "type": "chinese_vocab",
+    "image_url": "https://translate.google.com/translate_tts?ie=UTF-8&q=%E5%A5%BD&tl=zh-CN&client=tw-ob"
+  },
+  {
+    "question": "人",
+    "answer": "Person / People",
+    "hint": "rén",
+    "tags": ["chinese", "hsk1", "noun"],
+    "explanation": "那个人是谁？Nàge rén shì shuí? Who is that person?",
+    "type": "chinese_vocab",
+    "image_url": "https://translate.google.com/translate_tts?ie=UTF-8&q=%E4%BA%BA&tl=zh-CN&client=tw-ob"
+  },
+  {
+    "question": "一",
+    "answer": "One (1)",
+    "hint": "yī",
+    "tags": ["chinese", "hsk1", "number"],
+    "explanation": "我有一个苹果。Wǒ yǒu yīgè píngguǒ. I have one apple.",
+    "type": "chinese_vocab",
+    "image_url": "https://translate.google.com/translate_tts?ie=UTF-8&q=%E4%B8%80&tl=zh-CN&client=tw-ob"
+  },
+  {
+    "question": "二",
+    "answer": "Two (2)",
+    "hint": "èr",
+    "tags": ["chinese", "hsk1", "number"],
+    "explanation": "我有两个孩子。Wǒ yǒu liǎng gè háizi. I have two children. (Note: 两 liǎng used before measure words)",
+    "type": "chinese_vocab",
+    "image_url": "https://translate.google.com/translate_tts?ie=UTF-8&q=%E4%BA%8C&tl=zh-CN&client=tw-ob"
+  },
+  {
+    "question": "三",
+    "answer": "Three (3)",
+    "hint": "sān",
+    "tags": ["chinese", "hsk1", "number"],
+    "explanation": "今天是三月三日。Jīntiān shì sān yuè sān rì. Today is March 3rd.",
+    "type": "chinese_vocab",
+    "image_url": "https://translate.google.com/translate_tts?ie=UTF-8&q=%E4%B8%89&tl=zh-CN&client=tw-ob"
+  },
+  {
+    "question": "中国",
+    "answer": "China",
+    "hint": "Zhōngguó",
+    "tags": ["chinese", "hsk1", "place", "country"],
+    "explanation": "中国是一个很大的国家。Zhōngguó shì yīgè hěn dà de guójiā. China is a very large country.",
+    "type": "chinese_vocab",
+    "image_url": "https://translate.google.com/translate_tts?ie=UTF-8&q=%E4%B8%AD%E5%9B%BD&tl=zh-CN&client=tw-ob"
+  },
+  {
+    "question": "学生",
+    "answer": "Student",
+    "hint": "xuéshēng",
+    "tags": ["chinese", "hsk1", "noun", "school"],
+    "explanation": "她是大学生。Tā shì dàxuéshēng. She is a college student.",
+    "type": "chinese_vocab",
+    "image_url": "https://translate.google.com/translate_tts?ie=UTF-8&q=%E5%AD%A6%E7%94%9F&tl=zh-CN&client=tw-ob"
+  },
+  {
+    "question": "老师",
+    "answer": "Teacher",
+    "hint": "lǎoshī",
+    "tags": ["chinese", "hsk1", "noun", "school"],
+    "explanation": "我的老师很有耐心。Wǒ de lǎoshī hěn yǒu nàixīn. My teacher is very patient.",
+    "type": "chinese_vocab",
+    "image_url": "https://translate.google.com/translate_tts?ie=UTF-8&q=%E8%80%81%E5%B8%88&tl=zh-CN&client=tw-ob"
+  },
+  {
+    "question": "水",
+    "answer": "Water",
+    "hint": "shuǐ",
+    "tags": ["chinese", "hsk1", "noun", "food-drink"],
+    "explanation": "我想喝水。Wǒ xiǎng hē shuǐ. I want to drink water.",
+    "type": "chinese_vocab",
+    "image_url": "https://translate.google.com/translate_tts?ie=UTF-8&q=%E6%B0%B4&tl=zh-CN&client=tw-ob"
+  },
+  {
+    "question": "吃",
+    "answer": "To eat",
+    "hint": "chī",
+    "tags": ["chinese", "hsk1", "verb", "food-drink"],
+    "explanation": "你吃饭了吗？Nǐ chīfàn le ma? Have you eaten yet?",
+    "type": "chinese_vocab",
+    "image_url": "https://translate.google.com/translate_tts?ie=UTF-8&q=%E5%90%83&tl=zh-CN&client=tw-ob"
+  },
+  {
+    "question": "喝",
+    "answer": "To drink",
+    "hint": "hē",
+    "tags": ["chinese", "hsk1", "verb", "food-drink"],
+    "explanation": "他喜欢喝茶。Tā xǐhuān hē chá. He likes to drink tea.",
+    "type": "chinese_vocab",
+    "image_url": "https://translate.google.com/translate_tts?ie=UTF-8&q=%E5%96%9D&tl=zh-CN&client=tw-ob"
+  },
+  {
+    "question": "什么",
+    "answer": "What",
+    "hint": "shénme",
+    "tags": ["chinese", "hsk1", "question-word"],
+    "explanation": "这是什么？Zhè shì shénme? What is this?",
+    "type": "chinese_vocab",
+    "image_url": "https://translate.google.com/translate_tts?ie=UTF-8&q=%E4%BB%80%E4%B9%88&tl=zh-CN&client=tw-ob"
+  }
+]
