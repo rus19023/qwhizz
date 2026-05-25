@@ -1,0 +1,137 @@
+[
+  {
+    "question": "氵",
+    "answer": "Water — left-side form of 水 (shuǐ). Found in characters related to water, liquids, rivers.",
+    "hint": "shuǐ",
+    "tags": ["chinese", "radical", "water", "hsk1"],
+    "explanation": "河 (hé river), 海 (hǎi sea), 泳 (yǒng swim) — all contain 氵meaning water.",
+    "type": "chinese_radical",
+    "image_url": "https://translate.google.com/translate_tts?ie=UTF-8&q=%E6%B0%B4&tl=zh-CN&client=tw-ob"
+  },
+  {
+    "question": "口",
+    "answer": "Mouth. Found in characters related to speaking, eating, openings.",
+    "hint": "kǒu",
+    "tags": ["chinese", "radical", "mouth", "body"],
+    "explanation": "吃 (chī eat), 喝 (hē drink), 说 (shuō speak) — all contain 口 mouth.",
+    "type": "chinese_radical",
+    "image_url": "https://translate.google.com/translate_tts?ie=UTF-8&q=%E5%8F%A3&tl=zh-CN&client=tw-ob"
+  },
+  {
+    "question": "人 / 亻",
+    "answer": "Person. 亻is the left-side form. Found in characters about people and human actions.",
+    "hint": "rén",
+    "tags": ["chinese", "radical", "person"],
+    "explanation": "他 (tā he), 你 (nǐ you), 们 (men plural marker) — all contain 亻person radical.",
+    "type": "chinese_radical",
+    "image_url": "https://translate.google.com/translate_tts?ie=UTF-8&q=%E4%BA%BA&tl=zh-CN&client=tw-ob"
+  },
+  {
+    "question": "木",
+    "answer": "Tree / Wood. Found in characters related to trees, wood, furniture.",
+    "hint": "mù",
+    "tags": ["chinese", "radical", "tree", "nature"],
+    "explanation": "树 (shù tree), 桌 (zhuō table), 椅 (yǐ chair) — all contain 木 wood.",
+    "type": "chinese_radical",
+    "image_url": "https://translate.google.com/translate_tts?ie=UTF-8&q=%E6%9C%A8&tl=zh-CN&client=tw-ob"
+  },
+  {
+    "question": "日",
+    "answer": "Sun / Day. Found in characters related to the sun, time, brightness.",
+    "hint": "rì",
+    "tags": ["chinese", "radical", "sun", "time"],
+    "explanation": "明 (míng bright/tomorrow), 晴 (qíng sunny), 时 (shí time) — all contain 日 sun.",
+    "type": "chinese_radical",
+    "image_url": "https://translate.google.com/translate_tts?ie=UTF-8&q=%E6%97%A5&tl=zh-CN&client=tw-ob"
+  },
+  {
+    "question": "月",
+    "answer": "Moon / Month. Also means 'flesh/body' in many characters.",
+    "hint": "yuè",
+    "tags": ["chinese", "radical", "moon", "time", "body"],
+    "explanation": "脸 (liǎn face), 胳 (gē arm), 胸 (xiōng chest) — 月 here means flesh, not moon.",
+    "type": "chinese_radical",
+    "image_url": "https://translate.google.com/translate_tts?ie=UTF-8&q=%E6%9C%88&tl=zh-CN&client=tw-ob"
+  },
+  {
+    "question": "心 / 忄",
+    "answer": "Heart / Mind. 忄is the left-side form. Found in emotion and mental state characters.",
+    "hint": "xīn",
+    "tags": ["chinese", "radical", "heart", "emotion"],
+    "explanation": "想 (xiǎng think/want), 忙 (máng busy), 怕 (pà afraid) — all contain heart radical.",
+    "type": "chinese_radical",
+    "image_url": "https://translate.google.com/translate_tts?ie=UTF-8&q=%E5%BF%83&tl=zh-CN&client=tw-ob"
+  },
+  {
+    "question": "手 / 扌",
+    "answer": "Hand. 扌is the left-side form. Found in action characters done with the hands.",
+    "hint": "shǒu",
+    "tags": ["chinese", "radical", "hand", "action"],
+    "explanation": "拿 (ná hold), 打 (dǎ hit/play), 拉 (lā pull) — all contain 扌hand radical.",
+    "type": "chinese_radical",
+    "image_url": "https://translate.google.com/translate_tts?ie=UTF-8&q=%E6%89%8B&tl=zh-CN&client=tw-ob"
+  },
+  {
+    "question": "女",
+    "answer": "Woman / Female. Found in characters related to women, family roles, and some adjectives.",
+    "hint": "nǚ",
+    "tags": ["chinese", "radical", "female", "family"],
+    "explanation": "妈 (mā mom), 姐 (jiě older sister), 好 (hǎo good — woman + child = good).",
+    "type": "chinese_radical",
+    "image_url": "https://translate.google.com/translate_tts?ie=UTF-8&q=%E5%A5%B3&tl=zh-CN&client=tw-ob"
+  },
+  {
+    "question": "火 / 灬",
+    "answer": "Fire. 灬is the bottom form (four dots). Found in cooking and heat-related characters.",
+    "hint": "huǒ",
+    "tags": ["chinese", "radical", "fire", "heat"],
+    "explanation": "烧 (shāo burn/cook), 热 (rè hot), 煮 (zhǔ boil/cook) — all contain fire radical.",
+    "type": "chinese_radical",
+    "image_url": "https://translate.google.com/translate_tts?ie=UTF-8&q=%E7%81%AB&tl=zh-CN&client=tw-ob"
+  },
+  {
+    "question": "土",
+    "answer": "Earth / Soil / Ground. Found in characters related to land, places, construction.",
+    "hint": "tǔ",
+    "tags": ["chinese", "radical", "earth", "nature"],
+    "explanation": "地 (dì ground/earth), 城 (chéng city), 堆 (duī pile/heap) — all contain 土 earth.",
+    "type": "chinese_radical",
+    "image_url": "https://translate.google.com/translate_tts?ie=UTF-8&q=%E5%9C%9F&tl=zh-CN&client=tw-ob"
+  },
+  {
+    "question": "言 / 讠",
+    "answer": "Speech / Words. 讠is the simplified left-side form. Found in communication characters.",
+    "hint": "yán",
+    "tags": ["chinese", "radical", "speech", "language"],
+    "explanation": "说 (shuō speak), 请 (qǐng please/invite), 谢 (xiè thank) — all contain speech radical.",
+    "type": "chinese_radical",
+    "image_url": "https://translate.google.com/translate_tts?ie=UTF-8&q=%E8%AF%B4&tl=zh-CN&client=tw-ob"
+  },
+  {
+    "question": "金 / 钅",
+    "answer": "Metal / Gold. 钅is the simplified left-side form. Found in metal objects and currency.",
+    "hint": "jīn",
+    "tags": ["chinese", "radical", "metal", "money"],
+    "explanation": "钱 (qián money), 铁 (tiě iron), 银 (yín silver) — all contain 钅metal radical.",
+    "type": "chinese_radical",
+    "image_url": "https://translate.google.com/translate_tts?ie=UTF-8&q=%E9%87%91&tl=zh-CN&client=tw-ob"
+  },
+  {
+    "question": "山",
+    "answer": "Mountain. Found in characters related to geography and landforms.",
+    "hint": "shān",
+    "tags": ["chinese", "radical", "mountain", "nature"],
+    "explanation": "岛 (dǎo island), 峰 (fēng peak), 岩 (yán rock/cliff) — all contain 山 mountain.",
+    "type": "chinese_radical",
+    "image_url": "https://translate.google.com/translate_tts?ie=UTF-8&q=%E5%B1%B1&tl=zh-CN&client=tw-ob"
+  },
+  {
+    "question": "目",
+    "answer": "Eye. Found in characters related to seeing and visual perception.",
+    "hint": "mù",
+    "tags": ["chinese", "radical", "eye", "body"],
+    "explanation": "看 (kàn look/watch), 睡 (shuì sleep), 眼 (yǎn eye) — all contain 目 eye radical.",
+    "type": "chinese_radical",
+    "image_url": "https://translate.google.com/translate_tts?ie=UTF-8&q=%E7%9B%AE&tl=zh-CN&client=tw-ob"
+  }
+]

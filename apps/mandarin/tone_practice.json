@@ -1,0 +1,92 @@
+[
+  {
+    "question": "妈 māā / 麻 má / 马 mǎ / 骂 mà",
+    "answer": "1st: mother | 2nd: hemp/numb | 3rd: horse | 4th: to scold",
+    "hint": "ma",
+    "tags": ["chinese", "tone", "tone-practice", "ma"],
+    "explanation": "妈麻马骂 — flat, rising, dip-rise, falling. Mnemonic: 'Mother scolds the horse for eating hemp.' Tone 3 (mǎ) dips low before rising.",
+    "type": "chinese_tone",
+    "image_url": "https://translate.google.com/translate_tts?ie=UTF-8&q=%E5%A6%88%E9%BA%BB%E9%A9%AC%E9%AA%82&tl=zh-CN&client=tw-ob"
+  },
+  {
+    "question": "书 shū / 熟 shú / 鼠 shǔ / 树 shù",
+    "answer": "1st: book | 2nd: cooked/ripe | 3rd: rat/mouse | 4th: tree",
+    "hint": "shu",
+    "tags": ["chinese", "tone", "tone-practice", "shu"],
+    "explanation": "书熟鼠树 — flat, rising, dip, falling. 'The rat in the tree reads a book about cooked food.' Very common tone confusion for learners.",
+    "type": "chinese_tone",
+    "image_url": "https://translate.google.com/translate_tts?ie=UTF-8&q=%E4%B9%A6%E7%86%9F%E9%BC%A0%E6%A0%91&tl=zh-CN&client=tw-ob"
+  },
+  {
+    "question": "汤 tāng / 糖 táng / 躺 tǎng / 趟 tàng",
+    "answer": "1st: soup | 2nd: sugar/candy | 3rd: to lie down | 4th: trip/time (measure word)",
+    "hint": "tang",
+    "tags": ["chinese", "tone", "tone-practice", "tang"],
+    "explanation": "汤糖躺趟 — 'After one trip (趟) to get candy (糖), I drank soup (汤) and lay down (躺).' Tone 3 躺 means to recline.",
+    "type": "chinese_tone",
+    "image_url": "https://translate.google.com/translate_tts?ie=UTF-8&q=%E6%B1%A4%E7%B3%96%E8%BA%BA%E8%B6%9F&tl=zh-CN&client=tw-ob"
+  },
+  {
+    "question": "wén 文 / wèn 问",
+    "answer": "1st/2nd tone: culture/language | 4th tone: to ask",
+    "hint": "wen",
+    "tags": ["chinese", "tone", "tone-practice", "wen", "hsk1"],
+    "explanation": "文 (wén, rising) = language/culture. 问 (wèn, falling) = to ask. Common confusion: 中文 (Zhōngwén, Chinese language) vs 请问 (qǐng wèn, may I ask).",
+    "type": "chinese_tone",
+    "image_url": "https://translate.google.com/translate_tts?ie=UTF-8&q=%E6%96%87%E9%97%AE&tl=zh-CN&client=tw-ob"
+  },
+  {
+    "question": "mai: 买 mǎi / 卖 mài",
+    "answer": "3rd tone: to buy (买) | 4th tone: to sell (卖)",
+    "hint": "mǎi / mài",
+    "tags": ["chinese", "tone", "tone-practice", "buy-sell", "hsk2"],
+    "explanation": "买 (mǎi, dip-rise) = buy. 卖 (mài, falling) = sell. Memory trick: 买 has more strokes inside → you need more effort (buying costs money).",
+    "type": "chinese_tone",
+    "image_url": "https://translate.google.com/translate_tts?ie=UTF-8&q=%E4%B9%B0%E5%8D%96&tl=zh-CN&client=tw-ob"
+  },
+  {
+    "question": "xīn 心 / xín — / xǐn — / xìn 信",
+    "answer": "1st tone: heart/mind | (2nd & 3rd rare) | 4th tone: letter/trust/believe",
+    "hint": "xin",
+    "tags": ["chinese", "tone", "tone-practice", "xin"],
+    "explanation": "心 (xīn) = heart. 信 (xìn) = letter/believe. 我相信你 (Wǒ xiāngxìn nǐ) = I believe you. 心 and 信 together: a faithful heart.",
+    "type": "chinese_tone",
+    "image_url": "https://translate.google.com/translate_tts?ie=UTF-8&q=%E5%BF%83%E4%BF%A1&tl=zh-CN&client=tw-ob"
+  },
+  {
+    "question": "jī 鸡 / jí 急 / jǐ 几 / jì 记",
+    "answer": "1st: chicken | 2nd: urgent/anxious | 3rd: how many/a few | 4th: to remember",
+    "hint": "ji",
+    "tags": ["chinese", "tone", "tone-practice", "ji"],
+    "explanation": "鸡急几记 — 'The anxious chicken only has a few memories.' 几 (jǐ) as a question word means 'how many'; as a noun means 'small table'.",
+    "type": "chinese_tone",
+    "image_url": "https://translate.google.com/translate_tts?ie=UTF-8&q=%E9%B8%A1%E6%80%A5%E5%87%A0%E8%AE%B0&tl=zh-CN&client=tw-ob"
+  },
+  {
+    "question": "4 tones + neutral tone diagram",
+    "answer": "1st (ā): high-level | 2nd (á): rising | 3rd (ǎ): dip-rise | 4th (à): falling | neutral (a): short & light",
+    "hint": "ā á ǎ à a",
+    "tags": ["chinese", "tone", "tone-chart", "beginner"],
+    "explanation": "Tone contour numbers: 1st = 55 (stays at top), 2nd = 35 (rises), 3rd = 214 (falls then rises), 4th = 51 (sharp fall). Neutral tone has no fixed pitch.",
+    "type": "chinese_tone",
+    "image_url": "https://translate.google.com/translate_tts?ie=UTF-8&q=%E5%A6%88%E9%BA%BB%E9%A9%AC%E9%AA%82%E5%90%97&tl=zh-CN&client=tw-ob"
+  },
+  {
+    "question": "guān 关 / guǎn 管 / guàn 惯",
+    "answer": "1st: close/shut/related to | 3rd: to manage/pipe | 4th: habit/accustomed",
+    "hint": "guan",
+    "tags": ["chinese", "tone", "tone-practice", "guan", "hsk3"],
+    "explanation": "关 (guān) = close, e.g. 关门 close the door. 管 (guǎn) = manage. 惯 (guàn) = habit, e.g. 习惯 (xíguàn) habit.",
+    "type": "chinese_tone",
+    "image_url": "https://translate.google.com/translate_tts?ie=UTF-8&q=%E5%85%B3%E7%AE%A1%E6%83%AF&tl=zh-CN&client=tw-ob"
+  },
+  {
+    "question": "Third tone sandhi: 你好",
+    "answer": "Two 3rd-tone syllables together → first becomes 2nd tone in speech",
+    "hint": "nǐ hǎo → sounds like ní hǎo",
+    "tags": ["chinese", "tone", "sandhi", "tone-rule", "hsk1"],
+    "explanation": "Rule: 3rd tone + 3rd tone → 2nd tone + 3rd tone in natural speech. 你 (nǐ) + 好 (hǎo) is written with two 3rd tones but pronounced ní hǎo. Same with 所有 (suǒ yǒu → suó yǒu).",
+    "type": "chinese_tone",
+    "image_url": "https://translate.google.com/translate_tts?ie=UTF-8&q=%E4%BD%A0%E5%A5%BD&tl=zh-CN&client=tw-ob"
+  }
+]
