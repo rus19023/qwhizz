@@ -1,0 +1,16 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background tile filling whole canvas with slight margin -->
+  <rect x="16" y="16" width="480" height="480" rx="72" fill="#c0392b"/>
+  <rect x="24" y="24" width="464" height="464" rx="66" fill="none" stroke="#a93226" stroke-width="3"/>
+
+  <!-- 学 character -->
+  <text x="256" y="340" text-anchor="middle"
+        font-family="Noto Sans CJK SC, Noto Sans SC, sans-serif"
+        font-size="320" font-weight="700" fill="#ffffff" letter-spacing="-4">学</text>
+
+  <!-- Four tone dots at the bottom (color-coded) -->
+  <circle cx="176" cy="430" r="10" fill="#e74c3c"/>
+  <circle cx="216" cy="430" r="10" fill="#e67e22"/>
+  <circle cx="296" cy="430" r="10" fill="#27ae60"/>
+  <circle cx="336" cy="430" r="10" fill="#2980b9"/>
+</svg>

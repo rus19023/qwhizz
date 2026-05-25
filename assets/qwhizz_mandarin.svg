@@ -1,0 +1,69 @@
+<svg width="680" height="680" viewBox="0 0 680 680" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <clipPath id="tile-clip">
+      <rect x="140" y="140" width="400" height="400" rx="56"/>
+    </clipPath>
+  </defs>
+
+  <!-- Outer dashed ring -->
+  <circle cx="340" cy="340" r="298" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="6 10" opacity="0.35"/>
+
+  <!-- Tone arc indicators -->
+  <path d="M 160 200 A 200 200 0 0 1 200 160" fill="none" stroke="#e74c3c" stroke-width="5" stroke-linecap="round"/>
+  <path d="M 480 160 A 200 200 0 0 1 520 200" fill="none" stroke="#e67e22" stroke-width="5" stroke-linecap="round"/>
+  <path d="M 160 480 A 200 200 0 0 0 200 520" fill="none" stroke="#27ae60" stroke-width="5" stroke-linecap="round"/>
+  <path d="M 480 520 A 200 200 0 0 0 520 480" fill="none" stroke="#2980b9" stroke-width="5" stroke-linecap="round"/>
+
+  <!-- Tone dots -->
+  <circle cx="163" cy="195" r="5" fill="#e74c3c"/>
+  <circle cx="195" cy="163" r="5" fill="#e74c3c"/>
+  <circle cx="517" cy="195" r="5" fill="#e67e22"/>
+  <circle cx="485" cy="163" r="5" fill="#e67e22"/>
+  <circle cx="163" cy="485" r="5" fill="#27ae60"/>
+  <circle cx="195" cy="517" r="5" fill="#27ae60"/>
+  <circle cx="517" cy="485" r="5" fill="#2980b9"/>
+  <circle cx="485" cy="517" r="5" fill="#2980b9"/>
+
+  <!-- Tile -->
+  <rect x="140" y="140" width="400" height="400" rx="56" fill="#c0392b"/>
+  <rect x="148" y="148" width="384" height="384" rx="50" fill="none" stroke="#a93226" stroke-width="3"/>
+  <rect x="156" y="156" width="368" height="368" rx="44" fill="none" stroke="#922b21" stroke-width="1.5" opacity="0.6"/>
+
+  <!-- Texture -->
+  <line x1="160" y1="200" x2="520" y2="200" stroke="#b03a2e" stroke-width="0.7" opacity="0.4"/>
+  <line x1="160" y1="480" x2="520" y2="480" stroke="#b03a2e" stroke-width="0.7" opacity="0.4"/>
+  <line x1="200" y1="160" x2="200" y2="520" stroke="#b03a2e" stroke-width="0.7" opacity="0.4"/>
+  <line x1="480" y1="160" x2="480" y2="520" stroke="#b03a2e" stroke-width="0.7" opacity="0.4"/>
+
+  <!-- 学 character -->
+  <text x="340" y="418" text-anchor="middle"
+        font-family="Noto Sans CJK SC, Noto Sans SC, sans-serif"
+        font-size="240" font-weight="700" fill="#ffffff" letter-spacing="-4">学</text>
+
+  <!-- Pinyin xué -->
+  <text x="340" y="494" text-anchor="middle"
+        font-family="DejaVu Sans, sans-serif"
+        font-size="32" font-weight="400" fill="#f5b7b1" letter-spacing="2">xué</text>
+
+  <!-- Tone mark over 'e' -->
+  <rect x="342" y="456" width="22" height="4" rx="2" fill="#e67e22"/>
+
+  <!-- Bottom bands -->
+  <rect x="140" y="496" width="400" height="44" rx="0" fill="#a93226" clip-path="url(#tile-clip)"/>
+  <rect x="140" y="530" width="400" height="44" rx="0" fill="#922b21" clip-path="url(#tile-clip)"/>
+
+  <!-- Five tone dots -->
+  <circle cx="232" cy="568" r="7" fill="#e74c3c"/>
+  <circle cx="288" cy="568" r="7" fill="#e67e22"/>
+  <circle cx="344" cy="568" r="7" fill="#27ae60"/>
+  <circle cx="400" cy="568" r="7" fill="#2980b9"/>
+  <circle cx="456" cy="568" r="7" fill="#7f8c8d"/>
+
+  <!-- Wordmark -->
+  <text x="340" y="630" text-anchor="middle"
+        font-family="DejaVu Sans, sans-serif"
+        font-size="22" font-weight="500" fill="#666666" letter-spacing="4">QWHIZZ</text>
+  <text x="340" y="655" text-anchor="middle"
+        font-family="Noto Sans CJK SC, sans-serif"
+        font-size="13" font-weight="400" fill="#999999" letter-spacing="2">普通话</text>
+</svg>
